@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            赞赏
+            JQuery常用语法笔记【精简版】
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,15 +31,34 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/page.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">赞赏</h1>
+                <h1 class="header-subtitle">JQuery常用语法笔记【精简版】</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-08-31
+                        </span>
+                        
+                            <span id="/posts/4017600111/" class="leancloud_visitors" data-flag-title="JQuery常用语法笔记【精简版】">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/4017600111/"></span>
+                        </span>  
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">JavaScript</span>
+                        
+                            <span class="tag-color">JQuery</span>
+                        
+                    
                 </div>
             
         </div>
@@ -48,35 +67,176 @@
 </div>
 <div id="container">
     
-        <!-- 独立页面 -->
-        
-            <div id="article">
-                <div class="article-body">
-                    
-                    <blockquote>
-<p>如果喜欢我的博客，或者喜欢我的博客主题，可以考虑赞赏一下哦，非常感激！<br>网站所需的服务器和 CDN 都是不小的开支，日常维护也需要大量精力。 <br>你们的支持是我前进的最大动力！</p>
-</blockquote>
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h1 id="jQuery实例方法"><a href="#jQuery实例方法" class="headerlink" title="jQuery实例方法"></a>jQuery实例方法</h1><pre><code class="JavaScript">    get()           //返回原生数组，正数：第几个元素，负数：倒数第几个元素，空值：返回所有原生dom数组；
+    eq()            //返回jq对象，正数：第几个元素，负数：倒数第几个元素，空值：返回空的jq对象；
+    find()          //返回被选中的后代元素，查找当前元素下符合要求的元素；
+    filter()        //筛选当前元素，对当前元素进项筛选；
+    not()           //与filter完全相反，它是选择除了指定要求外的元素；
+    is()            //前后查找的元素只要存在交集就返回true，否则false。也可以理解为，在前面选择的元素中有没有is()选中的元素；
+    has()           //限定条件，在以匹配的元素后代中，含有匹配后代的元素会被保留在结果中；
+    add()           //追加匹配元素到之前匹配的元素集合；
+    end()           //回退到prevObject所指向的元素，也就是上一个选中的匹配元素；
+    css()           //设置属性样式，传入的值可以为数字、字符串、表达式；
+    attr()          //获取匹配的元素集合中的第一个元素的属性的值  或 设置每一个匹配元素的一个或多个属性，取出的值都为自符串，attr一般用于获取或者设置自定义属性的值。attr无法获取一些特性值：selected、checked、disabled；（返回值不同版本值不同）
+    prop()          //获取匹配的元素集中第一个元素的属性（property）值或设置每一个匹配元素的一个或多个属性，prop是针对原生dom操作的，prop可以获取特性的值。但是无法获取自定义属性的值；
+    html()          //获取集合中提一个匹配元素的html内容（包含html标签） 或 设置每一个匹配元素的html内容。  PS：在获取时html只会获取集合中第一个元素内容。（基于innerHTML()）；
+    text()          //获取集合中每个元素的文本内容集合（不含html标签），包括他们的后代，或 设置匹配元素集合中每个元素的文本内容。（基于innerTEXT()）；
+    size()          //返回jquery对象匹配对象的DOM元素的数量；
+    addClass()      //给选中的元素添加一个或者多个class；
+    removeClass()   //删除集合中指定的一个或多个class；
+    hasClass()      //确定任何一个匹配元素是否被分配给定的（样式）类，返回布尔值；
+    val()           //获取表单元素的val值，如果为一组元素，那么返回第一个元素的值。取的时value中的值，只对表单元素起作用；
+    next()          //不传递参数：直接选中下一兄弟元素，如果传递参数（eg：p）就会判断下一兄弟节点是否符合参数要求，符合就选中，否则不选；
+    prev()          //与next相对应，prev时选择上一兄弟元素；
+    nextAll()       //选择目标元素下方所有兄弟元素，参数为筛选条件；
+    prevAll()       //选择目标元素上方所有兄弟元素，参数为筛选条件；
+    nextUntil()     //参数为截止条件（eg：p），选择目标元素下方兄弟元素直到截止条件（p标签）为止；
+    prevUntil()     //与nextUntil相对应，选择上方兄弟元素直到截止条件为止；
+    siblings()      //不传参数为选择所有兄弟元素，参数为筛选条件；
+    parent()        //获取父级元素；
+    parents()       //获取父级元素集合，参数为过滤条件；
+    closest()       //查找距离自己最近的父级，从自己开始查找（包括自己---与parent()的区别），通常传递参数使用；
+    offsetParent()  //查找距离自己最近的已定位的父级元素；
+    slice()         //截取jq数组，左闭右开，返回仍为jq对象；
+    insertBefore()  //$(&#39;.A&#39;).insertBefore(&#39;.B&#39;); 将A添加到B的前面，剪切操作；
+    before()        //$(&#39;.A&#39;).before( $(.B) ); 将B添加到A的前面，剪切操作。before()中添加js对象，否则会将括号中的内容作为文本添加；
+    insertAfter()   //与insertBefore()对应，将文本添加到指定元素的后面；
+    after()         //与before()对应，将文本添加到指定元素的后面；
+    appendTo()      //将匹配的元素插入到目标元素的最后面（ps：内部插入）。将A插入B的元素内部的最后面；
+    append()        //与appendTo()相同，只是内容和目标的位置相反；
+    prependTo()     //将匹配的元素插入到目标元素的最前面（ps：内部插入），它是将A插入B元素内部的前面；
+    prepend()       //与prependTo功能相同，只是内容和目标的位置相反；
+    remove()        //将匹配的元素集合从DOM中删除。（ps：同时移除元素身上的所有事件和jQuery数据），返回值为删除掉的元素；
+    detach()        //从DOM中移除所有匹配元素。（ps：保留所有jQuery数据和被移走元素相关联）；
+    $()             //选择或者创建元素,当传递两个参数时：jQuery(selector, [context]) --- 这种用法，相当于 $(context).find(selector) 或者 context.find(selector)；
+    wrap()          //给选中的元素添加一个父级；参数可以是字符串、jQuery对象、函数；
+    wrapInner()     //给目标元素的内部元素添加一个统一的父级；
+    wrapAll()       //给选中的元素添加一个统一的父级。（ps：所选中的元素必须要在统一级，否则会改变dom结构）原理：先找到第一个目标元素在将后续匹配元素放到第一目标元素后面，在添加父级）；
+    unwrap()        //删除父级元素。重复调用的话最多到body为止（body不会被删除）；
+    clone()         //克隆  参数：Boolean   true：会克隆事件    默认不拷贝事件；
+    data()          //存储信息数据状态，参数也可以时对象形式，它是将数据存储在jQuery对象上，jQuery和Dom存在映射，利用data添加的数据不会再标签中显示，但是可以访问到（储存时为什么格式，取出时就为什么格式）。（隐藏点：标签中以data-*类型的自定义属性也可以用data访问到）；
+    
+    //附加：
+    .children()     //获得匹配元素集合中每个元素的子元素，选择器选择性筛选；
+    .empty()        //从DOM中移除集合中匹配元素的所有子节点。这个方法不接受任何参数;
+    .offset()       //获取选中元素距离文档的位置（和原生的区别）；可以赋值 或 取值，取值：不传参数，返回一个对象，含有两个属性（left，top）；赋值：传入对象eg:&#123;left:100, top:100&#125;;
+    .position()     //获取选中元素距离已定位父级的距离，不可以赋值；
+    .scrollTop()    //滚动条距离顶部的距离；可以取值 和 赋值（参数：数值）；
+    .scrollLeft()   //滚动条距离左侧的距离；可以取值 和 赋值（参数：数值）；
+    .width()        //获取选中元素的content区的宽度，返回值：数字；
+    .height()       //content区的高度；
+    .innerWidth()   //content + padding 的宽度，返回值：数字；
+    .innerHeight()  //content + padding 的高度；
+    .outerWidth()   //content + padding + border 的宽度；（传参：true则会加上margin的大小）；
+    .outerHeight()  //eg：outerHeight(true) ： content + padding + border + margin 的高度；
+    .each()         //遍历选中元素；
+    .index()        //获取选中元素的下标，参数为过滤；
+</code></pre>
+<h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><pre><code class="JavaScript">    .on()           //绑定事件，可以绑定所有系统事件 和 自定义事件，也可以传入对象一次绑定多个事件，四个参数：1、type：事件类型   2、（选填）selector：选择器   3、（选填）data：数据   4、handle：事件；
+    .one()          //一次性事件，只会触发一次。（使用时通常会在结尾加上 return false; 阻止默认事件和冒泡事件）；
+    .off()          //接触事件绑定，不传参数：清除所有绑定事件； 一个参数（填写事件类型）：清除所有该类型事件；两个参数（type, handle）：清除指定类型事件中的是定事件；三个参数：（type，selector，handle）：如果selector与绑定事件填写的不一致，那么解绑事件会失败；
+    .trigger()      //触发事件，参数：事件类型。也可以触发自定义事件（eg；.trigger(&#39;customEvent&#39;)）;
+    .hover()        //参数为两个函数，第一个函数再鼠标划入时执行，第二个再鼠标移出时执行；
+</code></pre>
+<h1 id="基础动画"><a href="#基础动画" class="headerlink" title="基础动画"></a>基础动画</h1><pre><code class="JavaScript">    //显示和隐藏：改变的值包括：width、height、opacity、padding、margin等（所有能改变得值）全都是从零变化到目标值，隐藏与之相反；
+    .show()         //显示,第一个参数为过度时间，第二个参数为过度方式（ps：如果元素初始被定义成display:none 那么.show()之后display的值会变成那个元素的默认值（block、inline、inline-block）,如果定义过，再hide()-&gt;show()那么值为你定义过的值）；
+    .hide()         //隐藏；
+    .toggle()       //切换 显示和隐藏（eg:$(this).next().toggle()）;
 
-                    
-                        <link type="text/css" rel="stylesheet" href="/css/donate.css">
-<div class="donate">
-    <i id="Github"></i>
-    <div id="DonateText">赞赏</div>
-    <ul id="DonateBox" class="list">
-        <li id="PayPal"></li>
-        <li id="AliPay">AliPay</li>
-		<li id="WeChat">WeChat</li>
-		<li id="Bitcoin">Bitcoin</li>
-    </ul>
-    <div id="QRBox">
-        <div id="MainBox"></div>
+    //淡入和淡出：只针对opacity，改变的值只有opacity，参数为过渡时间；
+    .fadeIn()       //显示，参数为过度时间；
+    .fadeOut()      //隐藏；
+    .fadeTo()       //渐变到哪里，参数：1、过度时间；2、过度到多少（opacity：0-1之间）；3、过度方式；4、回调函数；
+    .fadeToggle()   //切换 淡入和淡出；
+
+    //卷入和卷出：只针对height，参数为过渡时间；
+    .slideDown()    //卷出，参数为过度时间；
+    .slideUp()      //卷入；
+    .slideToggle()  //切换 卷入和卷出；
+</code></pre>
+<h1 id="动画-animate"><a href="#动画-animate" class="headerlink" title="动画 animate"></a>动画 animate</h1><pre><code class="JavaScript">    .animate()      //参数：target（目标点）；  duration（可选：运动时间，默认400）； easing：过度样式；  callback：回调函数；
+    .stop()         //不传参数，结束当前运动，并执行下一运动；一个参数（true）：停止运动，并结束后续所有运动（false与不传参相同）； 两个参数（true，true）：结束当前运动，并瞬间移动到当前运动的目标点；
+    .finish()       //直接运动到最后的目标点；
+    .delay()        //延迟函数
+
+    //jQuery 动画开关接口，可以执行用来关闭jQuery动画过度效果；
+    jQuery.fx.off = true;
+
+    //jQuery 动画库插件：jQuery-easing；
+</code></pre>
+<h1 id="JQuery工具方法"><a href="#JQuery工具方法" class="headerlink" title="JQuery工具方法"></a>JQuery工具方法</h1><pre><code class="JavaScript">    $.typeof()      //告诉你里面的数据到底是什么;
+    $.isArray()     //判断是否式数组;
+    $.isFunction()  //判断是否是函数;
+    $.isWindow()    //判断是否是window;
+    $.trim()        //去除两端空格;
+    $.proxy()       //改变this指向，proxy(function, this);
+    $.noConflict()  //防止变量冲突，只针对 $。(ps：var $c = $.noConflict(); 自此 $c 就是原来的 $)；
+    $.each()        //遍历数组。（ps:$.each(arr, function (index, ele) &#123;&#125;)）
+    $.map()         //遍历数组并可以对每一组数据进行操作；
+    $.parseJSON()   //把一个严格的json字符串（key值必须用双引号）转换成对象；对应原生的JSON.pase();
+    $.makeArray()   //传一个类数组，返回一个数组；（扩展：可以接收两个参数，把第一个参数塞到第二个参数中，第二个参数决定了返回值的类型，此方法主要式jq内部使用，jq自己调用了六次）；
+
+    $.extend()      //三种用法：1、扩展方法（api没有）；2、浅层克隆：参数一个或者多个，第二个中的参数复制到第一个参数中（不影响第二个），如果重复就覆盖，遇到引用值，那么把引用给传过去，如果参数大于两个，那么把后续参数的内容都放到第一个参数中；3、深层克隆(第一个参数填：true)，与浅层克隆的差别只有再遇到引用值时，深层克隆会把内容赋值过去；
+    $.fn.extend()   //它与$.extend() 指在扩展方法上有点差别，其余完全相同；
+                    //$.extend() --- 扩展方法   :   添加到工具方法里面； 调用时 $.
+                    //$.fn.extend() - 扩展方法  ：  添加到实例方法里面； 调用时 $().
+</code></pre>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
     </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/4017600111/" target="_blank">JQuery常用语法笔记【精简版】</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
 </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/JavaScript/">JavaScript</a>
+                        
+                            <a href="/tags/JQuery/">JQuery</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/posts/undefined/" class="next-prefix">» </a> 下一篇：    <a href="/posts/undefined/" title="发布于 2022-08-23 11:17">Hello World</a>
                     
                 </div>
-                
+            </div>
+            
+    <div class="article-comments">
+        
+            <div class="comments-title">
+                评论列表
             </div>
         
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -110,7 +270,7 @@
                     
                         <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
-                        <li class=" active "><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
+                        <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
                         <li class=""><a href="/about" class="" target="_self"><span class="iconfont icon-about-fill"></span>关于</a></li>
                     
