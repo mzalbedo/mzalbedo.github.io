@@ -71,7 +71,7 @@
         <div id="article">
             <div class="toc"></div>
             <div class="article-body">
-                <h1 id="jQuery实例方法"><a href="#jQuery实例方法" class="headerlink" title="jQuery实例方法"></a>jQuery实例方法</h1><pre><code class="JavaScript">    get()           //返回原生数组，正数：第几个元素，负数：倒数第几个元素，空值：返回所有原生dom数组；
+                <h2 id="jQuery实例方法"><a href="#jQuery实例方法" class="headerlink" title="jQuery实例方法"></a>jQuery实例方法</h2><pre><code class="JavaScript">    get()           //返回原生数组，正数：第几个元素，负数：倒数第几个元素，空值：返回所有原生dom数组；
     eq()            //返回jq对象，正数：第几个元素，负数：倒数第几个元素，空值：返回空的jq对象；
     find()          //返回被选中的后代元素，查找当前元素下符合要求的元素；
     filter()        //筛选当前元素，对当前元素进项筛选；
@@ -136,13 +136,13 @@
     .each()         //遍历选中元素；
     .index()        //获取选中元素的下标，参数为过滤；
 </code></pre>
-<h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><pre><code class="JavaScript">    .on()           //绑定事件，可以绑定所有系统事件 和 自定义事件，也可以传入对象一次绑定多个事件，四个参数：1、type：事件类型   2、（选填）selector：选择器   3、（选填）data：数据   4、handle：事件；
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><pre><code class="JavaScript">    .on()           //绑定事件，可以绑定所有系统事件 和 自定义事件，也可以传入对象一次绑定多个事件，四个参数：1、type：事件类型   2、（选填）selector：选择器   3、（选填）data：数据   4、handle：事件；
     .one()          //一次性事件，只会触发一次。（使用时通常会在结尾加上 return false; 阻止默认事件和冒泡事件）；
     .off()          //接触事件绑定，不传参数：清除所有绑定事件； 一个参数（填写事件类型）：清除所有该类型事件；两个参数（type, handle）：清除指定类型事件中的是定事件；三个参数：（type，selector，handle）：如果selector与绑定事件填写的不一致，那么解绑事件会失败；
     .trigger()      //触发事件，参数：事件类型。也可以触发自定义事件（eg；.trigger(&#39;customEvent&#39;)）;
     .hover()        //参数为两个函数，第一个函数再鼠标划入时执行，第二个再鼠标移出时执行；
 </code></pre>
-<h1 id="基础动画"><a href="#基础动画" class="headerlink" title="基础动画"></a>基础动画</h1><pre><code class="JavaScript">    //显示和隐藏：改变的值包括：width、height、opacity、padding、margin等（所有能改变得值）全都是从零变化到目标值，隐藏与之相反；
+<h2 id="基础动画"><a href="#基础动画" class="headerlink" title="基础动画"></a>基础动画</h2><pre><code class="JavaScript">    //显示和隐藏：改变的值包括：width、height、opacity、padding、margin等（所有能改变得值）全都是从零变化到目标值，隐藏与之相反；
     .show()         //显示,第一个参数为过度时间，第二个参数为过度方式（ps：如果元素初始被定义成display:none 那么.show()之后display的值会变成那个元素的默认值（block、inline、inline-block）,如果定义过，再hide()-&gt;show()那么值为你定义过的值）；
     .hide()         //隐藏；
     .toggle()       //切换 显示和隐藏（eg:$(this).next().toggle()）;
@@ -158,7 +158,7 @@
     .slideUp()      //卷入；
     .slideToggle()  //切换 卷入和卷出；
 </code></pre>
-<h1 id="动画-animate"><a href="#动画-animate" class="headerlink" title="动画 animate"></a>动画 animate</h1><pre><code class="JavaScript">    .animate()      //参数：target（目标点）；  duration（可选：运动时间，默认400）； easing：过度样式；  callback：回调函数；
+<h2 id="动画-animate"><a href="#动画-animate" class="headerlink" title="动画 animate"></a>动画 animate</h2><pre><code class="JavaScript">    .animate()      //参数：target（目标点）；  duration（可选：运动时间，默认400）； easing：过度样式；  callback：回调函数；
     .stop()         //不传参数，结束当前运动，并执行下一运动；一个参数（true）：停止运动，并结束后续所有运动（false与不传参相同）； 两个参数（true，true）：结束当前运动，并瞬间移动到当前运动的目标点；
     .finish()       //直接运动到最后的目标点；
     .delay()        //延迟函数
@@ -168,7 +168,7 @@
 
     //jQuery 动画库插件：jQuery-easing；
 </code></pre>
-<h1 id="JQuery工具方法"><a href="#JQuery工具方法" class="headerlink" title="JQuery工具方法"></a>JQuery工具方法</h1><pre><code class="JavaScript">    $.typeof()      //告诉你里面的数据到底是什么;
+<h2 id="JQuery工具方法"><a href="#JQuery工具方法" class="headerlink" title="JQuery工具方法"></a>JQuery工具方法</h2><pre><code class="JavaScript">    $.typeof()      //告诉你里面的数据到底是什么;
     $.isArray()     //判断是否式数组;
     $.isFunction()  //判断是否是函数;
     $.isWindow()    //判断是否是window;
@@ -220,6 +220,9 @@
                     </div>
                 
                 <div class="article-prev-next">
+                    
+                        <a href="/posts/2688907508/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/2688907508/" title="发布于 2022-09-04 02:57">ES6学习笔记【精简版】</a>
+                        <br>
                     
                     
                         <a href="/posts/undefined/" class="next-prefix">» </a> 下一篇：    <a href="/posts/undefined/" title="发布于 2022-08-23 11:17">Hello World</a>

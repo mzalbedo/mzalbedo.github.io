@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            Hexo
+            ES6学习笔记【精简版】
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,133 +31,418 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/index.css">
-<div id="count"></div>
-<div id="header" >
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-title">彼方</h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
+                <h1 class="header-subtitle">ES6学习笔记【精简版】</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-09-04
+                        </span>
+                        
+                            <span id="/posts/2688907508/" class="leancloud_visitors" data-flag-title="ES6学习笔记【精简版】">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/2688907508/"></span>
+                        </span>  
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">JavaScript</span>
+                        
+                            <span class="tag-color">ES6</span>
+                        
+                    
+                </div>
             
         </div>
     </div>
     
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
-    
 </div>
 <div id="container">
     
-        
-            <!-- 首页 -->
-            <div class="articles">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><ol>
+<li><p>ECMAScript、JavaScript、NodeJs，它们的区别是什么？</p>
+<ul>
+<li>ECMAScript：简称ES，是一个语言标准（循环、判断、变量、数组等数据类型）</li>
+<li>JavaScript：运行在浏览器端的语言，该语言使用ES标准。 ES + web api = JavaScript</li>
+<li>NodeJs：运行在服务器端的语言，该语言使用ES标准。 ES + node api = NodeJs</li>
+<li>无论JavaScript，还是NodeJs，它们都是ES的超集（super set）</li>
+</ul>
+</li>
+<li><p>ECMAScript有哪些关键的版本？</p>
+<ul>
+<li>ES3.0： 1999</li>
+<li>ES5.0:  2009</li>
+<li>ES6.0:  2015, 从该版本开始，不再使用数字作为编号，而使用年份</li>
+<li>ES7.0:  2016</li>
+</ul>
+</li>
+<li><p>为什么ES6如此重要？</p>
+<ul>
+<li>ES6解决JS无法开发大型应用的语言层面的问题</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-块级绑定"><a href="#2-块级绑定" class="headerlink" title="2. 块级绑定"></a>2. 块级绑定</h2><h3 id="2-1-使用var声明变量的问题"><a href="#2-1-使用var声明变量的问题" class="headerlink" title="2-1. 使用var声明变量的问题"></a>2-1. 使用<code>var</code>声明变量的问题</h3><ol>
+<li>允许重复的变量声明：导致数据被覆盖</li>
+<li>变量提升：怪异的数据访问、闭包问题</li>
+<li>全局变量挂载到全局对象：全局对象成员污染问题</li>
+</ol>
+<h3 id="2-2-使用let声明变量"><a href="#2-2-使用let声明变量" class="headerlink" title="2-2. 使用let声明变量"></a>2-2. 使用<code>let</code>声明变量</h3><blockquote>
+<p>ES6不仅引入乐<code>let</code>关键字用于解决变量声明的问题，同时引入了块级作用域的概念<br>块级作用域：代码执行时遇到花括号，会创建一个块级作用域，花括号结束，销毁块级作用域</p>
+</blockquote>
+<ol>
+<li><code>let</code>声明的变量不会挂载到全局对象</li>
+<li><code>let</code>声明的变量，不允许当前作用域范围内重复声明</li>
+<li>在块级作用域中用<code>let</code>定义的变量，在作用域外不能访问</li>
+<li>使用<code>let</code>不会有变量提升，因此，不能在定义<code>let</code>变量之前使用它</li>
+</ol>
+<blockquote>
+<ul>
+<li>底层实现上，<code>let</code>声明的变量实际上也会有提升，但是，提升后会将其放入到“暂时性死区”，如果访问的变量位于暂时性死区，则会报错：“Cannot access ‘a’ before initialization”。当代码运行到该变量的声明语句时，会将其从暂时性死区中移除。</li>
+<li>在循环中，用<code>let</code>声明的循环变量，会特殊处理，每次进入循环体，都会开启一个新的作用域，并且将循环变量绑定到该作用域（每次循环，使用的是一个全新的循环变量）</li>
+<li>在循环中使用<code>let</code>声明的循环变量，在循环结束后会销毁</li>
+</ul>
+</blockquote>
+<h3 id="2-3-使用const声明变量"><a href="#2-3-使用const声明变量" class="headerlink" title="2-3. 使用const声明变量"></a>2-3. 使用<code>const</code>声明变量</h3><ol>
+<li><p><code>const</code>和<code>let</code>完全相同，仅在于用<code>const</code>声明的变量，<strong>必须在声明时赋值</strong>，而且不可以重新赋值。</p>
+<blockquote>
+<p>实际上，在开发中，应该尽量使用const来声明变量，以保证变量的值不会随意篡改，原因如下:</p>
+<ul>
+<li>根据经验，开发中的很多变量，都是不会更改，也不应该更改的</li>
+<li>后续的很多框架或者是第三方JS库，都要求数据不可变，使用常量可以一定程度上保证这一点</li>
+</ul>
+</blockquote>
+</li>
+<li><p>注意的细节：</p>
+<blockquote>
+<ul>
+<li>常量不可变，是指声明的常量的内存空间不可变，并不保证内存空间中的地址指向的其他空间不可变。</li>
+<li>常量的命名<ul>
+<li>特殊的常量：该常量从字面意义上，一定是不可变的，比如圆周率、月地距地或其他一些绝不可能变化的配置。通常，<strong>该常量的名称全部使用大写，多个单词之间用下划线分割</strong></li>
+<li>普通的常量：使用和之前一样的命名即可</li>
+</ul>
+</li>
+<li>在for循环中，循环变量不可以使用常量</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+<h2 id="3-字符串和正则表达式"><a href="#3-字符串和正则表达式" class="headerlink" title="3. 字符串和正则表达式"></a>3. 字符串和正则表达式</h2><h3 id="3-1-更好的Unicode支持"><a href="#3-1-更好的Unicode支持" class="headerlink" title="3-1. 更好的Unicode支持"></a>3-1. 更好的Unicode支持</h3><blockquote>
+<ul>
+<li>早期，由于存储空间宝贵，Unicode使用16位二进制来存储文字。我们将一个16位的二进制编码叫做一个码元（Code Unit）</li>
+<li>后来，由于技术的发展，Unicode对文字编码进行了扩展，将某些文字扩展到了32位（占用两个码元），并且，将某个文字对应的二进制数字叫做码点（Code Point）</li>
+<li>ES6为了解决这个困扰，为字符串提供了方法：codePointAt，根据字符串码元的位置得到其码点</li>
+<li>同时，ES6为正则表达式添加了一个flag: u，如果添加了该配置，则匹配时，使用码点匹配</li>
+</ul>
+</blockquote>
+<h3 id="3-2-更多的字符串API"><a href="#3-2-更多的字符串API" class="headerlink" title="3-2. 更多的字符串API"></a>3-2. 更多的字符串API</h3><blockquote>
+<p>以下均为字符串的实例（原型）方法</p>
+</blockquote>
+<ul>
+<li><code>includes</code> 判断字符串中是否包含指定的子字符串</li>
+<li><code>startsWith</code> 判断字符串中是否以指定的字符串开始</li>
+<li><code>endsWith</code> 判断字符串中是否以指定的字符串结尾</li>
+<li><code>repeat</code> 将字符串重复指定的次数，然后返回一个新字符串。</li>
+</ul>
+<h3 id="3-3-扩展-正则中的粘连标记"><a href="#3-3-扩展-正则中的粘连标记" class="headerlink" title="3-3. [扩展]正则中的粘连标记"></a>3-3. [扩展]正则中的粘连标记</h3><blockquote>
+<p>标记名：y<br>含义：匹配时，完全按照正则对象中的lastIndex位置开始匹配，并且匹配的位置必须在lastIndex位置。</p>
+</blockquote>
+<h3 id="3-4-模板字符串"><a href="#3-4-模板字符串" class="headerlink" title="3-4. 模板字符串"></a>3-4. 模板字符串</h3><ul>
+<li>在ES6中，提供了模板字符串的书写，可以非常方便的换行和拼接，要做的，仅仅是将字符串的开始或结尾改为 ` 符号</li>
+<li>如果要在字符串中拼接js表达式，只需要在模板字符串中使用<code>$&#123;JS表达式&#125;</code></li>
+</ul>
+<h3 id="3-5-扩展-模板字符串标记"><a href="#3-5-扩展-模板字符串标记" class="headerlink" title="3-5. [扩展]模板字符串标记"></a>3-5. [扩展]模板字符串标记</h3><blockquote>
+<p>在模板字符串书写之前，可以加上标记；<br>作用：可以检测变量，防止变量中存在恶意代码；</p>
+</blockquote>
+<pre><code class="JavaScript">标记名`模板字符串`
+</code></pre>
+<p>标记是一个函数，函数参数如下：</p>
+<ol>
+<li>参数1：被插值分割的字符串数组</li>
+<li>后续参数：所有的插值</li>
+</ol>
+<h2 id="4-函数"><a href="#4-函数" class="headerlink" title="4. 函数"></a>4. 函数</h2><h3 id="4-1-参数默认值"><a href="#4-1-参数默认值" class="headerlink" title="4-1. 参数默认值"></a>4-1. 参数默认值</h3><blockquote>
+<ul>
+<li>在书写形参时，直接给形参赋值，附的值即为默认值</li>
+<li>这样一来，当调用函数时，如果没有给对应的参数赋值（给它的值是<strong>undefined</strong>），则会自动使用默认值,注意传入：null不会使用默认值</li>
+</ul>
+</blockquote>
+<pre><code class="JavaScript">fuction sum(a, b = 1, c = 1) &#123;
+   return a + b + c;
+&#125;;
+</code></pre>
+<h3 id="4-2-扩展-对arguments的影响"><a href="#4-2-扩展-对arguments的影响" class="headerlink" title="4-2. [扩展]对arguments的影响"></a>4-2. [扩展]对<code>arguments</code>的影响</h3><blockquote>
+<ul>
+<li>只要给函数加上参数默认值，该函数会自动变量严格模式下的规则</li>
+<li>严格模式下<code>arguments</code>和形参是脱离的</li>
+</ul>
+</blockquote>
+<pre><code class="JavaScript">// &quot;use strict&quot;
+
+function test(a, b = 1) &#123;
+    console.log(&quot;arugments&quot;, arguments[0], arguments[1]);
+    console.log(&quot;a:&quot;, a, &quot;b:&quot;, b);
+    a = 3;
+    console.log(&quot;arugments&quot;, arguments[0], arguments[1]);
+    console.log(&quot;a:&quot;, a, &quot;b:&quot;, b);
+&#125;;
+
+text(1, 2);
+// arugments 1 2
+// a: 1 b: 2 
+// arugments 1 2
+// a: 3 b: 2
+</code></pre>
+<h3 id="4-3-扩展-留意暂时性死区"><a href="#4-3-扩展-留意暂时性死区" class="headerlink" title="4-3. [扩展]留意暂时性死区"></a>4-3. [扩展]留意暂时性死区</h3><blockquote>
+<p>形参和ES6中的<code>let</code>或<code>const</code>声明一样，具有作用域，并且根据参数的声明顺序，存在暂时性死区</p>
+</blockquote>
+<pre><code class="javaScript">function test(a = b, b) &#123;
+    console.log(a, b);
+&#125;;
+
+test(undefined, 2);
+
+//会报错，而且也不能在函数体内再次定义与形参同名变量
+</code></pre>
+<h3 id="4-4-剩余参数"><a href="#4-4-剩余参数" class="headerlink" title="4-4. 剩余参数"></a>4-4. 剩余参数</h3><blockquote>
+<p>ES6的剩余参数专门用于收集末尾的所有参数，将其放置到一个形参数组中。</p>
+</blockquote>
+<pre><code class="JavaScript">function (...形参名) &#123;
+
+&#125;;
+</code></pre>
+<p><strong>细节：</strong></p>
+<ol>
+<li>一个函数，仅能出现一个剩余参数</li>
+<li>一个函数，如果有剩余参数，剩余参数必须是最后一个参数</li>
+</ol>
+<p><code>arguments</code>的缺陷：</p>
+<ol>
+<li>如果和形参配合使用，容易导致混乱。严格模式下<code>arguments</code>和形参是脱离的</li>
+<li>从语义上，使用<code>arguments</code>获取参数，由于形参缺失，无法从函数定义上理解函数的真实意图</li>
+</ol>
+<h3 id="4-5-展开运算符"><a href="#4-5-展开运算符" class="headerlink" title="4-5. 展开运算符"></a>4-5. 展开运算符</h3><p>使用方式：<code>...要展开的东西</code></p>
+<ol>
+<li>对数组展开 ES6</li>
+<li>对对象展开 ES7</li>
+</ol>
+<p><strong>应用：</strong><br><code>curry</code> 柯理化，用户固定某个函数的前面的参数，得到一个新的函数，新的函数调用时，接收剩余的参数</p>
+<pre><code class="JavaScript">function cal(a, b, c, d)&#123;
+   return a + b * c - d;
+&#125;
+
+function curry(func, ...args)&#123;
+   reutrn function(...subArgs)&#123;
+      const allArgs = [...args, ...subArgs];
+      if(allArgs.length &gt;= func.length)&#123;
+         //参数够了
+         return func(...allArgs);
+      &#125;else&#123;
+         //参数不够，继续固定
+         return curry(func, ...allArgs);
+      &#125;
+   &#125;
+&#125;
+
+const newCal = curry(cal, 1, 2)
+
+console.log(newCal(3, 4)) // 1+2*3-4
+console.log(newCal(4, 5)) // 1+2*4-5
+console.log(newCal(5, 6)) // 1+2*5-6
+console.log(newCal(6, 7)) // 1+2*6-7
+
+const newCal2 = newCal(8)
+
+console.log(newCal2(9)); // 1+2*8-9
+</code></pre>
+<h3 id="4-6-明确函数的双重用途"><a href="#4-6-明确函数的双重用途" class="headerlink" title="4-6. 明确函数的双重用途"></a>4-6. 明确函数的双重用途</h3><blockquote>
+<p>ES6提供了一个特殊的API，可以使用该API在函数内部，判断该函数是否使用了new来调用</p>
+</blockquote>
+<pre><code class="JavaScript">new.target 
+//该表达式，得到的是：如果没有使用new来调用函数，则返回undefined
+//如果使用new调用函数，则得到的是new关键字后面的函数本身
+</code></pre>
+<p><strong>作用：检测方法是否通过 <code>new</code> 来调用</strong><br>ES6以前：无法检测用过 <code>call</code> 重定向进行的调用</p>
+<pre><code class="JavaScript">function Person(firstName, lastName) &#123;
+   //判断是否是使用new的方式来调用的函数
+   if (!(this instanceof Person)) &#123;
+      throw new Error(&quot;该函数没有使用new来调用&quot;)
+   &#125;
+   this.firstName = firstName;
+   this.lastName = lastName;
+   this.fullName = `$&#123;firstName&#125; $&#123;lastName&#125;`;
+&#125;
+const p1 = new Person(&quot;彼&quot;, &quot;方&quot;);
+console.log(p1)
+
+const p2 = Person(&quot;彼&quot;, &quot;方&quot;);   //该函数没有使用new来调用
+console.log(p2);
+
+const p3 = Person.call(p1, &quot;彼&quot;, &quot;方&quot;)
+console.log(p3);
+</code></pre>
+<p>ES6新增API: <code>new.target</code></p>
+<pre><code class="JavaScript">function Person(firstName, lastName) &#123;
+   //判断是否是使用new的方式来调用的函数
+   if (new.target === undefined) &#123;
+      throw new Error(&quot;该函数没有使用new来调用&quot;)
+   &#125;
+   this.firstName = firstName;
+   this.lastName = lastName;
+   this.fullName = `$&#123;firstName&#125; $&#123;lastName&#125;`;
+&#125;
+const p1 = new Person(&quot;彼&quot;, &quot;方&quot;);
+console.log(p1);
+
+const p2 = Person(&quot;彼&quot;, &quot;方&quot;);   //该函数没有使用new来调用
+console.log(p2);
+
+const p3 = Person.call(p1, &quot;彼&quot;, &quot;方&quot;)    //该函数没有使用new来调用
+console.log(p3);
+</code></pre>
+<h3 id="4-7-箭头函数"><a href="#4-7-箭头函数" class="headerlink" title="4-7. 箭头函数"></a>4-7. 箭头函数</h3><p>回顾：<code>this</code>指向</p>
+<ol>
+<li>通过对象调用函数，<code>this</code>指向对象</li>
+<li>直接调用函数，<code>this</code>指向全局对象</li>
+<li>如果通过new调用函数，<code>this</code>指向新创建的对象</li>
+<li>如果通过<code>apply</code>、<code>call</code>、<code>bind</code>调用函数，<code>this</code>指向指定的数据</li>
+<li>如果是DOM事件函数，<code>this</code>指向事件源</li>
+</ol>
+<p>语法说明：</p>
+<blockquote>
+<p>箭头函数是一个函数表达式，理论上，任何使用函数表达式的场景都可以使用箭头函数</p>
+</blockquote>
+<p>完整语法：</p>
+<pre><code class="JavaScript">(参数1, 参数2, ...)=&gt;&#123;
+    //函数体
+&#125;
+</code></pre>
+<p>如果参数只有一个，可以省略小括号</p>
+<pre><code class="JavaScript">参数 =&gt; &#123;
+
+&#125;
+</code></pre>
+<p>如果箭头函数只有一条返回语句，可以省略大括号，和return关键字</p>
+<pre><code class="js">参数 =&gt; 返回值
+
+// 返回一条语句时直接书写
+const isOdd = num =&gt; num % 2 !== 0;
+console.log(isOdd(3))
+console.log(isOdd(4))
+
+// 注意：返回对象时用小括号括起来
+const sum = (a, b) =&gt; (&#123;
+    a: a,
+    b: b,
+    sum: a + b
+&#125;);
+console.log(sum(3, 5))
+</code></pre>
+<p><strong>注意细节:</strong></p>
+<ul>
+<li>箭头函数的自身没有this，箭头函数的this是在定义时确定的而不是调用者；</li>
+<li>箭头函数中，不存在this、arguments、new.target，如果使用了，则使用的是函数外层的对应的this、arguments、new.target</li>
+</ul>
+<pre><code class="JavaScript">const obj = &#123;
+   method: function()&#123;
+      const func = () =&gt; &#123;
+         console.log(this)       //obj
+         console.log(arguments)  //method[234]
+      &#125;
+      func()
+   &#125;
+&#125;
+obj.method(234);
+</code></pre>
+<ul>
+<li>箭头函数没有原型</li>
+<li>箭头函数不能作用构造函数使用</li>
+</ul>
+<p>应用场景:</p>
+<ol>
+<li>临时性使用的函数，并不会刻意调用它，比如：<ol>
+<li>事件处理函数</li>
+<li>异步处理函数：例如在 <code>setTimeout</code> 中使用避免 <code>this</code> 指向window</li>
+<li>其他临时性的函数</li>
+</ol>
+</li>
+<li>为了绑定外层this的函数</li>
+<li>在不影响其他代码的情况下，保持代码的简洁，最常见的，数组方法中的回调函数</li>
+</ol>
+<pre><code class="JavaScript">const numbers = [3, 7, 78, 3, 5, 345];
+
+// 过滤偶数 -&gt; 扩大2倍 -&gt; 求和
+const result = numbers.filter(num =&gt; num % 2 !== 0).map(num =&gt; num * 2).reduce((a, b) =&gt; a + b);
+
+console.log(result);
+</code></pre>
+<h2 id="5-对象"><a href="#5-对象" class="headerlink" title="5. 对象"></a>5. 对象</h2><h2 id="6-解构"><a href="#6-解构" class="headerlink" title="6. 解构"></a>6. 解构</h2><h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/1209193269/">Markdownlint书写的规范</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-09-04
-                            </span>
-                            
-                                <span id="/posts/1209193269/" class="leancloud_visitors" data-flag-title="Markdownlint书写的规范">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1209193269/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/2688907508/" target="_blank">ES6学习笔记【精简版】</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/JavaScript/">JavaScript</a>
+                        
+                            <a href="/tags/ES6/">ES6</a>
+                        
                     </div>
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/2688907508/">ES6学习笔记【精简版】</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-09-04
-                            </span>
-                            
-                                <span id="/posts/2688907508/" class="leancloud_visitors" data-flag-title="ES6学习笔记【精简版】">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/2688907508/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/4017600111/">JQuery常用语法笔记【精简版】</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-08-31
-                            </span>
-                            
-                                <span id="/posts/4017600111/" class="leancloud_visitors" data-flag-title="JQuery常用语法笔记【精简版】">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/4017600111/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/undefined/">Hello World</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-08-23
-                            </span>
-                            
-                                <span id="/posts/undefined/" class="leancloud_visitors" data-flag-title="Hello World">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/undefined/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
+                <div class="article-prev-next">
+                    
+                        <a href="/posts/1209193269/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/1209193269/" title="发布于 2022-09-04 09:46">Markdownlint书写的规范</a>
+                        <br>
+                    
+                    
+                        <a href="/posts/4017600111/" class="next-prefix">» </a> 下一篇：    <a href="/posts/4017600111/" title="发布于 2022-08-31 10:27">JQuery常用语法笔记【精简版】</a>
+                    
+                </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -183,7 +468,7 @@
             <div class="menu-list">
                 <ul>
                     
-                        <li class=" active "><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
                     
                         <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
                     

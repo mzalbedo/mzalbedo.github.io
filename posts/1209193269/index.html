@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            Hexo
+            Markdownlint书写的规范
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,133 +31,268 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/index.css">
-<div id="count"></div>
-<div id="header" >
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-title">彼方</h1>
-                <h2 class="header-description" id="hitokoto"></h2>
-                <h3 class="header-info" id="hitokotoAuthor"></h3>
+                <h1 class="header-subtitle">Markdownlint书写的规范</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-09-04
+                        </span>
+                        
+                            <span id="/posts/1209193269/" class="leancloud_visitors" data-flag-title="Markdownlint书写的规范">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1209193269/"></span>
+                        </span>  
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">MarkDown</span>
+                        
+                    
+                </div>
             
         </div>
     </div>
     
-        <a class="scroll-down" href="javascript:;" target="_self" data-offset="-45">
-            <i class="scroll-down-icon iconfont icon-return"></i>
-        </a>
-    
 </div>
 <div id="container">
     
-        
-            <!-- 首页 -->
-            <div class="articles">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>markdownlint</code> 是一款检查MarkDown语法的VSCode插件，它规定了许多MarkDown规则并实时进行检查，当存在不符合规范的内容时，会有黄色的波浪线来提示及时修正。</p>
+<h2 id="语法规范提示内容"><a href="#语法规范提示内容" class="headerlink" title="语法规范提示内容"></a>语法规范提示内容</h2><h3 id="MD001"><a href="#MD001" class="headerlink" title="MD001"></a>MD001</h3><p><code>Heading levels should only increment by one level at a time</code></p>
+<blockquote>
+<p>标题级数只能每次扩大一个，也就是说不能隔级创建标题，必须h1-h2-h3…这样</p>
+</blockquote>
+<h3 id="MD002"><a href="#MD002" class="headerlink" title="MD002"></a>MD002</h3><p><code>First heading should be a top level heading</code></p>
+<blockquote>
+<p>文档的第一个标题必须是最高级的标题，也就是h1</p>
+</blockquote>
+<h3 id="MD003"><a href="#MD003" class="headerlink" title="MD003"></a>MD003</h3><p><code>Heading style</code></p>
+<blockquote>
+<p>整篇文档的标题格式要统一</p>
+</blockquote>
+<h3 id="MD004"><a href="#MD004" class="headerlink" title="MD004"></a>MD004</h3><p><code>Unordered list style</code></p>
+<blockquote>
+<p>整篇文档的无序列表的格式要一致</p>
+</blockquote>
+<h3 id="MD005"><a href="#MD005" class="headerlink" title="MD005"></a>MD005</h3><p><code>Inconsistent indentation for list items at the same level</code></p>
+<blockquote>
+<p>同一个等级的列表的缩进要一致</p>
+</blockquote>
+<h3 id="MD006"><a href="#MD006" class="headerlink" title="MD006"></a>MD006</h3><p><code>Consider starting bulleted lists at the beginning of the line</code></p>
+<blockquote>
+<p>一级标题不能够缩进</p>
+</blockquote>
+<h3 id="MD007"><a href="#MD007" class="headerlink" title="MD007"></a>MD007</h3><p><code>Unordered list indentation</code></p>
+<blockquote>
+<p>无序列表嵌套的时候默认采取两个空格的缩进方式</p>
+</blockquote>
+<h3 id="MD009"><a href="#MD009" class="headerlink" title="MD009"></a>MD009</h3><p><code>Trailing spaces</code></p>
+<blockquote>
+<p>行尾最多可以添加两个空格，超出之后会有警告，最好每次都是两个空格因为两个空格刚好可以用来换行</p>
+</blockquote>
+<h3 id="MD010"><a href="#MD010" class="headerlink" title="MD010"></a>MD010</h3><p><code>Hard tabs</code></p>
+<blockquote>
+<p>不能使用tab来进行缩进，要使用空格</p>
+</blockquote>
+<h3 id="MD011"><a href="#MD011" class="headerlink" title="MD011"></a>MD011</h3><p><code>Reversed link syntax</code></p>
+<blockquote>
+<p>内联形式的链接和创建方式是否错误，中括号和圆括号是否使用正确</p>
+</blockquote>
+<h3 id="MD012"><a href="#MD012" class="headerlink" title="MD012"></a>MD012</h3><p><code>Multiple consecutive blank lines</code></p>
+<blockquote>
+<p>文档中不能有连续的空行（文档末可以有一个空行），在代码块中这个规则不会生效</p>
+</blockquote>
+<h3 id="MD013"><a href="#MD013" class="headerlink" title="MD013"></a>MD013</h3><p><code>Line length</code></p>
+<blockquote>
+<p>默认行的最大长度是80，对表格代码块标题都起效果</p>
+</blockquote>
+<h3 id="MD014"><a href="#MD014" class="headerlink" title="MD014"></a>MD014</h3><p><code>Dollar signs used before commands without showing output</code></p>
+<blockquote>
+<p>在代码块中，终端命令前面不需要有美元符号，如果如果代码块中既有终端命令，也有命令的输出，则终端命令前可以有美元符号($)</p>
+</blockquote>
+<h3 id="MD018"><a href="#MD018" class="headerlink" title="MD018"></a>MD018</h3><p><code>No space after hash on atx style heading</code></p>
+<blockquote>
+<p>标题格式如果是”atx”的话，#号和文字之间需要一个空格隔开</p>
+</blockquote>
+<h3 id="MD019"><a href="#MD019" class="headerlink" title="MD019"></a>MD019</h3><p><code>Multiple spaces after hash on atx style heading</code></p>
+<blockquote>
+<p>标题格式如果是”atx”的话，#号和文字之间只需要一个空格隔开，不需要多个</p>
+</blockquote>
+<h3 id="MD020"><a href="#MD020" class="headerlink" title="MD020"></a>MD020</h3><p><code>No space inside hashes on closed atx style heading</code></p>
+<blockquote>
+<p>在closed_atx格式的标题中，文字和前后的#号之间都需要一个空格隔开</p>
+</blockquote>
+<h3 id="MD021"><a href="#MD021" class="headerlink" title="MD021"></a>MD021</h3><p><code>Multiple spaces inside hashes on closed atx style heading</code></p>
+<blockquote>
+<p>在closed_atx格式的标题中，文字和前后的#号之间只需要一个空格隔开，不能有多余的</p>
+</blockquote>
+<h3 id="MD022"><a href="#MD022" class="headerlink" title="MD022"></a>MD022</h3><p><code>Headings should be surrounded by blank lines</code></p>
+<blockquote>
+<p>标题的上下行必须都是空格</p>
+</blockquote>
+<h3 id="MD023"><a href="#MD023" class="headerlink" title="MD023"></a>MD023</h3><p><code>Headings must start at the beginning of the line</code></p>
+<blockquote>
+<p>标题行不能缩进</p>
+</blockquote>
+<h3 id="MD024"><a href="#MD024" class="headerlink" title="MD024"></a>MD024</h3><p><code>Multiple headings with the same content</code></p>
+<blockquote>
+<p>在文档中不能有重复性的标题</p>
+</blockquote>
+<h3 id="MD025"><a href="#MD025" class="headerlink" title="MD025"></a>MD025</h3><p><code>Multiple top level headings in the same document</code></p>
+<blockquote>
+<p>同一个文档中，只能有一个最高级的标题，默认也只能有一个一级标题</p>
+</blockquote>
+<h3 id="MD026"><a href="#MD026" class="headerlink" title="MD026"></a>MD026</h3><p><code>Trailing punctuation in heading</code></p>
+<blockquote>
+<p>标题的末尾不能有”. , ; : ! ? “这些符号</p>
+</blockquote>
+<h3 id="MD027"><a href="#MD027" class="headerlink" title="MD027"></a>MD027</h3><p><code>Multiple spaces after blockquote symbol</code></p>
+<blockquote>
+<p>在创建引用块的时候，右尖号与文字之间必须有且只有一个空格</p>
+</blockquote>
+<h3 id="MD028"><a href="#MD028" class="headerlink" title="MD028"></a>MD028</h3><p><code>Blank line inside blockquote</code></p>
+<blockquote>
+<p>两个引用区块间不能仅用一个空行隔开或者同一引用区块中不能有空行，如果一行中没有内容，则这一行要用&gt;开头</p>
+</blockquote>
+<h3 id="MD029"><a href="#MD029" class="headerlink" title="MD029"></a>MD029</h3><p><code>Ordered list item prefix</code></p>
+<blockquote>
+<p>有序列表的前缀序号格式必须只用1或者从1开始的加1递增数字</p>
+</blockquote>
+<h3 id="MD030"><a href="#MD030" class="headerlink" title="MD030"></a>MD030</h3><p><code>Spaces after list markers</code></p>
+<blockquote>
+<p>列表（有序、无序）的前缀符号和文字之间用1个空格隔开，在列表嵌套或者同一列表项中有多个段落时，无序列表缩进两个空格，有序列表缩进3个空格</p>
+</blockquote>
+<h3 id="MD031"><a href="#MD031" class="headerlink" title="MD031"></a>MD031</h3><p><code>Fenced code blocks should be surrounded by blank lines</code></p>
+<blockquote>
+<p>单独的代码块前后需要用空行隔开（除非是在文档开头或末尾），否则有些解释器不会解释为代码块</p>
+</blockquote>
+<h3 id="MD032"><a href="#MD032" class="headerlink" title="MD032"></a>MD032</h3><p><code>Lists should be surrounded by blank lines</code></p>
+<blockquote>
+<p>列表（有序、无序）前后需要用空行隔开，否则有些解释器不会解释为列表，列表的缩进必须一致，否则会警告</p>
+</blockquote>
+<h3 id="MD033"><a href="#MD033" class="headerlink" title="MD033"></a>MD033</h3><p><code>Inline HTML</code></p>
+<blockquote>
+<p>文档中不允许使用html语句</p>
+</blockquote>
+<h3 id="MD034"><a href="#MD034" class="headerlink" title="MD034"></a>MD034</h3><p><code>Bare URL used</code></p>
+<blockquote>
+<p>单纯的链接地址需要用尖括号 (&lt;&gt;) 包裹，否则有些解释器不会解释为链接</p>
+</blockquote>
+<h3 id="MD035"><a href="#MD035" class="headerlink" title="MD035"></a>MD035</h3><p><code>Horizontal rule style</code></p>
+<blockquote>
+<p>创建水平线时整篇文档要统一，要和文档中第一次创建水平线使用的符号一致</p>
+</blockquote>
+<h3 id="MD036"><a href="#MD036" class="headerlink" title="MD036"></a>MD036</h3><p><code>Emphasis used instead of a heading</code></p>
+<blockquote>
+<p>不能用强调来代替标题****</p>
+</blockquote>
+<h3 id="MD037"><a href="#MD037" class="headerlink" title="MD037"></a>MD037</h3><p><code>Spaces inside emphasis markers</code></p>
+<blockquote>
+<p>强调的符号和文字之间不能有空格</p>
+</blockquote>
+<h3 id="MD038"><a href="#MD038" class="headerlink" title="MD038"></a>MD038</h3><p><code>Spaces inside code span elements</code></p>
+<blockquote>
+<p>当用单反引号创建代码段的时候，单反引号和它们之间的代码不能有空格，如果要把单反引号嵌入到代码段的首尾，创建代码段的单反引号和嵌入的单反引号间要有一个空格隔开</p>
+</blockquote>
+<h3 id="MD039"><a href="#MD039" class="headerlink" title="MD039"></a>MD039</h3><p><code>Spaces inside link text</code></p>
+<blockquote>
+<p>链接名和包围它的中括号之间不能有空格，但链接名中间可以有空格</p>
+</blockquote>
+<h3 id="MD040"><a href="#MD040" class="headerlink" title="MD040"></a>MD040</h3><p><code>Fenced code blocks should have a language specified</code></p>
+<blockquote>
+<p>单独的代码块（此处是指上下用三个反引号包围的代码块）应该指定代码块的编程语言，这一点有助于解释器对代码进行代码高亮</p>
+</blockquote>
+<h3 id="MD041"><a href="#MD041" class="headerlink" title="MD041"></a>MD041</h3><p><code>First line in file should be a top level heading</code></p>
+<blockquote>
+<p>文档的第一个非空行应该是文档最高级的标题，默认是1级标题</p>
+</blockquote>
+<h3 id="MD042"><a href="#MD042" class="headerlink" title="MD042"></a>MD042</h3><p><code>No empty links</code></p>
+<blockquote>
+<p>链接的地址不能为空</p>
+</blockquote>
+<h3 id="MD043"><a href="#MD043" class="headerlink" title="MD043"></a>MD043</h3><p><code>Required heading structure</code></p>
+<blockquote>
+<p>要求标题遵循一定的结构，默认是没有规定的结构</p>
+</blockquote>
+<h3 id="MD044"><a href="#MD044" class="headerlink" title="MD044"></a>MD044</h3><p><code>Proper names should have the correct capitalization</code></p>
+<blockquote>
+<p>指定一些名称，会检查它是否有正确的大写</p>
+</blockquote>
+<h3 id="MD045"><a href="#MD045" class="headerlink" title="MD045"></a>MD045</h3><p><code>Images should have alternate text (alt text)</code></p>
+<blockquote>
+<p>图片链接必须包含描述文本</p>
+</blockquote>
+<h3 id="MD046"><a href="#MD046" class="headerlink" title="MD046"></a>MD046</h3><p><code>Code block style</code></p>
+<blockquote>
+<p>整篇文档采用一致的代码格式</p>
+</blockquote>
+<h3 id="MD047"><a href="#MD047" class="headerlink" title="MD047"></a>MD047</h3><p><code>Files should end with a single newline character</code></p>
+<blockquote>
+<p>文档末尾需要一个空行结尾</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://yijiebuyi.com/blog/79347d0e8c1739bd1f9d9d7c1dcbcccf.html#md006---consider-starting-bulleted-lists-at-the-beginning-of-the-line"><strong>原文地址</strong></a></p>
+
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/1209193269/">Markdownlint书写的规范</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-09-04
-                            </span>
-                            
-                                <span id="/posts/1209193269/" class="leancloud_visitors" data-flag-title="Markdownlint书写的规范">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1209193269/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1209193269/" target="_blank">Markdownlint书写的规范</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/MarkDown/">MarkDown</a>
+                        
                     </div>
                 
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/2688907508/">ES6学习笔记【精简版】</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-09-04
-                            </span>
-                            
-                                <span id="/posts/2688907508/" class="leancloud_visitors" data-flag-title="ES6学习笔记【精简版】">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/2688907508/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/4017600111/">JQuery常用语法笔记【精简版】</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-08-31
-                            </span>
-                            
-                                <span id="/posts/4017600111/" class="leancloud_visitors" data-flag-title="JQuery常用语法笔记【精简版】">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/4017600111/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
-                    <div class="article">
-                        <div class="article-title">
-                            <a href="/posts/undefined/">Hello World</a>
-                            
-                        </div>
-                        <div class="article-abstract">
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <div class="article-info">
-                            <span>
-                                <i class="iconfont icon-time"></i> 发表时间：2022-08-23
-                            </span>
-                            
-                                <span id="/posts/undefined/" class="leancloud_visitors" data-flag-title="Hello World">
-                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
-                                </span>
-                            
-                            <span>
-                                <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/undefined/"></span>
-                            </span>
-                        </div>
-                        <div class="clear"></div>     
-                    </div>
-                
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/posts/2688907508/" class="next-prefix">» </a> 下一篇：    <a href="/posts/2688907508/" title="发布于 2022-09-04 02:57">ES6学习笔记【精简版】</a>
+                    
+                </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -183,7 +318,7 @@
             <div class="menu-list">
                 <ul>
                     
-                        <li class=" active "><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
                     
                         <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
                     
