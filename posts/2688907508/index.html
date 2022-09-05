@@ -388,7 +388,418 @@ const result = numbers.filter(num =&gt; num % 2 !== 0).map(num =&gt; num * 2).re
 
 console.log(result);
 </code></pre>
-<h2 id="5-对象"><a href="#5-对象" class="headerlink" title="5. 对象"></a>5. 对象</h2><h2 id="6-解构"><a href="#6-解构" class="headerlink" title="6. 解构"></a>6. 解构</h2><h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="5-对象"><a href="#5-对象" class="headerlink" title="5. 对象"></a>5. 对象</h2><h3 id="5-1-新增的对象字面量语法"><a href="#5-1-新增的对象字面量语法" class="headerlink" title="5-1. 新增的对象字面量语法"></a>5-1. 新增的对象字面量语法</h3><ol>
+<li><p><strong>成员速写</strong></p>
+<blockquote>
+<p>如果对象字面量初始化时，成员的名称来自于一个变量，并且和变量的名称相同，则可以进行简写</p>
+</blockquote>
+<pre><code class="JavaScript">function createUser(loginId, loginPwd, nickName) &#123;
+   const sayHello = function () &#123;
+      console.log(&quot;loginId&quot;, this.loginId, &quot;nickname&quot;, this.nickName)
+   &#125;
+   return &#123;
+     loginId,
+     loginPwd,
+     nickName,
+     sayHello,
+     id: Math.random()
+   &#125;
+&#125;
+</code></pre>
+</li>
+<li><p><strong>方法速写</strong></p>
+<blockquote>
+<p>对象字面初始化时，方法可以省略冒号和function关键字</p>
+</blockquote>
+<pre><code class="JavaScript">const user = &#123;
+   name: &quot;彼方&quot;,
+   age: 1000,
+   sayHello()&#123;
+      console.log(this.name, this.age)
+   &#125;
+&#125;
+</code></pre>
+</li>
+<li><p><strong>计算属性名</strong></p>
+<blockquote>
+<p>有的时候，初始化对象时，某些属性名可能来自于某个表达式的值，在ES6，可以使用中括号来表示该属性名是通过计算得到的</p>
+</blockquote>
+<pre><code class="JavaScript">const prop1 = &quot;name&quot;;
+const prop2 = &quot;age&quot;;
+const prop3 = &quot;sayHello&quot;;
+
+const user = &#123;
+   [prop1]: &quot;彼方&quot;,
+   [prop2]: 1000,
+   [prop3]()&#123;
+      console.log(this[prop1], this[prop2])
+   &#125;
+&#125;
+</code></pre>
+</li>
+</ol>
+<h3 id="5-2-Object的新增API"><a href="#5-2-Object的新增API" class="headerlink" title="5-2. Object的新增API"></a>5-2. Object的新增API</h3><blockquote>
+<p>注意 <code>Object</code> 是一个构造<strong>函数</strong></p>
+</blockquote>
+<ol>
+<li><p><strong><code>Object.is</code></strong></p>
+<blockquote>
+<p>用于判断两个数据是否相等，基本上跟严格相等（===）是一致的，除了以下两点</p>
+</blockquote>
+<ol>
+<li>NaN和NaN相等</li>
+<li>2+0和-0不相等</li>
+</ol>
+<pre><code class="JavaScript">console.log(NaN === NaN);        // false
+console.log(+0 === -0);          // true
+
+console.log(Object.is(NaN, NaN)) // true
+console.log(Object.is(+0, -0))   // false
+</code></pre>
+</li>
+<li><p><strong><code>Object.assign</code></strong></p>
+<blockquote>
+<p>用于混合对象</p>
+</blockquote>
+<pre><code class="JavaScript">//将obj2的数据，覆盖到obj1，并且会对obj1产生改动，然后返回obj1
+const obj = Object.assign(obj1, obj2);
+
+const obj = Object.assign(&#123;&#125;, obj1, obj2);
+</code></pre>
+</li>
+<li><p><strong><code>Object.getOwnPropertyNames</code> 的枚举顺序</strong></p>
+<blockquote>
+<p>Object.getOwnPropertyNames方法之前就存在，只不过，官方没有明确要求，对属性的顺序如何排序，如何排序，完全由浏览器厂商决定</p>
+</blockquote>
+<p>ES6规定了该方法返回的数组的排序方式如下：</p>
+<ul>
+<li>先排数字，并按照升序排序</li>
+<li>再排其他，按照书写顺序排序</li>
+</ul>
+</li>
+<li><p><code>Object.setPrototypeOf</code></p>
+<blockquote>
+<p>该函数用于设置某个对象的隐式原型</p>
+</blockquote>
+<p>比如：<code>Object.setPrototypeOf(obj1, obj2)</code><br>相当于：<code>obj1.__proto__ = obj2</code></p>
+</li>
+</ol>
+<h3 id="5-3-面向对象简介"><a href="#5-3-面向对象简介" class="headerlink" title="5-3. 面向对象简介"></a>5-3. 面向对象简介</h3><blockquote>
+<p>面向对象：一种编程思想，跟具体的语言无关</p>
+</blockquote>
+<p><strong>对比面向过程：</strong></p>
+<ul>
+<li>面向过程：思考的切入点是<strong>功能</strong>的步骤</li>
+<li>面向对象：思考的切入点是<strong>对象</strong>的划分</li>
+</ul>
+<h3 id="5-4-类：构造函数的语法糖"><a href="#5-4-类：构造函数的语法糖" class="headerlink" title="5-4. 类：构造函数的语法糖"></a>5-4. 类：构造函数的语法糖</h3><p><strong>传统的构造函数的问题：</strong></p>
+<ol>
+<li>属性和原型方法定义分离，降低了可读性</li>
+<li>原型成员可以被枚举</li>
+<li>默认情况下，构造函数仍然可以被当作普通函数使用</li>
+</ol>
+<pre><code class="JavaScript">//面向对象中，将 下面对一个对象的所有成员的定义，统称为类
+
+//构造函数  构造器
+function Animal(type, name, age, sex) &#123;
+    this.type = type;
+    this.name = name;
+    this.age = age;
+    this.sex = sex;
+&#125;
+
+//定义实例方法（原型方法）
+Animal.prototype.print = function () &#123;
+    console.log(`【种类】：$&#123;this.type&#125;`);
+    console.log(`【名字】：$&#123;this.name&#125;`);
+    console.log(`【年龄】：$&#123;this.age&#125;`);
+    console.log(`【性别】：$&#123;this.sex&#125;`);
+&#125;
+
+const a = new Animal(&quot;狗&quot;, &quot;旺财&quot;, 3, &quot;男&quot;);
+a.print();
+
+//可以遍历到原型上的 print 方法
+for (const prop in a) &#123;
+    console.log(prop);
+&#125;
+</code></pre>
+<p><strong>类的特点：</strong></p>
+<ol>
+<li>类声明不会被提升，与 let 和 const 一样，存在暂时性死区</li>
+<li>类中的所有代码均在严格模式下执行</li>
+<li>类的所有方法都是不可枚举的</li>
+<li>类的所有方法都无法被当作构造函数使用</li>
+<li>类的构造器必须使用 new 来调用</li>
+</ol>
+<pre><code class="JavaScript">class Animal &#123;
+   //如果constructor为空可以省略不写
+   constructor(type, name, age, sex) &#123;
+      this.type = type;
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+   &#125;
+
+   print() &#123;
+      console.log(`【种类】：$&#123;this.type&#125;`);
+      console.log(`【名字】：$&#123;this.name&#125;`);
+      console.log(`【年龄】：$&#123;this.age&#125;`);
+      console.log(`【性别】：$&#123;this.sex&#125;`);
+   &#125;
+&#125;
+
+const a = new Animal(&quot;狗&quot;, &quot;旺财&quot;, 3, &quot;男&quot;);
+a.print();
+
+for (const prop in a) &#123;
+    console.log(prop)
+&#125;
+</code></pre>
+<h3 id="5-5-类的其他书写方式"><a href="#5-5-类的其他书写方式" class="headerlink" title="5-5. 类的其他书写方式"></a>5-5. 类的其他书写方式</h3><ol>
+<li><p><strong>可计算的成员名</strong></p>
+<blockquote>
+<p>使用方式： <code>[变量]</code></p>
+</blockquote>
+</li>
+<li><p><strong><code>getter</code> 和 <code>setter</code></strong></p>
+<blockquote>
+<p>ES5:通过 <code>Object.defineProperty</code> 定义某个对象成员属性的读取和设置</p>
+</blockquote>
+<p>使用getter和setter控制的属性，不在原型上</p>
+<pre><code class="JavaScript">const printName = &quot;print&quot;;
+
+class Animal &#123;
+   constructor(type, name, age, sex) &#123;
+      this.type = type;
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+   &#125;
+
+   //创建一个age属性，并给它加上getter，读取该属性时，会运行该函数
+   get age() &#123;
+      return this._age + &quot;岁&quot;;
+   &#125;
+
+   //创建一个age属性，并给它加上setter，给该属性赋值时，会运行该函数
+   set age(age) &#123;
+      if (typeof age !== &quot;number&quot;) &#123;
+            throw new TypeError(&quot;age property must be a number&quot;);
+      &#125;
+      if (age &lt; 0) &#123;
+            age = 0;
+      &#125;
+      else if (age &gt; 1000) &#123;
+            age = 1000;
+      &#125;
+      this._age = age;
+   &#125;
+
+   [printName]() &#123;
+      console.log(`【种类】：$&#123;this.type&#125;`);
+      console.log(`【名字】：$&#123;this.name&#125;`);
+      console.log(`【年龄】：$&#123;this.age&#125;`);
+      console.log(`【性别】：$&#123;this.sex&#125;`);
+   &#125;
+&#125;
+
+var a = new Animal(&quot;狗&quot;, &quot;旺财&quot;, 3, &quot;男&quot;);
+</code></pre>
+</li>
+<li><p><strong>静态成员</strong></p>
+<ol>
+<li>构造函数本身的成员</li>
+<li>使用static关键字定义的成员即静态成员</li>
+<li>静态成员无法通过原型和实例获取；</li>
+<li>静态成员通过构造函数直接获取</li>
+</ol>
+<pre><code class="JavaScript">class Chess &#123;
+   constructor(name) &#123;
+      this.name = name;
+   &#125;
+
+   static width = 50;   //ES7字段初始化器写法
+   static height = 50;  //ES7字段初始化器写法
+
+   static method() &#123;
+
+   &#125;
+&#125;
+
+console.log(Chess.width)
+console.log(Chess.height)
+Chess.method();
+</code></pre>
+</li>
+<li><p><strong>字段初始化器（ES7）</strong></p>
+<ol>
+<li>使用static的字段初始化器，添加的是静态成员</li>
+<li>没有使用static的字段初始化器，添加的成员位于<strong>对象上</strong></li>
+<li>箭头函数在字段初始化器位置上，指向当前对象</li>
+</ol>
+<pre><code class="JavaScript">class Test &#123;
+   //字段初始化器相当于把a、c写到constructor中
+   static a = 1;
+   b = 2;
+   c = 3;
+
+   constructor() &#123;
+      this.d = this.b + this.c;
+   &#125;
+&#125;
+
+const t = new Test();
+console.log(t)
+</code></pre>
+</li>
+<li><p><strong>类表达式</strong></p>
+<pre><code class="JavaScript">const A = class &#123; //匿名类，类表达式
+   a = 1;
+   b = 2;
+&#125;
+
+const a = new A();
+console.log(a)
+</code></pre>
+</li>
+<li><p><strong>[扩展]装饰器（ES7）(Decorator)</strong></p>
+<blockquote>
+<ul>
+<li>横切关注点</li>
+<li>例如类当中有些方法已经过时不建议使用，但又不能删除时进行提示作用</li>
+<li>装饰器的本质是一个函数</li>
+</ul>
+</blockquote>
+<p><strong>使用案例：</strong></p>
+<pre><code class="JavaScript">class Test &#123;
+
+   @Obsolete
+   print() &#123;
+      console.log(&quot;print方法&quot;)
+   &#125;
+&#125;
+
+function Obsolete(target, methodName, descriptor) &#123;
+   // console.log(target, methodName, descriptor);
+   // function Test
+   // print
+   // &#123; value: function print()&#123;&#125;, ... &#125;
+   const oldFunc = descriptor.value
+   descriptor.value = function (...args) &#123;
+      console.warn(`$&#123;methodName&#125;方法已过时`);
+      oldFunc.apply(this, args);
+   &#125;
+&#125;
+</code></pre>
+</li>
+</ol>
+<h3 id="5-6-类的继承"><a href="#5-6-类的继承" class="headerlink" title="5-6. 类的继承"></a>5-6. 类的继承</h3><p>如果两个类A和B，如果可以描述为：B 是 A，则，A和B形成继承关系</p>
+<p><strong>如果B是A，则：</strong></p>
+<ol>
+<li>B继承自A</li>
+<li>A派生B</li>
+<li>B是A的子类</li>
+<li>A是B的父类</li>
+</ol>
+<p>如果A是B的父类，则B会自动拥有A中的所有实例成员</p>
+<p><strong>ES5实现:</strong></p>
+<pre><code class="JavaScript">function Animal(type, name, age, sex) &#123;
+   this.type = type;
+   this.name = name;
+   this.age = age;
+   this.sex = sex;
+&#125;
+Animal.prototype.print = function () &#123;
+   console.log(`【种类】：$&#123;this.type&#125;`);
+   console.log(`【名字】：$&#123;this.name&#125;`);
+   console.log(`【年龄】：$&#123;this.age&#125;`);
+   console.log(`【性别】：$&#123;this.sex&#125;`);
+&#125;
+
+function Dog(name, age, sex) &#123;
+   //借用父类的构造函数
+   Animal.call(this, &quot;犬类&quot;, name, age, sex);
+&#125;
+
+//将Dog的隐式原型Dog.prototype 指向Animal的隐式原型Animal.prototype
+//这样才能继承print方法
+Object.setPrototypeOf(Dog.prototype, Animal.prototype);
+
+const d = new Dog(&quot;旺财&quot;, 3, &quot;公&quot;);
+d.print();
+console.log(d);
+</code></pre>
+<p><strong>继承的关键字：</strong></p>
+<ul>
+<li>extends：继承，用于类的定义</li>
+<li>super<ul>
+<li>直接当作函数调用，表示父类构造函数</li>
+<li>如 的原型</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>ES6要求，如果定义了constructor，并且该类是子类，则必须在constructor的第一行手动调用父类的构造函数</li>
+<li>如果子类不写constructor，则会有默认的构造器，该构造器需要的参数和父类一致，并且自动调用父类构造器</li>
+</ul>
+</blockquote>
+<p><strong>ES6实现：</strong></p>
+<pre><code class="JavaScript">class Animal &#123;
+   constructor(type, name, age, sex) &#123;
+      this.type = type;
+      this.name = name;
+      this.age = age;
+      this.sex = sex;
+   &#125;
+
+   print() &#123;
+      console.log(`【种类】：$&#123;this.type&#125;`);
+      console.log(`【名字】：$&#123;this.name&#125;`);
+      console.log(`【年龄】：$&#123;this.age&#125;`);
+      console.log(`【性别】：$&#123;this.sex&#125;`);
+   &#125;
+
+   jiao()&#123;
+      throw new Error(&quot;动物怎么叫的？&quot;);
+   &#125;
+&#125;
+
+class Dog extends Animal &#123;
+   constructor(name, age, sex) &#123;
+      super(&quot;犬类&quot;, name, age, sex);
+      // 子类特有的属性
+      this.loves = &quot;吃骨头&quot;;
+   &#125;
+
+   print()&#123;
+      //调用父类的print
+      super.print();
+      //自己特有的代码
+      console.log(`【爱好】：$&#123;this.loves&#125;`);
+   &#125;
+
+   //同名方法，会覆盖父类
+   jiao()&#123;
+      console.log(&quot;旺旺！&quot;);
+   &#125;
+&#125;
+
+const d = new Dog(&quot;旺财&quot;, 3, &quot;公&quot;);
+d.print();
+d.jiao();
+</code></pre>
+<p><strong>【冷知识】:</strong></p>
+<ul>
+<li>用JS制作抽象类<ul>
+<li>抽象类：一般是父类，不能通过该类创建对象</li>
+</ul>
+</li>
+<li>正常情况下，this的指向，this始终指向具体的类的对象</li>
+</ul>
+<h2 id="6-解构"><a href="#6-解构" class="headerlink" title="6. 解构"></a>6. 解构</h2><h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
