@@ -799,7 +799,138 @@ d.jiao();
 </li>
 <li>正常情况下，this的指向，this始终指向具体的类的对象</li>
 </ul>
-<h2 id="6-解构"><a href="#6-解构" class="headerlink" title="6. 解构"></a>6. 解构</h2><h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="6-解构"><a href="#6-解构" class="headerlink" title="6. 解构"></a>6. 解构</h2><h3 id="6-1-对象解构"><a href="#6-1-对象解构" class="headerlink" title="6-1. 对象解构"></a>6-1. 对象解构</h3><ol>
+<li><p><strong>什么是解构：</strong></p>
+<blockquote>
+<p>使用ES6的一种语法规则，将一个对象或数组的某个属性提取到某个变量中</p>
+</blockquote>
+</li>
+<li><p>在解构中使用默认值</p>
+<blockquote>
+<p><code>&#123;同名变量 = 默认值&#125;</code></p>
+</blockquote>
+</li>
+<li><p>非同名属性解构</p>
+<blockquote>
+<p><code>&#123;属性名:变量名&#125;</code></p>
+</blockquote>
+</li>
+</ol>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">const user = &#123;
+    name: &quot;彼方&quot;,
+    age: 1000,
+    sex: &quot;男&quot;,
+    address: &#123;
+        province: &quot;**&quot;,
+        city: &quot;xx&quot;
+    &#125;
+&#125;
+
+// 先定义4个变量：name、age、gender、address
+// 再从对象user中读取同名属性赋值（其中gender读取的是sex属性）
+let &#123; name, age, sex: gender = 123, address &#125; = user;
+console.log(name, age, gender, address)
+
+//解构出user中的name、province
+//定义两个变量name、province
+//再解构
+// 注意：这里不会对address进行赋值；
+const &#123; name, address: &#123; province &#125; &#125; = user;
+
+//报错: address is not defined
+console.log(name, address, province)
+</code></pre>
+<h3 id="6-2-数组解构"><a href="#6-2-数组解构" class="headerlink" title="6-2. 数组解构"></a>6-2. 数组解构</h3><p><strong>普通数组解构：</strong></p>
+<pre><code class="JavaScript">const numbers = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;];
+
+const [n1, , , n4, n5 = 123] = numbers;
+
+console.log(n1, n4, n5);
+</code></pre>
+<p><strong>嵌套数组解构：</strong></p>
+<pre><code class="JavaScript">const numbers = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, [1, 2, 3, 4]];
+
+// 得到numbers下标为4的数组中的下标为2的数据，放到变量n中
+const [, , , ,&#123;, , n&#125;] = numbers;
+</code></pre>
+<p><strong>嵌套对象解构：</strong></p>
+<pre><code class="JavaScript">const numbers = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &#123;
+   a: 1,
+   b: 2
+&#125;];
+
+//得到numbers下标为4的数组的属性a，赋值给变量A
+const [, , , , &#123; a: A &#125;] = numbers; //方式一
+
+const &#123; a: A &#125; = numbers[4];        //方式二
+</code></pre>
+<h3 id="6-3-剩余项解构"><a href="#6-3-剩余项解构" class="headerlink" title="6-3. 剩余项解构"></a>6-3. 剩余项解构</h3><p><strong>对象：</strong></p>
+<pre><code class="JavaScript">const user = &#123;
+   name: &quot;彼方&quot;,
+   age: 1000,
+   sex: &quot;男&quot;,
+   address: &#123;
+      province: &quot;**&quot;,
+      city: &quot;xx&quot;
+   &#125;
+&#125;
+
+//解构出name，然后，剩余的所有属性，放到一个新的对象中，变量名为obj
+// name: 彼方
+// obj : &#123;age:1000, sex:&quot;男&quot;, address:&#123;...&#125;&#125;
+
+const &#123; name, ...obj &#125; = user;
+</code></pre>
+<p><strong>数组：</strong></p>
+<pre><code class="JavaScript">const numbers = [324, 7, 23, 5, 3243];
+
+// 得到数组前两项，分别放到变量a和b中，然后剩余的所有数据放到数组nums
+const [a, b, ...nums] = numbers;
+
+//实现变量交换
+let a = 1, b = 2;
+[b, a] = [a, b]
+console.log(a, b)
+</code></pre>
+<h3 id="6-4-参数解构【常用】"><a href="#6-4-参数解构【常用】" class="headerlink" title="6-4. 参数解构【常用】"></a>6-4. 参数解构【常用】</h3><blockquote>
+<p>参数解构时，如果参数为<code>undefined</code> 或 <code>null</code> 则会报错，通常使用参数默认值进行兼容处理</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">function print(&#123; name, age, sex, address: &#123;
+   province,
+   city
+&#125; &#125;) &#123;
+   console.log(`姓名：$&#123;name&#125;`)
+   console.log(`年龄：$&#123;age&#125;`)
+   console.log(`性别：$&#123;sex&#125;`)
+   console.log(`身份：$&#123;province&#125;`)
+   console.log(`城市：$&#123;city&#125;`)
+&#125;
+
+const user = &#123;
+   name: &quot;彼方&quot;,
+   age: 1000,
+   sex: &quot;男&quot;,
+   address: &#123;
+      province: &quot;**&quot;,
+      city: &quot;xx&quot;
+   &#125;
+&#125;
+print(user)
+</code></pre>
+<p><strong>应用场景：</strong></p>
+<pre><code class="JavaScript">//使用参数默认值进行兼容
+function ajax(&#123;
+   method = &quot;get&quot;,
+   url = &quot;/&quot;
+&#125; = &#123;&#125;) &#123;
+   console.log(method, url)
+&#125;;
+
+ajax();
+</code></pre>
+<h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
