@@ -930,7 +930,250 @@ function ajax(&#123;
 
 ajax();
 </code></pre>
-<h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="7-符号"><a href="#7-符号" class="headerlink" title="7. 符号"></a>7. 符号</h2><h3 id="7-1-普通符号"><a href="#7-1-普通符号" class="headerlink" title="7-1. 普通符号"></a>7-1. 普通符号</h3><blockquote>
+<p><strong>符号是ES6新增的一个数据类型，它通过使用函数 <code>Symbol(符号描述)</code> 来创建</strong><br>符号描述：仅方便开发者理解用途方便调试使用，无任何实际作用<br>符号设计的初衷，是为了给对象设置<strong>私有属性</strong><br>私有属性：只能在对象内部使用，外面无法使用</p>
+</blockquote>
+<p><strong>符号具有以下特点：</strong></p>
+<ul>
+<li>没有字面量</li>
+<li>使用 <code>typeof</code> 得到的类型是 <code>symbol</code></li>
+<li><strong>每次调用 <code>Symbol</code> 函数得到的符号永远不相等，无论符号名是否相同</strong></li>
+<li>符号可以作为对象的属性名存在，这种属性称之为符号属性<ul>
+<li>开发者可以通过精心的设计，让这些属性无法通过常规方式被外界访问</li>
+<li>符号属性是不能枚举的，因此在 <code>for-in</code> 循环中无法读取到符号属性，<code>Object.keys</code> 方法也无法读取到符号属性</li>
+<li><code>Object.getOwnPropertyNames</code> 尽管可以得到所有无法枚举的属性，但是仍然无法读取到符号属性</li>
+<li>ES6 新增 <code>Object.getOwnPropertySymbols</code> 方法，可以读取符号，获取结果为<code>symbol</code>数组</li>
+</ul>
+</li>
+<li><strong>符号无法被隐式转换</strong>，因此不能被用于数学运算、字符串拼接或其他隐式转换的场景，<strong>但符号可以显式的转换为字符串</strong>，通过 String 构造函数进行转换即可，console.log 之所以可以输出符号，是它在内部进行了显式转换</li>
+</ul>
+<p><strong>使用示例：</strong></p>
+<pre><code class="JavaScript">//创建一个符号
+const syb1 = Symbol(&quot;这是用于对象的一个属性&quot;);
+const obj = &#123;
+    a: 1,
+    b: 2,
+    [syb1]: 3  //符号属性
+&#125;
+console.log(obj);
+</code></pre>
+<p><strong>实现私有属性【对象】：</strong></p>
+<pre><code class="JavaScript">const hero = (function () &#123;
+    const getRandom = Symbol();
+
+    return &#123;
+        attack: 30,
+        hp: 300,
+        defence: 10,
+        gongji() &#123; //攻击
+            //伤害：攻击力*随机数（0.8~1.1)
+            const dmg = this.attack * this[getRandom](0.8, 1.1);
+            console.log(dmg);
+        &#125;,
+        [getRandom](min, max) &#123; //根据最小值和最大值产生一个随机数
+            return Math.random() * (max - min) + min;
+        &#125;
+    &#125;
+&#125;)()
+
+console.log(hero);
+</code></pre>
+<p><strong>实现私有属性【类】：</strong></p>
+<pre><code class="JavaScript">
+const Hero = (() =&gt; &#123;
+    const getRandom = Symbol();
+
+    return class &#123;
+        constructor(attack, hp, defence) &#123;
+            this.attack = attack;
+            this.hp = hp;
+            this.defence = defence;
+        &#125;
+
+        gongji() &#123;
+            //伤害：攻击力*随机数（0.8~1.1)
+            const dmg = this.attack * this[getRandom](0.8, 1.1);
+            console.log(dmg);
+        &#125;
+
+        [getRandom](min, max) &#123; //根据最小值和最大值产生一个随机数
+            return Math.random() * (max - min) + min;
+        &#125;
+    &#125;
+&#125;)();
+
+const h = new Hero(3, 6, 3);
+console.log(h);
+</code></pre>
+<h3 id="7-2-共享符号"><a href="#7-2-共享符号" class="headerlink" title="7-2. 共享符号"></a>7-2. 共享符号</h3><blockquote>
+<p>根据某个符号名称（符号描述）能够得到<strong>同一个符号</strong><br>获取共享符号: <code>Symbol.for(&quot;符号名/符号描述&quot;)</code></p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">//示例一
+const syb1 = Symbol.for(&quot;abc&quot;);
+const syb2 = Symbol.for(&quot;abc&quot;);
+console.log(syb1 === syb2);   //true
+
+//示例二
+const syb3 = Symbol.for();
+const syb4 = Symbol.for();
+console.log(syb3 === syb4);   //true
+
+//示例三
+const obj = &#123;
+    a: 1,
+    b: 2,
+    [Symbol.for(&quot;c&quot;)]: 3
+&#125;
+console.log(obj[Symbol.for(&quot;c&quot;)]);
+</code></pre>
+<p><strong>实现原理：</strong></p>
+<pre><code class="JavaScript">const SymbolFor = (() =&gt; &#123;
+    const global = &#123;&#125;;//用于记录有哪些共享符号
+    return function (name) &#123;
+        if (!global[name]) &#123;
+            global[name] = Symbol(name);
+        &#125;
+        return global[name];
+    &#125;
+&#125;)();
+
+const syb1 = SymbolFor(&quot;abc&quot;);
+const syb2 = SymbolFor(&quot;abc&quot;);
+console.log(syb1 === syb2);
+</code></pre>
+<h3 id="7-3-知名（公共、具名）符号"><a href="#7-3-知名（公共、具名）符号" class="headerlink" title="7-3. 知名（公共、具名）符号"></a>7-3. 知名（公共、具名）符号</h3><blockquote>
+<p>知名符号是一些具有特殊含义的<strong>共享符号</strong>，通过 <code>Symbol</code> 的静态属性得到<br>ES6 延续了 ES5 的思想：<strong>减少魔法，暴露内部实现！</strong><br>因此，ES6 用知名符号暴露了某些场景的内部实现</p>
+</blockquote>
+<ol>
+<li><p><code>Symbol.hasInstance</code></p>
+<blockquote>
+<p>该符号用于定义构造函数的静态成员，<strong>它将影响 <code>instanceof</code> 的判定</strong></p>
+</blockquote>
+<pre><code class="js">obj instanceof A
+
+//等效于
+A[Symbol.hasInstance](obj) // Function.prototype[Symbol.hasInstance]
+</code></pre>
+<p><strong>示例</strong></p>
+<pre><code class="JavaScript">function A() &#123;&#125;;  //构造函数A
+const obj = new A();    //创建实例 obj
+console.log(obj instanceof A);            //true
+console.log(A[Symbol.hasInstance](obj));  //true [等效于上方]
+
+//改写A的 Symbol.hasInstance 方法
+Object.defineProperty(A, Symbol.hasInstance, &#123;
+   value: function (obj) &#123;
+      return false;
+   &#125;
+&#125;);
+console.log(obj instanceof A);            //false
+console.log(A[Symbol.hasInstance](obj));  //false
+</code></pre>
+</li>
+<li><p>[扩展] <code>Symbol.isConcatSpreadable</code></p>
+<blockquote>
+<p>该知名符号会<strong>影响数组的 <code>concat</code> 方法</strong></p>
+</blockquote>
+<p><strong>拼接数组：</strong></p>
+<pre><code class="JavaScript">const arr = [3];
+const arr2 = [5, 6, 7, 8];
+//如果某个参数存在数组索引和length，那么采用分割合并，即：
+const result = arr.concat(56,arr2);  //[3,56,5,6,7,8]
+
+//修改arr2 数组合并时的合并方式；默认true：拆分合并，false：直接合并
+arr2[Symbol.isConcatSpreadable] = false;
+const result = arr.concat(56,arr2);  //[3, 56, [5,6,7,8]]
+</code></pre>
+<p><strong>拼接对象</strong></p>
+<pre><code class="JavaScript">const arr = [1];
+const obj1 = &#123;
+   0: 3,
+   1: 4,
+   length: 2,
+&#125;;
+const obj2 = &#123;
+   0: 3,
+   1: 4,
+   length: 2,
+   [Symbol.isConcatSpreadable]: true
+&#125;;
+
+const result1 = arr.concat(2, obj1);   //[1, 2, &#123;0:3,1:4,length:2&#125;]
+const result2 = arr.concat(2, obj2);   //[1, 2, 3, 4]
+</code></pre>
+</li>
+<li><p>[扩展] <code>Symbol.toPrimitive</code></p>
+<blockquote>
+<p>该知名符号会<strong>影响类型转换的结果</strong></p>
+</blockquote>
+<p><strong>示例一：</strong></p>
+<pre><code class="JavaScript">const obj = &#123;
+   a:1,
+   b:2
+&#125;;
+//需要计算，所以obj需要得到一个基本类型
+//首先调用obj.valueOf()    得到自身没变：&#123;a:1,b:2&#125;
+//在调用obj.toString()    得到基本类型： [object Object]
+console.log(obj + 123);    //[object Object]123
+
+//改写 Symbol.toPrimitive 方法
+obj[Symbol.toPrimitive] = function() &#123;
+   return 2;
+&#125;
+console.log(obj * 123);    //246
+</code></pre>
+<p><strong>示例二：</strong></p>
+<pre><code class="JavaScript">class Temperature &#123;
+   constructor(degree) &#123;
+      this.degree = degree;
+   &#125;
+
+   [Symbol.toPrimitive](type) &#123;
+      if (type === &quot;default&quot;) &#123;
+            return this.degree + &quot;摄氏度&quot;;
+      &#125;
+      else if (type === &quot;number&quot;) &#123;
+            return this.degree;
+      &#125;
+      else if (type === &quot;string&quot;) &#123;
+            return this.degree + &quot;℃&quot;;
+      &#125;
+   &#125;
+&#125;
+
+const t = new Temperature(30);
+
+console.log(t + &quot;!&quot;);      //30摄氏度!
+console.log(t / 2);        //15
+console.log(String(t));    //30℃
+</code></pre>
+</li>
+<li><p>[扩展] <code>Symbol.toStringTag</code></p>
+<blockquote>
+<p>该知名符号<strong>会影响 <code>Object.prototype.toString</code> 的返回值</strong></p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">class Person1 &#123;
+&#125;;
+
+class Person2 &#123;
+   [Symbol.toStringTag] = &quot;Person&quot;
+&#125;;
+
+const p1 = new Person1();
+const p2 = new Person2();
+const arr = [32424, 45654, 32];
+
+console.log(Object.prototype.toString.apply(p1));  //[object Object]
+console.log(Object.prototype.toString.apply(p2));  //[object Person]
+console.log(Object.prototype.toString.apply(arr)); //[object Person]
+</code></pre>
+</li>
+<li><p>其他知名符号</p>
+</li>
+</ol>
+<h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
