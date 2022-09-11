@@ -1173,7 +1173,204 @@ console.log(Object.prototype.toString.apply(arr)); //[object Person]
 <li><p>其他知名符号</p>
 </li>
 </ol>
-<h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="8-异步处理"><a href="#8-异步处理" class="headerlink" title="8. 异步处理"></a>8. 异步处理</h2><h3 id="8-1-Promise"><a href="#8-1-Promise" class="headerlink" title="8-1. Promise"></a>8-1. Promise</h3><blockquote>
+<p>Promise是一套专门处理异步场景的规范，它能有效的避免回调地狱的产生，使异步代码更加清晰、简洁、统一</p>
+</blockquote>
+<h4 id="8-1-1-Promise规范"><a href="#8-1-1-Promise规范" class="headerlink" title="8-1-1. Promise规范"></a>8-1-1. Promise规范</h4><blockquote>
+<p>这套规范最早诞生于前端社区，规范名称为<a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promise A+</a></p>
+</blockquote>
+<ol>
+<li>所有的异步场景，都可以看作是一个异步任务，每个异步任务，在JS中应该表现为一个<strong>对象</strong>，该对象称之为<strong>Promise对象</strong>，也叫做任务对象</li>
+<li>每个任务对象，都应该有两个阶段、三个状态<br>根据常理，它们之间存在以下逻辑：<ul>
+<li>任务总是从未决阶段变到已决阶段，无法逆行</li>
+<li>任务总是从挂起状态变到完成或失败状态，无法逆行</li>
+<li>时间不能倒流，历史不可改写，任务一旦完成或失败，状态就固定下来，永远无法改变</li>
+</ul>
+</li>
+<li><code>挂起-&gt;完成</code>，称之为<code>resolve</code>；<code>挂起-&gt;失败</code>称之为<code>reject</code>。任务完成时，可能有一个相关数据；任务失败时，可能有一个失败原因。</li>
+<li>可以针对任务进行后续处理，针对完成状态的后续处理称之为onFulfilled，针对失败的后续处理称之为onRejected</li>
+</ol>
+<h4 id="8-1-2-PromiseAPI"><a href="#8-1-2-PromiseAPI" class="headerlink" title="8-1-2. PromiseAPI"></a>8-1-2. PromiseAPI</h4><blockquote>
+<p>ES6提供了一套API，实现了Promise A+规范</p>
+</blockquote>
+<p><strong>基本使用如下：</strong></p>
+<pre><code class="JavaScript">// 创建一个任务对象，该任务立即进入 pending 状态
+const pro = new Promise((resolve, reject) =&gt; &#123;
+  // 任务的具体执行流程，该函数会立即被执行
+  // 调用 resolve(data)，可将任务变为 fulfilled 状态， data 为需要传递的相关数据
+  // 调用 reject(reason)，可将任务变为 rejected 状态，reason 为需要传递的失败原因
+&#125;);
+
+pro.then(
+  (data) =&gt; &#123;
+    // onFulfilled 函数，当任务完成后，会自动运行该函数，data为任务完成的相关数据
+  &#125;,
+  (reason) =&gt; &#123;
+    // onRejected 函数，当任务失败后，会自动运行该函数，reason为任务失败的相关原因
+  &#125;
+);
+</code></pre>
+<p><strong>应用示例：</strong></p>
+<pre><code class="JavaScript">/**
+ * 延迟一段指定的时间
+ * @param &#123;Number&#125; duration 等待的时间
+ * @returns &#123;Promise&#125; 返回一个任务，该任务在指定的时间后完成
+ */
+function delay(duration) &#123;
+   //如果异步函数不存在失败则可以省略 reject 参数
+   return new Promise((resolve) =&gt; &#123;
+      setTimeout(() =&gt; &#123;
+         resolve();
+      &#125;, duration);
+   &#125;);
+&#125;;
+
+// 利用delay函数，等待1秒钟，输出：finish
+delay(1000).then(() =&gt; &#123;
+   console.log(&#39;finish&#39;);
+&#125;);
+</code></pre>
+<h4 id="8-1-3-Promise-的链式调用"><a href="#8-1-3-Promise-的链式调用" class="headerlink" title="8-1-3. Promise 的链式调用"></a>8-1-3. Promise 的链式调用</h4><p><strong>atch方法：</strong></p>
+<p><code>.catch(onRejected)</code> = <code>.then(null, onRejected)</code></p>
+<p><strong>链式调用：</strong></p>
+<ol>
+<li>then方法必定会返回一个新的Promise<br>可理解为<code>后续处理也是一个任务</code></li>
+<li><strong>【重点】新任务的状态取决于后续处理：</strong><ul>
+<li>若没有相关的后续处理，新任务的状态和前任务一致，数据为前任务的数据</li>
+<li>若有后续处理但还未执行，新任务挂起。</li>
+<li>若后续处理执行了，则根据后续处理的情况确定新任务的状态<ul>
+<li>后续处理执行无错，新任务的状态为完成，数据为后续处理的返回值</li>
+<li>后续处理执行有错，新任务的状态为失败，数据为异常对象</li>
+<li>后续执行后返回的是一个任务对象，新任务的状态和数据与该任务对象一致</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="8-1-4-Promise-的静态方法"><a href="#8-1-4-Promise-的静态方法" class="headerlink" title="8-1-4. Promise 的静态方法"></a>8-1-4. Promise 的静态方法</h4><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Promise.resolve(data)</td>
+<td>直接返回一个完成状态的任务</td>
+</tr>
+<tr>
+<td>Promise.reject(reason)</td>
+<td>直接返回一个拒绝状态的任务</td>
+</tr>
+<tr>
+<td>Promise.all(任务数组)</td>
+<td>返回一个任务<br />任务数组全部成功则成功<br />任何一个失败则失败</td>
+</tr>
+<tr>
+<td>Promise.any(任务数组)</td>
+<td>返回一个任务<br />任务数组任一成功则成功<br />任务全部失败则失败</td>
+</tr>
+<tr>
+<td>Promise.allSettled(任务数组)</td>
+<td>返回一个任务<br />任务数组全部已决则成功<br />该任务不会失败</td>
+</tr>
+<tr>
+<td>Promise.race(任务数组)</td>
+<td>返回一个任务<br />任务数组任一已决则已决，状态和其一致</td>
+</tr>
+</tbody></table>
+<h4 id="8-1-5-async-和-await"><a href="#8-1-5-async-和-await" class="headerlink" title="8-1-5. async 和 await"></a>8-1-5. async 和 await</h4><p><strong>消除回调：</strong><br>有了Promise，异步任务就有了一种统一的处理方式<br>有了统一的处理方式，ES官方就可以对其进一步优化<br>ES7推出了两个关键字<code>async</code>和<code>await</code>，用于更加优雅的表达Promise</p>
+<p><strong>async:</strong></p>
+<blockquote>
+<p>async关键字用于修饰函数，被它修饰的函数，一定返回Promise</p>
+</blockquote>
+<pre><code class="JavaScript">async function method1()&#123;
+  return 1; // 该函数的返回值是Promise完成后的数据
+&#125;
+
+method1(); // Promise &#123; 1 &#125;
+
+async function method2()&#123;
+  return Promise.resolve(1); // 若返回的是Promise，则method得到的Promise状态和其一致
+&#125;
+
+method2(); // Promise &#123; 1 &#125;
+
+async function method3()&#123;
+  throw new Error(1); // 若执行过程报错，则任务是rejected
+&#125;
+
+method3(); // Promise &#123; &lt;rejected&gt; Error(1) &#125;
+</code></pre>
+<p><strong>await:</strong></p>
+<blockquote>
+<p><code>await</code>关键字表示等待某个Promise完成，<strong>它必须用于<code>async</code>函数中</strong></p>
+</blockquote>
+<pre><code class="JavaScript">async function method()&#123;
+  const n = await Promise.resolve(1);
+  console.log(n); // 1
+&#125;
+
+// 上面的函数等同于
+function method()&#123;
+  return new Promise((resolve, reject)=&gt;&#123;
+    Promise.resolve(1).then(n=&gt;&#123;
+      console.log(n);
+      resolve(1)
+    &#125;)
+  &#125;)
+&#125;
+</code></pre>
+<p><strong><code>await</code>也可以等待其他数据</strong></p>
+<pre><code class="JavaScript">async function method()&#123;
+  const n = await 1; // 等同于 await Promise.resolve(1)
+&#125;
+</code></pre>
+<p><strong>如果需要针对失败的任务进行处理，可以使用<code>try-catch</code>语法</strong></p>
+<pre><code class="JavaScript">async function method()&#123;
+  try&#123;
+    const n = await Promise.reject(123); // 这句代码将抛出异常
+    console.log(&#39;成功&#39;, n)
+  &#125;
+  catch(err)&#123;
+    console.log(&#39;失败&#39;, err)
+  &#125;
+&#125;
+
+method(); // 输出： 失败 123
+</code></pre>
+<p><strong>应用示例：</strong></p>
+<pre><code class="JavaScript">//需要异步处理的数据
+const arr = [1,2,3,4,5,6,7,8,9];
+
+//异步处理：1s处理一个
+function asyncMethod(param) &#123;
+   return new Promise((resolve, reject)=&gt;&#123;
+         setTimeout(() =&gt; &#123;
+            if(Math.random() &lt; 0.3)&#123;
+               resolve(`成功：$&#123;param&#125;`);
+            &#125;else&#123;
+               reject(`失败：$&#123;param&#125;`);
+            &#125;
+         &#125;, 1000);
+   &#125;);
+&#125;;
+
+//【重点】处理数据并输出结果
+async function runArr(arrs) &#123;
+   for (const value of arrs) &#123;
+      try&#123;
+         const result = await asyncMethod(value);
+         console.log(result);
+      &#125;catch(err)&#123;
+         console.log(err);
+      &#125;;
+   &#125;;
+&#125;;
+
+runArr(arr);   //每隔1s 输出一个结果
+</code></pre>
+<h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
