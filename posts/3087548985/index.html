@@ -91,7 +91,7 @@
 <p><strong>JS引擎对事件队列的取出执行方式，以及与宿主环境的配合，称之为事件循环。</strong></p>
 <h2 id="微任务与宏任务"><a href="#微任务与宏任务" class="headerlink" title="微任务与宏任务"></a>微任务与宏任务</h2><p>事件队列在不同的宿主环境中有所差异，大部分宿主环境会将事件队列进行细分。在浏览器中，<strong>事件队列</strong>分为两种：</p>
 <ul>
-<li>宏任务【macro task】：<ul>
+<li>宏任务【macro task】<ul>
 <li>script(整体代码)</li>
 <li>事件回调</li>
 <li>计时器结束的回调 <code>setTimeout</code> <code>setInterval</code></li>
@@ -100,7 +100,7 @@
 <li>等等绝大部分异步函数进入宏队列</li>
 </ul>
 </li>
-<li>微任务【micro task】：<ul>
+<li>微任务【micro task】<ul>
 <li><code>Promise</code></li>
 <li><code>process.nextTick</code> <code>Object.observe</code> <code>MutationObserver</code></li>
 </ul>
