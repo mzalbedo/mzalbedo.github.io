@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            事件循环
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,15 +31,28 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle">事件循环</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-09-14
+                        </span>
+                        
+                            <span id="/posts/3087548985/" class="leancloud_visitors" data-flag-title="事件循环">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/3087548985/"></span>
+                        </span>  
+                    </p>
+                    
+                    
                 </div>
             
         </div>
@@ -48,47 +61,148 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
-                        
-                            目前共计 5 篇日志，继续加油！
-                        
-                    </span>
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>JS运行的环境称之为宿主环境。</p>
+</blockquote>
+<h2 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h2><blockquote>
+<p>执行栈：<code>call stack</code>，一个数据结构，用于存放各种函数的执行环境，每一个函数执行之前，它的相关信息会加入到执行栈。函数调用之前，创建执行环境，然后加入到执行栈；函数调用之后，销毁执行环境。</p>
+</blockquote>
+<p><strong>JS引擎永远执行的是执行栈的最顶部。</strong></p>
+<h2 id="异步函数"><a href="#异步函数" class="headerlink" title="异步函数"></a>异步函数</h2><blockquote>
+<p>异步函数：某些函数不会立即执行，需要等到某个时机到达后才会执行，这样的函数称之为异步函数。比如事件处理函数。异步函数的执行时机，会被宿主环境控制。</p>
+</blockquote>
+<p><strong>浏览器宿主环境中包含5个线程：</strong></p>
+<ol>
+<li>JS引擎：负责执行执行栈的最顶部代码</li>
+<li>GUI线程：负责渲染页面</li>
+<li>事件监听线程：负责监听各种事件</li>
+<li>计时线程：负责计时</li>
+<li>网络线程：负责网络通信</li>
+</ol>
+<p>当上面的线程发生了某些事请，如果该线程发现，这件事情有处理程序，它会将该处理程序加入一个叫做事件队列的内存。当JS引擎发现，执行栈中已经没有了任何内容后，会将事件队列中的第一个函数加入到执行栈中执行。</p>
+<p><strong>JS引擎对事件队列的取出执行方式，以及与宿主环境的配合，称之为事件循环。</strong></p>
+<h2 id="微任务与宏任务"><a href="#微任务与宏任务" class="headerlink" title="微任务与宏任务"></a>微任务与宏任务</h2><p>事件队列在不同的宿主环境中有所差异，大部分宿主环境会将事件队列进行细分。在浏览器中，<strong>事件队列</strong>分为两种：</p>
+<ul>
+<li>宏任务【macro task】：<ul>
+<li>script(整体代码)</li>
+<li>事件回调</li>
+<li>计时器结束的回调 <code>setTimeout</code> <code>setInterval</code></li>
+<li><code>setImmediate</code> <code>I/O</code> <code>UI rendering</code></li>
+<li>http回调</li>
+<li>等等绝大部分异步函数进入宏队列</li>
+</ul>
+</li>
+<li>微任务【micro task】：<ul>
+<li><code>Promise</code></li>
+<li><code>process.nextTick</code> <code>Object.observe</code> <code>MutationObserver</code></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>MutationObserver用于监听某个DOM对象的变化</p>
+</blockquote>
+<p><strong>注意:</strong></p>
+<ol>
+<li><strong><code>Promise</code> 的异步体现在 <code>then</code> 和 <code>catch</code> ，所以 <code>new Promise</code> 中的代码会立即执行</strong></li>
+<li><strong><code>async</code> 函数也会立即执行，不会造成阻塞，遇到 <code>await</code> 会执行 <code>await</code> 代码，人后将 <code>await</code> 后面的代码加入到微任务中，跳出当前 <code>async</code> 函数（ <code>await</code> 后面的代码相当于 <code>Promise.then</code> 中的代码）</strong></li>
+</ol>
+<h2 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 <code>Event Loop</code></h2><p>调用栈中的同步任务都执行完毕，栈内被清空了，就代表主线程空闲了，这个时候就会去任务队列中按照顺序读取一个任务放入执行栈中执行。任务队列分为宏任务和微任务，当主线程空闲了，会优先取微任务队列中的任务进行执行，直到微任务队列清空，再去宏任务队列中取宏任务进行执行。然后再看是否有微任，如果有就执行微任务，没有就继续执行下一个宏任务。如此循环，就形成了事件循环，第一次事件循环中，js引擎会把整个 <code>script</code> 代码当成一个宏任务执行。（总之每次执行完一个宏任务就会去看看是否有微任务）</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ol>
+<li><p>输出结果：<code>247536async2的结果1</code></p>
+<pre><code class="JavaScript">setTimeout(function()&#123;  //1、执行异步：放入宏任务队列
+    console.log(&quot;1&quot;);   
+&#125;,0);
+
+async function async1() &#123;
+    console.log(&quot;2&quot;);   //3、在执行过程中，这里是同步代码，直接执行
+    const data = await async2();    //4、遇到await，执行await后面的代码，即执行async2函数；
+    //await会返回一个promise,await下面的代码会在async2函数成功后将其放入微任务队列
+    console.log(&quot;3&quot;);   //8、async2执行成功，添加进微任务队列
+    return data;
+&#125;;
+
+async function async2() &#123;
+    return new Promise((resolve) =&gt; &#123;
+        console.log(&quot;4&quot;);   //5、这里是同步执行代码
+        resolve(&quot;async2的结果&quot;);    //6、将当前promise函数状态置位成功；
+    &#125;).then((data) =&gt; &#123;
+        console.log(&quot;5&quot;);   //7、添加进微任务队列
+        return data;
+    &#125;);
+&#125;;
+
+async1().then((data) =&gt; &#123;   //2、执行async1函数
+    console.log(&quot;6&quot;);   //9、async1执行成功，添加进微任务队列
+    console.log(data);
+&#125;);
+
+new Promise(function (resolve) &#123;
+    console.log(&quot;7&quot;);   //同步执行
+&#125;).then(function()&#123;
+    console.log(&quot;8&quot;);
+&#125;);
+</code></pre>
+</li>
+</ol>
+<h2 id="关于promise-then-的回调函数是在什么时候进入微任务队列的"><a href="#关于promise-then-的回调函数是在什么时候进入微任务队列的" class="headerlink" title="关于promise.then 的回调函数是在什么时候进入微任务队列的"></a>关于<code>promise.then</code> 的回调函数是在什么时候进入微任务队列的</h2><p><strong>通俗易懂：</strong><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000022578087?utm_source=sf-similar-question"><strong>原文地址</strong></a></p>
+<ol>
+<li><code>then</code> 是在 <code>resolve</code> 之前被调用的<blockquote>
+<p><code>then</code> 在 <code>resolve</code> 之前，<code>then</code> 不会加微任务，而是缓存起来，<code>resolve</code> 看到缓存里又 <code>then</code> 的回调，于是加微任务。</p>
+</blockquote>
+</li>
+<li><code>then</code> 是在 <code>resolve</code> 之后被调用的<blockquote>
+<p><code>resolve</code> 在 <code>then</code> 之前，<code>resolve</code> 的时候还没有任何回调要执行，自然不会加微任务。<code>then</code> 的时候发现已经 <code>fullfilled</code> ，于是直接加微任务。</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>源码级：</strong><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/62305365/answer/1524405758"><strong>原文地址</strong></a><br>结论：调用 then 方法时 Promise 状态为 fulfilled，回调函数 onFulfilled 直接加入 microtask 队列；调用 then 方法时 Promise 状态为 pending，首先将 onFulfilled 加入一个链表，待 Promise 状态变为 fulfilled 后，将链表中的每一项加入 microtask 队列。</p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/3087548985/" target="_blank">事件循环</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                <div class="article-prev-next">
                     
                     
-                        
-                            <div class="archive-title">
-                                <h2 class="archive-year">2022</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/4017600111/"><span>JQuery常用语法笔记【精简版】</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">08-31</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/undefined/"><span>Hello World</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">08-23</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/1209193269/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1209193269/" title="发布于 2022-09-04 09:46">Markdownlint书写的规范</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -120,7 +234,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
