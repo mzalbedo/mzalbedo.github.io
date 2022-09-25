@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            设计模式-单例模式
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,15 +31,34 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle">设计模式-单例模式</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-09-25
+                        </span>
+                        
+                            <span id="/posts/1776793711/" class="leancloud_visitors" data-flag-title="设计模式-单例模式">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1776793711/"></span>
+                        </span>  
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">JavaScript</span>
+                        
+                            <span class="tag-color">设计模式</span>
+                        
+                    
                 </div>
             
         </div>
@@ -48,107 +67,116 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><blockquote>
+<p>在它的核心结构中只包含一个被称为单例的特殊类。通过单例模式可以保证系统中，应用该模式的类一个类只有一个实例。即一个类只有一个对象实例</p>
+</blockquote>
+<h3 id="1-1-定义"><a href="#1-1-定义" class="headerlink" title="1-1. 定义"></a>1-1. 定义</h3><ul>
+<li>保证一个类仅有一个实例，并提供一个访问它的全局访问点</li>
+</ul>
+<h3 id="1-2-注意"><a href="#1-2-注意" class="headerlink" title="1-2. 注意"></a>1-2. 注意</h3><ul>
+<li>单例类只能有一个实例。</li>
+<li>单例类必须自己创建自己的唯一实例。</li>
+<li>单例类必须给所有其他对象提供这一实例【全局访问】。</li>
+</ul>
+<h3 id="1-3-优点"><a href="#1-3-优点" class="headerlink" title="1-3. 优点"></a>1-3. 优点</h3><ul>
+<li>减少了内存的开销</li>
+<li>减少了对资源的多重占用</li>
+</ul>
+<h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2. 实现"></a>2. 实现</h2><blockquote>
+<p>针对单一场景，如果存在多个场景需要重复编写</p>
+</blockquote>
+<pre><code class="JavaScript">var Test = (function() &#123;
+    var instance;
+    return function (name)&#123;
+        if (typeof instance === &#39;object&#39;) &#123;
+            return instance;
+        &#125;
+        instance = this;
+        this.name = name;
+    &#125;
+&#125;)();
+
+var a = new Test();
+Test.prototype.lastName = &#39;bifang&#39;;
+var b = new Test();
+
+console.log(a === b, a.lastName, b.lastName);  //true &#39;bifang&#39; &#39;bifang&#39;
+</code></pre>
+<h2 id="3-提取通用单例"><a href="#3-提取通用单例" class="headerlink" title="3. 提取通用单例"></a>3. 提取通用单例</h2><blockquote>
+<p>通过方法将普通方法转换为单例方法</p>
+</blockquote>
+<pre><code class="JavaScript">var getSingle = function( fn )&#123;
+    var result;
+    if(!result)&#123;
+        result = fn.apply(this, arguments)
+    &#125;
+    return function()&#123;
+        return result
+    &#125;;
+&#125;;
+
+//使用
+var singleFn = getSingle(fn);
+</code></pre>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1776793711/" target="_blank">设计模式-单例模式</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
                         
-                            目前共计 8 篇日志，继续加油！
+                            <a href="/tags/JavaScript/">JavaScript</a>
                         
-                    </span>
-                    
-                    
+                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
                         
-                            <div class="archive-title">
-                                <h2 class="archive-year">2022</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3822496321/"><span>设计模式-代理模式</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-25</span>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                
+                <div class="article-prev-next">
                     
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1776793711/"><span>设计模式-单例模式</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-25</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/3822496321/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/3822496321/" title="发布于 2022-09-25 04:23">设计模式-代理模式</a>
+                        <br>
                     
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/911124684/"><span>设计模式</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-18</span>
-                                </div>
-                            </div>
-                        </div>
                     
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3087548985/"><span>事件循环</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-14</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1209193269/"><span>Markdownlint书写的规范</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-04</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/2688907508/"><span>ES6学习笔记【精简版】</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-04</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/4017600111/"><span>JQuery常用语法笔记【精简版】</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">08-31</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/undefined/"><span>Hello World</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">08-23</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/911124684/" class="next-prefix">» </a> 下一篇：    <a href="/posts/911124684/" title="发布于 2022-09-18 03:14">设计模式</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -180,7 +208,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     

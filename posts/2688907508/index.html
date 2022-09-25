@@ -1247,6 +1247,14 @@ delay(1000).then(() =&gt; &#123;
 </ul>
 </li>
 </ol>
+<p><strong>注意：</strong><br><code>.then()</code> 和 <code>.catch()</code> 方法接收的是一个方法函数；如果不是一个方法那么就相当于传入 <code>null</code>，即没有注册回调函数，所以回调可以直接忽略，代码如下：</p>
+<pre><code class="JavaScript">Promise.resolve(1).then(2).then(Promise.resolve(3)).then(console.log);
+
+//等价于如下代码
+Promise.resolve(1).then(console.log);
+
+//最终结果：1
+</code></pre>
 <h4 id="8-1-4-Promise-的静态方法"><a href="#8-1-4-Promise-的静态方法" class="headerlink" title="8-1-4. Promise 的静态方法"></a>8-1-4. Promise 的静态方法</h4><table>
 <thead>
 <tr>
