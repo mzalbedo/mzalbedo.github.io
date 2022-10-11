@@ -1378,7 +1378,192 @@ async function runArr(arrs) &#123;
 
 runArr(arr);   //每隔1s 输出一个结果
 </code></pre>
-<h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="9-Fetch-Api"><a href="#9-Fetch-Api" class="headerlink" title="9. Fetch Api"></a>9. Fetch Api</h2><h3 id="9-1-Fetch-Api-概述"><a href="#9-1-Fetch-Api-概述" class="headerlink" title="9-1. Fetch Api 概述"></a>9-1. Fetch Api 概述</h3><p><strong>XMLHttpRequest的问题：</strong></p>
+<ol>
+<li>所有的功能全部集中在同一个对象上，容易书写出混乱不易维护的代码</li>
+<li>采用传统的事件驱动模式（回调，注册事件等），无法适配新的 Promise Api</li>
+</ol>
+<p><strong>Fetch Api 的特点：</strong></p>
+<ol>
+<li>并非取代 AJAX，而是对 AJAX 传统 API 的改进<blockquote>
+<p>AJAX 是一个概念，不刷新浏览器下，异步请求数据；和实现方法无关。</p>
+</blockquote>
+</li>
+<li>精细的功能分割：头部信息、请求信息、响应信息等均分布到不同的对象，更利于处理各种复杂的 AJAX 场景</li>
+<li>使用 Promise Api，更利于异步代码的书写</li>
+<li><strong>Fetch Api 并非 ES6 的内容，属于 HTML5 新增的 Web Api</strong></li>
+<li>需要掌握网络通信的知识</li>
+</ol>
+<h3 id="9-2-基本使用"><a href="#9-2-基本使用" class="headerlink" title="9-2. 基本使用"></a>9-2. 基本使用</h3><blockquote>
+<p>请求测试地址：<code>http://101.132.72.36:5100/api/local</code></p>
+</blockquote>
+<p>使用 <code>fetch</code> 函数即可立即向服务器发送网络请求</p>
+<h4 id="9-2-1-参数"><a href="#9-2-1-参数" class="headerlink" title="9-2-1. 参数"></a>9-2-1. 参数</h4><ol>
+<li>必填，字符串，请求地址</li>
+<li>选填，对象，请求配置</li>
+</ol>
+<p><strong>数据请求示例代码：</strong></p>
+<pre><code class="JavaScript">const url = &#39;http://101.132.72.36:5100/api/local&#39;;
+const config = &#123;
+   method: &quot;POST&quot;,
+   headers: &#123;
+      &quot;Content-Type&quot;: &quot;application/json&quot;,
+      &quot;a&quot;:1
+   &#125;,
+   body: `&#123; &quot;a&quot;:&quot;1&quot; &#125;`
+&#125;;
+
+fetch(url, config);
+</code></pre>
+<p><strong>请求配置对象：</strong></p>
+<ul>
+<li>method：字符串，请求方法，默认值GET</li>
+<li>headers：对象，请求头信息</li>
+<li>body: 请求体的内容，必须匹配请求头中的 Content-Type</li>
+<li>mode：字符串，请求模式<ul>
+<li>cors：默认值，配置为该值，会在请求头中加入 origin 和 referer</li>
+<li>no-cors：配置为该值，不会在请求头中加入 origin 和 referer，跨域的时候可能会出现问题</li>
+<li>same-origin：指示请求必须在同一个域中发生，如果请求其他域，则会报错</li>
+</ul>
+</li>
+<li>credentials: 如何携带凭据（cookie）<ul>
+<li>omit：默认值，不携带cookie</li>
+<li>same-origin：请求同源地址时携带cookie</li>
+<li>include：请求任何地址都携带cookie</li>
+</ul>
+</li>
+<li>cache：配置缓存模式<ul>
+<li>default: 表示fetch请求之前将检查下http的缓存.</li>
+<li>no-store: 表示fetch请求将完全忽略http缓存的存在. 这意味着请求之前将不再检查下http的缓存, 拿到响应后, 它也不会更新http缓存.</li>
+<li>no-cache: 如果存在缓存, 那么fetch将发送一个条件查询request和一个正常的request, 拿到响应后, 它会更新http缓存.</li>
+<li>reload: 表示fetch请求之前将忽略http缓存的存在, 但是请求拿到响应后, 它将主动更新http缓存.</li>
+<li>force-cache: 表示fetch请求不顾一切的依赖缓存, 即使缓存过期了, 它依然从缓存中读取. 除非没有任何缓存, 那么它将发送一个正常的request.</li>
+<li>only-if-cached: 表示fetch请求不顾一切的依赖缓存, 即使缓存过期了, 它依然从缓存中读取. 如果没有缓存, 它将抛出网络错误(该设置只在mode为”same-origin”时有效).</li>
+</ul>
+</li>
+</ul>
+<h4 id="9-2-2-返回值"><a href="#9-2-2-返回值" class="headerlink" title="9-2-2. 返回值"></a>9-2-2. 返回值</h4><p><code>fetch</code> 函数返回一个 <code>Promise</code> 对象</p>
+<ul>
+<li>当收到服务器的返回结果后（无论请求是否成功，无论状态码是多少），<code>Promise</code> 进入 <code>resolved</code> 状态，状态数据为 <code>Response</code> 对象</li>
+<li>当网络发生错误（或其他导致无法完成交互的错误）时，<code>Promise</code> 进入 <code>rejected</code> 状态，状态数据为错误信息。</li>
+</ul>
+<p><strong>数据返回使用示例：</strong></p>
+<pre><code class="JavaScript">async function getProvinces() &#123;
+
+   const url = &#39;http://101.132.72.36:5100/api/local&#39;;
+   
+   // 方式一
+   fetch(url).then( resp =&gt; &#123;
+      console.log(resp);
+   &#125;).catch( err =&gt; &#123;
+      console.log(err);
+   &#125;);
+   
+   //方式二【推荐】
+   try&#123;
+      const resp = await fetch(url);
+      console.log(resp);
+   &#125;catch (err) &#123;
+      console.log(err);
+   &#125;;
+&#125;;
+</code></pre>
+<p><strong>Response对象：</strong></p>
+<ul>
+<li>ok：boolean，当响应消息码在200~299之间时为true，其他为false</li>
+<li>status：number，响应的状态码</li>
+<li>text()：用于处理文本格式的 Ajax 响应。它从响应中获取文本流，将其读完，然后返回一个被解决为 string 对象的 Promise。</li>
+<li>blob()：用于处理二进制文件格式（比如图片或者电子表格）的 Ajax 响应。它读取文件的原始数据，一旦读取完整个文件，就返回一个被解决为 blob 对象的 Promise。</li>
+<li>json()：用于处理 JSON 格式的 Ajax 的响应。它将 JSON 数据流转换为一个被解决为 JavaScript 对象的promise。</li>
+<li>redirect()：可以用于重定向到另一个 URL。它会创建一个新的 Promise，以解决来自重定向的 URL 的响应。</li>
+</ul>
+<p><strong>使用示例：</strong></p>
+<pre><code class="JavaScript">async function getProvinces() &#123;
+   const url = &quot;http://101.132.72.36:5100/api/local&quot;;
+   const resp = await fetch(url)
+   const result = await resp.json();
+   console.log(result)
+&#125;;
+</code></pre>
+<h3 id="9-3-Request-对象"><a href="#9-3-Request-对象" class="headerlink" title="9-3. Request 对象"></a>9-3. Request 对象</h3><p>除了使用基本的fetch方法，还可以通过创建一个Request对象来完成请求（实际上，fetch的内部会帮你创建一个Request对象）</p>
+<pre><code class="JavaScript">new Request(url地址, 配置);
+</code></pre>
+<p><strong>具体应用：</strong></p>
+<pre><code class="JavaScript">async function getProvinces() &#123;
+   const url = &quot;http://101.132.72.36:5100/api/local&quot;;
+   const req = new Request(url, &#123;&#125;);
+   const resp = await fetch(req)
+   const result = await resp.json();
+   console.log(result)
+&#125;;
+</code></pre>
+<p><strong>注意点：</strong><br>尽量保证每次请求都是一个新的Request对象。</p>
+<blockquote>
+<p>如果获得了一个Request对象，但不清楚是否请求过，可以通过 <code>Request</code> 对象上的 <code>clone</code> 方法获得一个完全相同的新对象；</p>
+</blockquote>
+<pre><code class="JavaScript">//req: Request 对象；
+req.clone(); //克隆一个全新的request对象，配置一致
+</code></pre>
+<h3 id="9-4-Response-对象"><a href="#9-4-Response-对象" class="headerlink" title="9-4. Response 对象"></a>9-4. Response 对象</h3><blockquote>
+<p>fetch() 成功收到服务器的返回的状态数据；<a href="#9-2-2-%E8%BF%94%E5%9B%9E%E5%80%BC">详情说明</a></p>
+</blockquote>
+<pre><code class="JavaScript">async function getProvinces() &#123;
+
+   const resp = new Response(`[
+      &#123;&quot;id&quot;:1, &quot;name&quot;:&quot;北京&quot;&#125;,
+      &#123;&quot;id&quot;:2, &quot;name&quot;:&quot;天津&quot;&#125;
+   ]`,
+   &#123;
+      ok: true,
+      status: 200
+   &#125;);
+   const result = await resp.json();
+   console.log(result)
+&#125;
+</code></pre>
+<h3 id="9-5-Headers-对象"><a href="#9-5-Headers-对象" class="headerlink" title="9-5. Headers 对象"></a>9-5. Headers 对象</h3><p>在Request和Response对象内部，会将传递的请求头对象，转换为Headers</p>
+<p>Headers对象中的方法：</p>
+<ul>
+<li>has(key)：检查请求头中是否存在指定的key值</li>
+<li>get(key): 得到请求头中对应的key值</li>
+<li>set(key, value)：修改对应的键值对,不存在则新增</li>
+<li>append(key, value)：添加对应的键值对，存在不会覆盖，获取值用逗号隔开</li>
+<li>keys(): 得到所有的请求头键的集合</li>
+<li>values(): 得到所有的请求头中的值的集合</li>
+<li>entries(): 得到所有请求头中的键值对的集合</li>
+</ul>
+<p><strong>应用场景：</strong></p>
+<blockquote>
+<p>统一封装请求头</p>
+</blockquote>
+<pre><code class="JavaScript">function getCommonHeaders() &#123;
+   return new Headers(&#123;
+         a: 1,
+         b: 2
+   &#125;);
+&#125;;
+
+const url = &quot;http://101.132.72.36:5100/api/local&quot;;
+const headers = getCommonHeaders();
+headers.set(&quot;a&quot;, 3);
+req = new Request(url, &#123;
+   headers
+&#125;);
+</code></pre>
+<h3 id="9-6-文件上传"><a href="#9-6-文件上传" class="headerlink" title="9-6. 文件上传"></a>9-6. 文件上传</h3><p><strong>流程：</strong></p>
+<ol>
+<li>客户端将文件数据发送给服务器</li>
+<li>服务器保存上传的文件数据到服务器端</li>
+<li>服务器响应给客户端一个文件访问地址</li>
+</ol>
+<blockquote>
+<p>测试地址：<code>http://101.132.72.36:5100/api/upload</code><br>键的名称（表单域名称）：imagefile</p>
+</blockquote>
+<p><strong>请求方法</strong>：POST<br><strong>请求的表单格式</strong>：multipart/form-data<br>请求体中必须包含一个键值对，键的名称是服务器要求的名称，值是文件数据</p>
+<blockquote>
+<p>HTML5中，JS仍然无法随意的获取文件数据，但是可以获取到input元素中，被用户选中的文件数据<br>可以利用HTML5提供的FormData构造函数来创建请求体</p>
+</blockquote>
+<h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
