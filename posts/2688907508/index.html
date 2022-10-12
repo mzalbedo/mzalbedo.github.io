@@ -1557,13 +1557,66 @@ req = new Request(url, &#123;
 <li>服务器响应给客户端一个文件访问地址</li>
 </ol>
 <blockquote>
-<p>测试地址：<code>http://101.132.72.36:5100/api/upload</code><br>键的名称（表单域名称）：imagefile</p>
+<p>测试地址：<code>http://101.132.72.36:5100/api/upload</code><br>键的名称（表单域名称,和后端沟通确定）：imagefile</p>
 </blockquote>
 <p><strong>请求方法</strong>：POST<br><strong>请求的表单格式</strong>：multipart/form-data<br>请求体中必须包含一个键值对，键的名称是服务器要求的名称，值是文件数据</p>
 <blockquote>
 <p>HTML5中，JS仍然无法随意的获取文件数据，但是可以获取到input元素中，被用户选中的文件数据<br>可以利用HTML5提供的FormData构造函数来创建请求体</p>
 </blockquote>
-<h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">/* &lt;input type=&quot;file&quot; id=&quot;avatar&quot; /&gt; */
+
+async function upload() &#123;
+   const inp = document.getElementById(&quot;avatar&quot;);
+   if(inp.files.length === 0)&#123;
+      alert(&quot;请选择上传文件！&quot;);
+      return;
+   &#125;;
+   const formData = new FormData(); //构建一个空的请求体
+   formData.append(&quot;imagefile&quot;, inp.files[0]);  //1、键值名称，2、二进制数据
+   const url = &quot;http://101.132.72.36:5100/api/upload&quot;;
+   const resp = await fetch(url, &#123;
+      method: &quot;POST&quot;,
+      body: formData //会自动修改请求头（修改Content-Type类型）
+   &#125;);
+   const result = await resp.json();
+   console.log(result);
+&#125;;
+</code></pre>
+<h2 id="10-迭代器和生成器"><a href="#10-迭代器和生成器" class="headerlink" title="10. 迭代器和生成器"></a>10. 迭代器和生成器</h2><h3 id="10-1-迭代器"><a href="#10-1-迭代器" class="headerlink" title="10-1. 迭代器"></a>10-1. 迭代器</h3><h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><ol>
+<li><p>什么是迭代？</p>
+<p>从一个数据集合中按照一定的顺序，不断取出数据的过程</p>
+</li>
+<li><p>迭代和遍历的区别？</p>
+<p>迭代强调的是依次取数据，并不保证取多少，也不保证把所有的数据取完</p>
+<p>遍历强调的是要把整个数据依次全部取出</p>
+</li>
+<li><p>迭代器</p>
+<p>对迭代过程的封装，在不同的语言中有不同的表现形式，通常为对象</p>
+</li>
+<li><p>迭代模式</p>
+<p>一种设计模式，用于统一迭代过程，并规范了迭代器规格</p>
+<ul>
+<li>迭代器应该具有得到下一个数据的能力</li>
+<li>迭代器应该具有判断是否还有后续数据的能力</li>
+</ul>
+</li>
+</ol>
+<h4 id="JS中的迭代器"><a href="#JS中的迭代器" class="headerlink" title="JS中的迭代器"></a>JS中的迭代器</h4><p>JS规定，如果一个对象具有 <code>next</code> 方法，并且该方法返回一个对象，该对象的格式如下：</p>
+<pre><code class="JavaScript">&#123;value: 值, done: 是否迭代完成&#125;
+</code></pre>
+<p>则认为该对象是一个迭代器；</p>
+<p><strong>示例：</strong></p>
+<pre><code class="JavaScript">const obj = &#123;
+   next() &#123;
+      return &#123;
+         value: xxx,
+         done: xx
+      &#125;
+   &#125;;
+&#125;;
+</code></pre>
+<h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
