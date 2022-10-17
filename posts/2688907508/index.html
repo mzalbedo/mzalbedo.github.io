@@ -1665,6 +1665,169 @@ const iter2 = createIterator(arr2);
    &#125;
 &#125;
 </code></pre>
+<h4 id="for-of-循环"><a href="#for-of-循环" class="headerlink" title="for-of 循环"></a>for-of 循环</h4><p>for-of 循环用于遍历可迭代对象，格式如下</p>
+<pre><code class="JavaScript">//迭代完成后循环结束
+for (const item of iterable)&#123;
+   //iterable：可迭代对象
+   //item：每次迭代得到的数据
+&#125;
+</code></pre>
+<h4 id="展开运算符与可迭代对象"><a href="#展开运算符与可迭代对象" class="headerlink" title="展开运算符与可迭代对象"></a>展开运算符与可迭代对象</h4><p>展开运算符可以作用于可迭代对象，这样，就可以轻松的将可迭代对象转换为数组。</p>
+<h3 id="10-3-生成器-Generator"><a href="#10-3-生成器-Generator" class="headerlink" title="10-3. 生成器 (Generator)"></a>10-3. 生成器 (Generator)</h3><blockquote>
+<p>方便开发者自己书写迭代器</p>
+</blockquote>
+<ol>
+<li><p>什么是生成器？<br>生成器是一个通过构造函数Generator创建的对象（无法通过 <code>new</code> 关键字创建），生成器既是一个迭代器，同时又是一个可迭代对象</p>
+</li>
+<li><p>如何创建生成器？<br>生成器的创建，必须使用生成器函数( <code>Generator Function</code> )</p>
+</li>
+<li><p>如何书写一个生成器函数呢？</p>
+<blockquote>
+<p>再 <code>function</code> 后边或者方法名前边添加 <code>*</code></p>
+</blockquote>
+<pre><code class="JavaScript">//这是一个生成器函数，该函数一定返回一个生成器
+function *method()&#123;&#125;;
+
+function* method()&#123;&#125;;
+
+function*() &#123;&#125;
+
+&#123; *method()&#123;&#125; &#125;
+</code></pre>
+</li>
+<li><p>生成器函数内部是如何执行的？</p>
+<ul>
+<li>生成器函数内部是为了给生成器的每次迭代提供的数据（<strong>运行生成器函数时不会运行内部函数</strong>）</li>
+<li>每次调用生成器的 <code>next</code> 方法，将导致生成器函数运行到下一个 <code>yield</code> 关键字位置</li>
+<li><code>yield</code> 是一个关键字，该关键字只能在生成器函数内部使用，表达“产生”一个迭代数据</li>
+</ul>
+<pre><code class="JavaScript">function* test() &#123;
+   console.log(&quot;第1次运行&quot;);
+   yield 1;
+   console.log(&quot;第2次运行&quot;);
+   yield 2;
+   console.log(&quot;第3次运行&quot;);
+&#125;
+const generator = test();  //这里只作为生成器，不会执行test内部代码
+
+generator.next();    //第1次运行   &#123;value: 1, done: false&#125;
+generator.next();    //第2次运行   &#123;value: 2, done: false&#125;
+generator.next();    //第3次运行   &#123;value: undefined, done: true&#125;
+</code></pre>
+</li>
+<li><p>有哪些需要注意的细节？</p>
+<ol>
+<li><p>生成器函数可以有返回值，返回值出现在第一次done为true时的value属性中</p>
+</li>
+<li><p>调用生成器的next方法时，可以传递参数，传递的参数会交给<strong>yield表达式的返回值</strong></p>
+<pre><code class="JavaScript">function* test() &#123;
+   let info = yield 1;  //第一次执行next方法代码停在yield这里，info还没有接收到值，而且这里info接收到的值也不是1,如果next传参则yield的返回值为参数，否则为undefined;
+   console.log(info);
+   info = yield 2 + info;
+   console.log(info);
+&#125;;
+
+const generator1 = test();
+
+generator1.next();   //&#123;value: 1, done: false&#125;
+generator1.next(2);  //2    &#123;value: 4, done: false&#125;
+</code></pre>
+</li>
+<li><p>第一次调用next方法时，传参没有任何意义</p>
+</li>
+<li><p>在生成器函数内部，可以调用其他生成器函数，但是要<strong>注意加上 <code>*</code> 号</strong></p>
+<pre><code class="JavaScript">function* t1() &#123;
+   yield &quot;a&quot;;
+   yield &quot;b&quot;;
+&#125;;
+
+function* test() &#123;
+   yield* t1();   //相当于将上方t1中的代码拷贝到这里，及t1会参与迭代
+   yield 1;
+   yield 2;
+   yield 3;
+&#125;;
+
+const generator = test();
+
+generator.next();    //&#123;value: &#39;a&#39;, done: false&#125;
+generator.next();    //&#123;value: &#39;b&#39;, done: false&#125;
+generator.next();    //&#123;value: &#39;1&#39;, done: false&#125;
+generator.next();    //&#123;value: &#39;2&#39;, done: false&#125;
+</code></pre>
+</li>
+</ol>
+</li>
+<li><p>生成器的其他API</p>
+<ul>
+<li>return方法：调用该方法，可以提前结束生成器函数，从而提前让整个迭代过程结束</li>
+<li>throw方法：调用该方法，可以在生成器中产生一个错误</li>
+</ul>
+</li>
+</ol>
+<h3 id="10-4-生成器应用-异步任务控制"><a href="#10-4-生成器应用-异步任务控制" class="headerlink" title="10-4. 生成器应用-异步任务控制"></a>10-4. 生成器应用-异步任务控制</h3><blockquote>
+<p>在react中会经常使用<br>在ES5时，解决没有async和await</p>
+</blockquote>
+<p><strong>使用场景：</strong></p>
+<blockquote>
+<p>在ES5时，实现async和await的效果</p>
+</blockquote>
+<pre><code class="JavaScript">//延时函数
+function delay(time)&#123;
+   return new Promise((resolve, reject) =&gt; &#123;
+         setTimeout(function() &#123;
+            resolve(time);
+         &#125;,time);
+   &#125;);
+&#125;;
+
+//模拟async和await写法逻辑
+function* task() &#123;
+   const d = yield 1;  //代表其他数据及同步函数
+   console.log(d);
+   // const resp = yield fetch(&quot;http://101.132.72.36:5100/api/local&quot;);
+   // const result = yield resp.json();
+   // console.log(result);
+   const a = yield delay(3000);
+   console.log(a);
+   const b = yield &#39;b&#39;;
+   console.log(b);
+&#125;
+
+//具体实现
+function run(generatorFunc)&#123;
+   const generator = generatorFunc();    //生成迭代器
+   let result = generator.next();   //启动任务（开始迭代），得到迭代数据
+   handleResult();
+   function handleResult() &#123;
+      if(result.done)&#123;
+         return; //迭代完成
+      &#125;;
+      //迭代未完成，分为两种情况
+      //1、迭代的数据是一个Promise
+      //2、迭代的数据是其它数据
+      if(typeof result.value.then == &quot;function&quot;)&#123;
+         result.value.then(data =&gt; &#123;
+            //1、迭代的数据是一个Promise
+            result = generator.next(data);
+            handleResult();
+         &#125;, err =&gt; &#123;
+            result = generator.throw(err);
+            handleResult();
+         &#125;)
+      &#125;else&#123;
+         //2、迭代的数据是其它数据
+         result = generator.next(result.value);
+         handleResult();
+      &#125;;
+   &#125;
+&#125;;
+
+console.log(&#39;start&#39;);
+run(task);
+console.log(&#39;end&#39;);
+//结果：&#39;start&#39; 1 &#39;end&#39; 3000 &#39;b&#39;
+</code></pre>
 <h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
