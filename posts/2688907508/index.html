@@ -1828,7 +1828,342 @@ run(task);
 console.log(&#39;end&#39;);
 //结果：&#39;start&#39; 1 &#39;end&#39; 3000 &#39;b&#39;
 </code></pre>
-<h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
+<h2 id="11-更多的集合类型"><a href="#11-更多的集合类型" class="headerlink" title="11. 更多的集合类型"></a>11. 更多的集合类型</h2><h3 id="11-1-set-集合"><a href="#11-1-set-集合" class="headerlink" title="11-1. set 集合"></a>11-1. set 集合</h3><blockquote>
+<p>一直以来，JS只能使用数组和对象来保存多个数据，缺乏像其他语言那样拥有丰富的集合类型。因此，ES6新增了两种集合类型（set 和 map），用于在不同的场景中发挥作用。</p>
+</blockquote>
+<p>作用：<strong>set用于存放不重复的数据</strong></p>
+<ol>
+<li><p>如何创建set集合</p>
+<pre><code class="JavaScript">new Set(); //创建一个没有任何内容的set集合
+
+new Set(iterable); //创建一个具有初始内容的set集合，内容来自于可迭代对象每一次迭代的结果
+</code></pre>
+</li>
+<li><p>如何对set集合进行后续操作</p>
+<ul>
+<li>add(数据)：添加一个数据到set集合末尾，如果数据已存在，则不进行任何操作；<ul>
+<li>set使用Object.is的方式判断两个数据是否相同，但是，针对+0和-0，set认为是相等；</li>
+</ul>
+</li>
+<li>has(数据)：判断set中是是否存在对应的数据；</li>
+<li>delete(数据)：删除匹配的数据（同add使用Object.is进行匹配），返回是否删除成功；</li>
+<li>clear()：清空整个set集合；</li>
+<li>size: 获取set集合中的元素数量，只读属性，无法重新赋值；</li>
+</ul>
+</li>
+<li><p>如何与数组进行相互装换；</p>
+<pre><code class="JavaScript">//数组转set集合
+const s = new Set([x,x,x,x,x]);
+//set集合转数组
+const arr = [...s];
+</code></pre>
+</li>
+<li><p>如何遍历</p>
+<ul>
+<li>使用for-of循环</li>
+<li>使用set中的示例方法forEach</li>
+</ul>
+</li>
+</ol>
+<p><strong>注意</strong>：set集合中不存在下标，因此forEach中的回调的第二个参数和第一个参数是一致的，均表示set中的每一项；</p>
+<h3 id="11-2-set应用"><a href="#11-2-set应用" class="headerlink" title="11-2. set应用"></a>11-2. set应用</h3><pre><code class="JavaScript">// 两个数组的并集、交集、差集 （不能出现重复项），得到的结果是一个新数组
+const arr1 = [33, 22, 55, 33, 11, 33, 5];
+const arr2 = [22, 55, 77, 88, 88, 99, 99];
+
+//并集
+console.log(&#39;并集：&#39;, [...new Set(arr1.concat(arr2))]);
+
+//交集
+const s3 = new Set(arr2);
+var result = [...new Set(arr1)].filter(item =&gt; s3.has(item));
+console.log(&#39;交集：&#39;,result);
+
+//差集
+console.log(&#39;差集：&#39;, [...new Set([...arr1,...arr2])].filter(item =&gt; result.indexOf(item) &lt; 0));
+</code></pre>
+<h3 id="11-3-扩展-手写set"><a href="#11-3-扩展-手写set" class="headerlink" title="11-3. [扩展]手写set"></a>11-3. [扩展]手写set</h3><blockquote>
+<p>模拟实现，与js底层实现不同；js底层可直接操作内存，且数据存储使用的是链表</p>
+</blockquote>
+<pre><code class="JavaScript">class MySet &#123;
+    constructor(iterable = [])&#123;
+        //验证是否是可迭代的对象
+        if(typeof iterable[Symbol.iterator] !== &quot;function&quot;) &#123;
+            throw new TypeError(`你提供的$&#123;iterable&#125;不是一个可迭代的对象！`);
+        &#125;;
+        this._datas = [];
+        for (const item of iterable) &#123;
+            this.add(item);    
+        &#125;;
+    &#125;;
+
+    get size() &#123;
+        return this._datas.length;
+    &#125;;
+
+    add(data)&#123;
+        if(!this.has(data)) &#123;
+            this._datas.push(data);
+        &#125;;
+    &#125;;
+
+    has(data) &#123;
+        for (const item of this._datas) &#123;
+            if(this.isEqual(data, item))&#123;
+                return true;
+            &#125;;
+        &#125;;
+        return false;
+    &#125;;
+
+    delete(data) &#123;
+        for(let i = 0; i &lt; this._datas.length; i++) &#123;
+            const element = this._datas[i];
+            if(this.isEqual(element, data))&#123;
+                this._datas.splice(i, 1);
+                return true;
+            &#125;;
+        &#125;;
+        return false;
+    &#125;;
+
+    clear() &#123;
+        this._datas.length = 0;
+    &#125;;
+
+    *[Symbol.iterator]() &#123;
+        for(const item of this._datas) &#123;
+            yield item;
+        &#125;;
+    &#125;;
+
+    forEach(callback) &#123;
+        for(const item of this._datas)&#123;
+            callback(item, item, this);
+        &#125;;
+    &#125;;
+
+    /**
+     * 判断两个数据是否相等
+     * @param &#123;*&#125; data1 
+     * @param &#123;*&#125; data2 
+     */
+     isEqual(data1, data2) &#123;
+        if (data1 === 0 &amp;&amp; data2 === 0) &#123;
+            return true;
+        &#125;;
+        return Object.is(data1, data2);
+    &#125;;
+&#125;;
+</code></pre>
+<h3 id="11-4-map集合"><a href="#11-4-map集合" class="headerlink" title="11-4. map集合"></a>11-4. map集合</h3><p>键值对（key value pair）数据集合的特点：键不可重复</p>
+<p>map集合专门用于存储多个键值对数据。</p>
+<p>在map出现之前，我们使用的是对象的方式来存储键值对，键是属性名，值是属性值。</p>
+<p><strong>使用对象存储有以下问题：</strong></p>
+<ol>
+<li>键名只能是字符串</li>
+<li>获取数据的数量不方便</li>
+<li>键名容易跟原型上的名称冲突</li>
+</ol>
+<h4 id="11-4-1-如何创建map"><a href="#11-4-1-如何创建map" class="headerlink" title="11-4-1. 如何创建map"></a>11-4-1. 如何创建map</h4><pre><code class="JavaScript">//创建一个空的map
+new Map();
+
+//创建一个具有初始内容的map，初始内容来自于可迭代对象每一次迭代的结果，但是要求每一次迭代的结果必须是一个长度为2的数组，数组第一项表示键，数组的第二项表示值；
+new Map(iterable);
+
+//注意：即第一次迭代的结果不一定为数组但必须是可迭代的；
+new Map([[&quot;a&quot;, 3], [&quot;b&quot;, 4], [&quot;c&quot;, 5]]);
+</code></pre>
+<h4 id="11-4-2-如果进行后续操作"><a href="#11-4-2-如果进行后续操作" class="headerlink" title="11-4-2. 如果进行后续操作"></a>11-4-2. 如果进行后续操作</h4><ul>
+<li>size: 只读属性，获取当前map中键的数量；</li>
+<li>set(键, 值): 设置一个键值对，键和值可以是任何类型；<ul>
+<li>如果键不存在，则添加一项；</li>
+<li>如果键已存在，则修改它的值；</li>
+<li>比较键的方式和set相同；</li>
+</ul>
+</li>
+<li>get(键):根据一个键得到对应的值；</li>
+<li>has(键)：判断某个键是否存在；</li>
+<li>delete(键)：删除指定的键；</li>
+<li>clear():清空map；</li>
+</ul>
+<h4 id="11-4-3-和数组互相转换"><a href="#11-4-3-和数组互相转换" class="headerlink" title="11-4-3. 和数组互相转换"></a>11-4-3. 和数组互相转换</h4><p>和set一样</p>
+<h4 id="11-4-4-遍历"><a href="#11-4-4-遍历" class="headerlink" title="11-4-4. 遍历"></a>11-4-4. 遍历</h4><ul>
+<li>for-of，每次迭代得到的是一个长度为2的数组</li>
+<li>forEach, 通过回调函数遍历<ul>
+<li>参数1：每一项的值</li>
+<li>参数2：每一项的键</li>
+<li>参数3：map本身</li>
+</ul>
+</li>
+</ul>
+<h3 id="11-5-扩展-手写map"><a href="#11-5-扩展-手写map" class="headerlink" title="11-5. [扩展]手写map"></a>11-5. [扩展]手写map</h3><blockquote>
+<p>模拟实现，与js底层实现不同；js底层可直接操作内存，且数据存储使用的是链表</p>
+</blockquote>
+<pre><code class="JavaScript">class MyMap &#123;
+    constructor(iterable = []) &#123;
+        if(typeof iterable[Symbol.iterator] !== &quot;function&quot;) &#123;
+            throw new TypeError(`你提供的$&#123;iterable&#125;不是一个可迭代的对象！`);
+        &#125;;
+        this._datas = [];
+        for(const item of iterable) &#123;
+            //item 也得是一个可迭代对象
+            if(typeof item[Symbol.iterator] !== &quot;function&quot;)&#123;
+                throw new TypeError(`你提供的$&#123;item&#125;不是一个可迭代的对象！`);
+            &#125;;
+            const iterator = item[Symbol.iterator]();
+            const key = iterator.next().value;
+            const value = iterator.next().value;
+            this.set(key, value);
+        &#125;;
+    &#125;;
+
+    set(key, value) &#123;
+        const obj = this._getObje(key);
+        if(obj)&#123;
+            //存在则修改
+            obj.value = value;
+        &#125;else &#123;
+            this._datas.push(&#123;
+                key,
+                value
+            &#125;)
+        &#125;;
+    &#125;;
+
+    get(key) &#123;
+        const item = this._getObje(key);
+        if(item) &#123;
+            return item;
+        &#125;;
+        return undefined;
+    &#125;;
+
+    get size()&#123;
+        return this._datas.length;
+    &#125;;
+
+    delete(key) &#123;
+        for(let i = 0; i &lt; this._datas.length; i++) &#123;
+            const element = this._datas[i];
+            if(this.isEqual(element.key, key))&#123;
+                this._datas.splice(i, 1);
+                return true;
+            &#125;;
+        &#125;;
+        return false;
+    &#125;;
+
+    clear() &#123;
+        this._datas.length = 0;
+    &#125;;
+
+    /**
+     * 根据key值从内部数组中，找到对应的数组项
+     * @param &#123;*&#125; key 
+     */
+    _getObje(key) &#123;
+        for(const item of this._datas)&#123;
+            if(this.isEqual(item.key, key))&#123;
+                return item;
+            &#125;;
+        &#125;;
+    &#125;;
+
+    has(key) &#123;
+        return this._getObje(key)!== undefined;
+    &#125;;
+
+    /**
+     * 判断两个数据是否相等
+     * @param &#123;*&#125; data1 
+     * @param &#123;*&#125; data2 
+     */
+    isEqual(data1, data2) &#123;
+        if (data1 === 0 &amp;&amp; data2 === 0) &#123;
+            return true;
+        &#125;;
+        return Object.is(data1, data2);
+    &#125;;
+
+    *[Symbol.iterator]() &#123;
+        for (const item of this._datas) &#123;
+            yield [item.key, item.value];
+        &#125;;
+    &#125;;
+
+    forEach(callback)&#123;
+        for (const item of this._datas) &#123;
+            callback(item.value, item.key, this);
+        &#125;;
+    &#125;;
+&#125;;
+</code></pre>
+<h3 id="11-6-WeakSet-和-WeakMap"><a href="#11-6-WeakSet-和-WeakMap" class="headerlink" title="11-6. WeakSet 和 WeakMap"></a>11-6. WeakSet 和 WeakMap</h3><h4 id="11-6-1-WeakSet"><a href="#11-6-1-WeakSet" class="headerlink" title="11-6-1. WeakSet"></a>11-6-1. WeakSet</h4><blockquote>
+<p>使用该集合，可以实现和set一样的功能，不同的是：</p>
+</blockquote>
+<ol>
+<li><strong>它内部存储的对象地址不会影响垃圾回收</strong><blockquote>
+<p>通常用来检测变量是否还存在引用；（如果WeakSet中还存在，那么外部还存在引用）</p>
+</blockquote>
+</li>
+<li>他只能添加对象</li>
+<li>不能遍历（不是可迭代的对象）、没有size属性、没有forEace方法</li>
+</ol>
+<h4 id="11-6-2-WeakMap"><a href="#11-6-2-WeakMap" class="headerlink" title="11-6-2. WeakMap"></a>11-6-2. WeakMap</h4><blockquote>
+<p>类似于map的集合，不同的是：</p>
+</blockquote>
+<ol>
+<li><strong>它的键存储的地址不会影响垃圾回收</strong></li>
+<li>它的键只能是对象</li>
+<li>不能遍历（不是可迭代的对象）、没有size属性、没有forEace方法</li>
+</ol>
+<h2 id="12-代理与反射"><a href="#12-代理与反射" class="headerlink" title="12. 代理与反射"></a>12. 代理与反射</h2><h3 id="12-1-回顾-属性描述符"><a href="#12-1-回顾-属性描述符" class="headerlink" title="12-1. [回顾]属性描述符"></a>12-1. [回顾]属性描述符</h3><p><strong><code>Property Descriptor</code></strong> 属性描述符：用于描述一个属性的相关信息</p>
+<p>通过 <code>Object.getOwnPropertyDescriptor(对象, 属性名)</code> 可以得到一个对象的某个属性的属性描述符</p>
+<ul>
+<li>value: 属性值</li>
+<li>configurable: 该属性的描述符是否可以修改</li>
+<li>enumerable: 该属性是否可以被枚举</li>
+<li>writable: 该属性是否可以被重新赋值</li>
+</ul>
+<p><code>Object.getOwnPropertyDescriptors(对象)</code> 可以得到某个对象的所有属性描述符</p>
+<p>如果需要为某个对象添加属性时 或 修改属性时，配置其属性描述符，可以使用下面的代码：</p>
+<pre><code class="JavaScript">Object.defineProperty(对象, 属性名, 描述符);
+
+Object.defineProperties(对象, 多个属性的描述符);
+</code></pre>
+<p><strong>使用示例：</strong></p>
+<pre><code class="JavaScript">const obj = &#123;
+   name: &#39;测试&#39;,
+   age: 23
+&#125;
+
+Object.defineProperty(obj, &quot;name&quot;, &#123;
+   value: &#39;修改&#39;,
+   configurable: false,
+   enumerable:false,
+   writable:false
+&#125;);
+
+Object.defineProperties(obj,&#123;
+   name:&#123;
+         value: &#39;修改&#39;,
+         configurable: false,
+         enumerable:false,
+         writable:false
+   &#125;,
+   age:&#123;
+         value: &#39;24&#39;,
+         configurable: false,
+         enumerable:false,
+         writable:false
+   &#125;
+&#125;);
+</code></pre>
+<h4 id="12-1-1-存取器属性"><a href="#12-1-1-存取器属性" class="headerlink" title="12-1-1. 存取器属性"></a>12-1-1. 存取器属性</h4><blockquote>
+<p>属性描述符中，如果配置了 get 和 set 中的任何一个，则该属性，不在是一个普通属性，而变成了存取器属性。</p>
+</blockquote>
+<p>get 和 set配置均为函数，如果一个属性是存取器属性，则读取该属性时，会运行get方法，将get方法得到的返回值作为属性值；如果给该属性赋值，则会运行set方法</p>
+<h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
             </div>
