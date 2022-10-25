@@ -2163,6 +2163,89 @@ Object.defineProperties(obj,&#123;
 <p>属性描述符中，如果配置了 get 和 set 中的任何一个，则该属性，不在是一个普通属性，而变成了存取器属性。</p>
 </blockquote>
 <p>get 和 set配置均为函数，如果一个属性是存取器属性，则读取该属性时，会运行get方法，将get方法得到的返回值作为属性值；如果给该属性赋值，则会运行set方法</p>
+<p>意义：<strong>存取器属性最大的意义，在于可以控制属性的读取和赋值</strong></p>
+<p>注意：</p>
+<ol>
+<li>不能再get方法中读取自身【无限递归】</li>
+<li>不能再set方法中对自身进行赋值【无限递归】</li>
+<li>如果配置了get和set，那么就不能配置value和writable，否则会报错（因为存取器是没有内存空间的，而value和writable都是配置内存空间的）</li>
+</ol>
+<p>使用示例：</p>
+<pre><code class="JavaScript">const obj = &#123;
+   b: 2
+&#125;;
+
+Object.defineProperty(obj, &quot;a&quot;, &#123;
+   get() &#123;
+      console.log(&quot;运行了get&quot;)
+      return obj._a;
+   &#125;,
+   set(val) &#123;
+      console.log(&quot;运行了set&quot;)
+      obj._a = val;
+   &#125;
+&#125;)
+
+console.log(obj.a = 10);
+console.log(obj.a);
+</code></pre>
+<h3 id="12-2-Reflect-反射"><a href="#12-2-Reflect-反射" class="headerlink" title="12-2. Reflect 反射"></a>12-2. Reflect 反射</h3><h4 id="12-2-1-Reflect是什么？"><a href="#12-2-1-Reflect是什么？" class="headerlink" title="12-2-1. Reflect是什么？"></a>12-2-1. Reflect是什么？</h4><p>Reflect是一个内置的JS对象，它提供了一系列方法，可以让开发者通过调用这些方法，访问一些JS底层功能；</p>
+<p>由于它类似于其他语言的<strong>反射</strong>，因此取名为Reflect；</p>
+<h4 id="12-2-2-它可以做什么？"><a href="#12-2-2-它可以做什么？" class="headerlink" title="12-2-2. 它可以做什么？"></a>12-2-2. 它可以做什么？</h4><p>使用Reflect可以实现诸如 属性的赋值与取值、调用普通函数、调用构造函数、判断属性是否存在于对象中 等等功能；</p>
+<h4 id="12-2-3-这些功能不是已经存在了吗？为什么还要用Reflect实现一次？"><a href="#12-2-3-这些功能不是已经存在了吗？为什么还要用Reflect实现一次？" class="headerlink" title="12-2-3. 这些功能不是已经存在了吗？为什么还要用Reflect实现一次？"></a>12-2-3. 这些功能不是已经存在了吗？为什么还要用Reflect实现一次？</h4><p>有一个重要的理念，在ES5就被提出：减少魔法、让代码更加纯粹；</p>
+<p>这种理念很大程度上是受到函数式编程的影响；</p>
+<p>ES6进一步贯彻了这种理念，它认为，对属性内存的控制、原型链的修改、函数的调用等等，这些都属于底层实现，属于一种魔法，因此，需要将它们提取出来，形成一个正常的API，并高度聚合到某个对象中，于是，就造就了Reflect对象；</p>
+<p>因此，你可以看到Reflect对象中有很多的API都可以使用过去的某种语法或其他API实现。</p>
+<h4 id="12-2-4-它里面到底提供了哪些API呢？"><a href="#12-2-4-它里面到底提供了哪些API呢？" class="headerlink" title="12-2-4. 它里面到底提供了哪些API呢？"></a>12-2-4. 它里面到底提供了哪些API呢？</h4><ul>
+<li>Reflect.set(target, propertyKey, value): 设置对象target的属性propertyKey的值为value，等同于给对象的属性赋值</li>
+<li>Reflect.get(target, propertyKey): 读取对象target的属性propertyKey，等同于读取对象的属性值</li>
+<li>Reflect.apply(target, thisArgument, argumentsList)：调用一个指定的函数，并绑定this和参数列表。等同于函数调用</li>
+<li>Reflect.deleteProperty(target, propertyKey)：删除一个对象的属性</li>
+<li>Reflect.defineProperty(target, propertyKey, attributes)：类似于Object.defineProperty，不同的是如果配置出现问题，返回false而不是报错</li>
+<li>Reflect.construct(target, argumentsList)：用构造函数的方式创建一个对象</li>
+<li>Reflect.has(target, propertyKey): 判断一个对象是否拥有一个属性</li>
+<li>其他API：[<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect]">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect]</a></li>
+</ul>
+<h3 id="12-3-Proxy-代理"><a href="#12-3-Proxy-代理" class="headerlink" title="12-3. Proxy 代理"></a>12-3. Proxy 代理</h3><p>代理：提供了修改底层实现的方式</p>
+<p><strong>创建：</strong></p>
+<pre><code class="JavaScript">/**
+* 代理一个目标对象
+* target： 目标对象
+* handler： 是一个普通对象，其中可以重写底层实现
+* 返回一个代理对象
+*/
+new Proxy(target, hander)
+</code></pre>
+<p><strong>使用示例：</strong></p>
+<pre><code class="JavaScript">const obj = &#123;
+   a: 1,
+   b: 2
+&#125;;
+
+//创建obj代理，并重写代理的底层实现
+const proxy = new Proxy(obj, &#123;
+   set(target, propertyKey, value)&#123;
+      // console.log(target, propertyKey, value);
+      // target[propertyKey] = value;
+      Reflect.set(target, propertyKey, value);
+   &#125;,
+   get(target, propertyKey)&#123;
+      if(Reflect.has(target, propertyKey))&#123;
+         return Reflect.get(target, propertyKey);
+      &#125;else&#123;
+         return -1;
+      &#125;
+   &#125;,
+   has(target, propertyKey)&#123;
+      return false;
+   &#125;
+&#125;);
+
+proxy.a = 10;  //执行set
+console.log(proxy.a) //10  执行get
+console.log(proxy.d) //-1  执行get
+console.log(&quot;a&quot; in proxy); //false  执行has
+</code></pre>
 <h2 id="13-增强的数组功能"><a href="#13-增强的数组功能" class="headerlink" title="13. 增强的数组功能"></a>13. 增强的数组功能</h2>
                 
                 <p class="end">__END__</p>
