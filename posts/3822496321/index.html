@@ -86,57 +86,7 @@
 <h2 id="2-案例"><a href="#2-案例" class="headerlink" title="2. 案例"></a>2. 案例</h2><h3 id="2-1-买彩票"><a href="#2-1-买彩票" class="headerlink" title="2.1 买彩票"></a>2.1 买彩票</h3><blockquote>
 <p>通常一个代理存在多个模式，并不会进行严格划分</p>
 </blockquote>
-<pre><code class="JavaScript">// 玩家：购买者
-var bifang = &#123;
-    buy: function(target) &#123;
-        var rmb = 10;
-        target.result(rmb);
-    &#125;
-&#125;;
-
-// 代理者：作弊者
-var agent = &#123;
-    buy: function(target) &#123;
-        this.listen(target,function() &#123;
-            bifang.buy(target);
-        &#125;)
-    &#125;,
-    listen: function(target, cb) &#123;
-        var timer = setInterval(function()&#123;
-            if(target.probability &lt; 0.3)&#123;
-                cb();
-                clearInterval(timer);
-            &#125;
-        &#125;,300);
-    &#125;
-&#125;;
-
-//彩票站 
-var lotteryStation = &#123;
-    probability : 1,
-    result: function() &#123;
-        this.probability &lt; 0.3 ? console.log(&#39;恭喜你，中奖了&#39;) : console.log(&#39;很遗憾，没有中奖&#39;);
-    &#125;,
-    change: function() &#123;
-        this.probability = Math.random();
-    &#125;,
-    stare: function() &#123;
-        var that = this;
-        that.change();
-        setInterval(() =&gt; &#123;
-            that.change();
-        &#125;, 300);
-    &#125;
-&#125;;
-
-lotteryStation.stare();
-
-// 自己购买：概率30%
-bifang.buy(lotteryStation);
-
-// 代理购买：概率100%
-agent.buy(lotteryStation);
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 玩家：购买者</span></span><br><span class="line"><span class="keyword">var</span> bifang = &#123;</span><br><span class="line">    <span class="attr">buy</span>: <span class="keyword">function</span>(<span class="params">target</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> rmb = <span class="number">10</span>;</span><br><span class="line">        target.<span class="title function_">result</span>(rmb);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理者：作弊者</span></span><br><span class="line"><span class="keyword">var</span> agent = &#123;</span><br><span class="line">    <span class="attr">buy</span>: <span class="keyword">function</span>(<span class="params">target</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="title function_">listen</span>(target,<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            bifang.<span class="title function_">buy</span>(target);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">listen</span>: <span class="keyword">function</span>(<span class="params">target, cb</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> timer = <span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(target.<span class="property">probability</span> &lt; <span class="number">0.3</span>)&#123;</span><br><span class="line">                <span class="title function_">cb</span>();</span><br><span class="line">                <span class="built_in">clearInterval</span>(timer);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,<span class="number">300</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//彩票站 </span></span><br><span class="line"><span class="keyword">var</span> lotteryStation = &#123;</span><br><span class="line">    probability : <span class="number">1</span>,</span><br><span class="line">    <span class="attr">result</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">probability</span> &lt; <span class="number">0.3</span> ? <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;恭喜你，中奖了&#x27;</span>) : <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;很遗憾，没有中奖&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">change</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">probability</span> = <span class="title class_">Math</span>.<span class="title function_">random</span>();</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">stare</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">        that.<span class="title function_">change</span>();</span><br><span class="line">        <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            that.<span class="title function_">change</span>();</span><br><span class="line">        &#125;, <span class="number">300</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">lotteryStation.<span class="title function_">stare</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自己购买：概率30%</span></span><br><span class="line">bifang.<span class="title function_">buy</span>(lotteryStation);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理购买：概率100%</span></span><br><span class="line">agent.<span class="title function_">buy</span>(lotteryStation);</span><br></pre></td></tr></table></figure>
 
                 
                 <p class="end">__END__</p>

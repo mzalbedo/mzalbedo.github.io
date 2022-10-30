@@ -118,40 +118,7 @@
 <h2 id="事件循环-Event-Loop"><a href="#事件循环-Event-Loop" class="headerlink" title="事件循环 Event Loop"></a>事件循环 <code>Event Loop</code></h2><p>调用栈中的同步任务都执行完毕，栈内被清空了，就代表主线程空闲了，这个时候就会去任务队列中按照顺序读取一个任务放入执行栈中执行。任务队列分为宏任务和微任务，当主线程空闲了，会优先取微任务队列中的任务进行执行，直到微任务队列清空，再去宏任务队列中取宏任务进行执行。然后再看是否有微任，如果有就执行微任务，没有就继续执行下一个宏任务。如此循环，就形成了事件循环，第一次事件循环中，js引擎会把整个 <code>script</code> 代码当成一个宏任务执行。（总之每次执行完一个宏任务就会去看看是否有微任务）</p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><ol>
 <li><p>输出结果：<code>247536async2的结果1</code></p>
-<pre><code class="JavaScript">setTimeout(function()&#123;  //1、执行异步：放入宏任务队列
-    console.log(&quot;1&quot;);   
-&#125;,0);
-
-async function async1() &#123;
-    console.log(&quot;2&quot;);   //3、在执行过程中，这里是同步代码，直接执行
-    const data = await async2();    //4、遇到await，执行await后面的代码，即执行async2函数；
-    //await会返回一个promise,await下面的代码会在async2函数成功后将其放入微任务队列
-    console.log(&quot;3&quot;);   //8、async2执行成功，添加进微任务队列
-    return data;
-&#125;;
-
-async function async2() &#123;
-    return new Promise((resolve) =&gt; &#123;
-        console.log(&quot;4&quot;);   //5、这里是同步执行代码
-        resolve(&quot;async2的结果&quot;);    //6、将当前promise函数状态置位成功；
-    &#125;).then((data) =&gt; &#123;
-        console.log(&quot;5&quot;);   //7、添加进微任务队列
-        return data;
-    &#125;);
-&#125;;
-
-async1().then((data) =&gt; &#123;   //2、执行async1函数
-    console.log(&quot;6&quot;);   //9、async1执行成功，添加进微任务队列
-    console.log(data);
-&#125;);
-
-new Promise(function (resolve) &#123;
-    console.log(&quot;7&quot;);   //同步执行
-&#125;).then(function()&#123;
-    console.log(&quot;8&quot;);
-&#125;);
-</code></pre>
-</li>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;  <span class="comment">//1、执行异步：放入宏任务队列</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span>);   </span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">async1</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;2&quot;</span>);   <span class="comment">//3、在执行过程中，这里是同步代码，直接执行</span></span><br><span class="line">    <span class="keyword">const</span> data = <span class="keyword">await</span> <span class="title function_">async2</span>();    <span class="comment">//4、遇到await，执行await后面的代码，即执行async2函数；</span></span><br><span class="line">    <span class="comment">//await会返回一个promise,await下面的代码会在async2函数成功后将其放入微任务队列</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;3&quot;</span>);   <span class="comment">//8、async2执行成功，添加进微任务队列</span></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">async2</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;4&quot;</span>);   <span class="comment">//5、这里是同步执行代码</span></span><br><span class="line">        <span class="title function_">resolve</span>(<span class="string">&quot;async2的结果&quot;</span>);    <span class="comment">//6、将当前promise函数状态置位成功；</span></span><br><span class="line">    &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;5&quot;</span>);   <span class="comment">//7、添加进微任务队列</span></span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">async1</span>().<span class="title function_">then</span>(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;   <span class="comment">//2、执行async1函数</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;6&quot;</span>);   <span class="comment">//9、async1执行成功，添加进微任务队列</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;7&quot;</span>);   <span class="comment">//同步执行</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;8&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="关于promise-then-的回调函数是在什么时候进入微任务队列的"><a href="#关于promise-then-的回调函数是在什么时候进入微任务队列的" class="headerlink" title="关于promise.then 的回调函数是在什么时候进入微任务队列的"></a>关于<code>promise.then</code> 的回调函数是在什么时候进入微任务队列的</h2><p><strong>通俗易懂：</strong><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000022578087?utm_source=sf-similar-question"><strong>原文地址</strong></a></p>
 <ol>

@@ -89,39 +89,12 @@
 <h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2. 实现"></a>2. 实现</h2><blockquote>
 <p>针对单一场景，如果存在多个场景需要重复编写</p>
 </blockquote>
-<pre><code class="JavaScript">var Test = (function() &#123;
-    var instance;
-    return function (name)&#123;
-        if (typeof instance === &#39;object&#39;) &#123;
-            return instance;
-        &#125;
-        instance = this;
-        this.name = name;
-    &#125;
-&#125;)();
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title class_">Test</span> = (<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> instance;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params">name</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> instance === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">        instance = <span class="variable language_">this</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"><span class="title class_">Test</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">lastName</span> = <span class="string">&#x27;bifang&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="title class_">Test</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a === b, a.<span class="property">lastName</span>, b.<span class="property">lastName</span>);  <span class="comment">//true &#x27;bifang&#x27; &#x27;bifang&#x27;</span></span><br></pre></td></tr></table></figure>
 
-var a = new Test();
-Test.prototype.lastName = &#39;bifang&#39;;
-var b = new Test();
-
-console.log(a === b, a.lastName, b.lastName);  //true &#39;bifang&#39; &#39;bifang&#39;
-</code></pre>
 <h2 id="3-提取通用单例"><a href="#3-提取通用单例" class="headerlink" title="3. 提取通用单例"></a>3. 提取通用单例</h2><blockquote>
 <p>通过方法将普通方法转换为单例方法</p>
 </blockquote>
-<pre><code class="JavaScript">var getSingle = function( fn )&#123;
-    var result;
-    if(!result)&#123;
-        result = fn.apply(this, arguments)
-    &#125;
-    return function()&#123;
-        return result
-    &#125;;
-&#125;;
-
-//使用
-var singleFn = getSingle(fn);
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getSingle = <span class="keyword">function</span>(<span class="params"> fn </span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> result;</span><br><span class="line">    <span class="keyword">if</span>(!result)&#123;</span><br><span class="line">        result = fn.<span class="title function_">apply</span>(<span class="variable language_">this</span>, <span class="variable language_">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line"><span class="keyword">var</span> singleFn = <span class="title function_">getSingle</span>(fn);</span><br></pre></td></tr></table></figure>
 
                 
                 <p class="end">__END__</p>
