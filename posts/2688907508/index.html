@@ -555,15 +555,15 @@
 <p>这套规范最早诞生于前端社区，规范名称为<a target="_blank" rel="noopener" href="https://promisesaplus.com/">Promise A+</a></p>
 </blockquote>
 <ol>
-<li>所有的异步场景，都可以看作是一个异步任务，每个异步任务，在JS中应该表现为一个<strong>对象</strong>，该对象称之为<strong>Promise对象</strong>，也叫做任务对象</li>
-<li>每个任务对象，都应该有两个阶段、三个状态<br>根据常理，它们之间存在以下逻辑：<ul>
+<li>所有的异步场景，都可以看作是一个异步任务，每个异步任务，在JS中应该表现为一个<strong>对象</strong>，该对象称之为<strong>Promise对象</strong>，也叫做任务对象<br><img src="/posts/2688907508/20210618154556.png" alt="示例图片"></li>
+<li>每个任务对象，都应该有两个阶段、三个状态<br><img src="/posts/2688907508/20210618155145.png" alt="示例图片"><br>根据常理，它们之间存在以下逻辑：<ul>
 <li>任务总是从未决阶段变到已决阶段，无法逆行</li>
 <li>任务总是从挂起状态变到完成或失败状态，无法逆行</li>
 <li>时间不能倒流，历史不可改写，任务一旦完成或失败，状态就固定下来，永远无法改变</li>
 </ul>
 </li>
-<li><code>挂起-&gt;完成</code>，称之为<code>resolve</code>；<code>挂起-&gt;失败</code>称之为<code>reject</code>。任务完成时，可能有一个相关数据；任务失败时，可能有一个失败原因。</li>
-<li>可以针对任务进行后续处理，针对完成状态的后续处理称之为onFulfilled，针对失败的后续处理称之为onRejected</li>
+<li><code>挂起-&gt;完成</code>，称之为<code>resolve</code>；<code>挂起-&gt;失败</code>称之为<code>reject</code>。任务完成时，可能有一个相关数据；任务失败时，可能有一个失败原因。<br><img src="/posts/2688907508/20210618160538.png" alt="示例图片"></li>
+<li>可以针对任务进行后续处理，针对完成状态的后续处理称之为onFulfilled，针对失败的后续处理称之为onRejected<br><img src="/posts/2688907508/20210618161125.png" alt="示例图片"></li>
 </ol>
 <h4 id="8-1-2-PromiseAPI"><a href="#8-1-2-PromiseAPI" class="headerlink" title="8-1-2. PromiseAPI"></a>8-1-2. PromiseAPI</h4><blockquote>
 <p>ES6提供了一套API，实现了Promise A+规范</p>
