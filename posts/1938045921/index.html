@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            归档
+            Less
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -31,15 +31,32 @@
 <meta name="generator" content="Hexo 5.4.2"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">归档</h1>
+                <h1 class="header-subtitle">Less</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-12-11
+                        </span>
+                        
+                            <span id="/posts/1938045921/" class="leancloud_visitors" data-flag-title="Less">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1938045921/"></span>
+                        </span>  
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">-CSS -工程化</span>
+                        
+                    
                 </div>
             
         </div>
@@ -48,77 +65,110 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <p><strong>技能树：</strong></p>
+<p><img src="/posts/1938045921/20210507101924.png" alt="示例图片"></p>
+<h2 id="1-什么是Less？"><a href="#1-什么是Less？" class="headerlink" title="1. 什么是Less？"></a>1. 什么是Less？</h2><p><strong>Less</strong>是一种更加简洁的样式代码，它非常像CSS，但又不太一样，它让编写样式变得更容易</p>
+<p>下面是css代码和Less代码的对比，它们都表达了一样的含义</p>
+<p><img src="/posts/1938045921/20210507125034.png" alt="示例图片"></p>
+<p><strong>Less代码虽好，但它无法被浏览器识别</strong>，因此需要一个工具将其转换为血统纯正的css代码</p>
+<p>由于<strong>node环境具有读写文件的能力</strong>，于是在node环境中可以轻松的完成文件的转换</p>
+<p><code>npm</code>上有一个包叫做<code>less</code>，它运行在node环境中，通过它可以完成对Less代码的转换</p>
+<p><img src="/posts/1938045921/20210507105107.png" alt="示例图片"></p>
+<blockquote>
+<p><strong>可以看出，node环境在前端工程化中，充当了一个辅助的角色，它并不直接运行前端代码，而是让我们编写前端代码更加舒适便利，在后续的课程中，你还会不断的体会到这一点</strong></p>
+<p><strong>转换代码，称之为编译(compile)，转换代码的工具，称之为编译器(compiler)</strong></p>
+</blockquote>
+<h2 id="2-体验Less"><a href="#2-体验Less" class="headerlink" title="2. 体验Less"></a>2. 体验Less</h2><ol>
+<li><p>新建<code>index.less</code>文件，编写下面的<code>less</code>代码</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@green:</span> <span class="number">#008c8c</span>;</span><br><span class="line"><span class="selector-class">.list</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">@green</span>;</span><br><span class="line">  <span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="selector-tag">&amp;</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">      <span class="attribute">background</span>: <span class="variable">@green</span>;</span><br><span class="line">      <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用<code>npm</code>下载<code>less</code></p>
+<p><code>less</code>包提供了一个<code>cli</code>工具<code>lessc</code>，你可以有两种方案使用它</p>
+<p><strong>方案一：全局安装less</strong><br>这种方案可以让你在任何终端目录使用<code>lessc</code>命令，但不利于版本控制</p>
+<p><strong>方案二：本地安装less</strong><br>这种方案会把<code>less</code>安装到工程目录的<code>node_modules</code>中，你无法全局使用<code>lessc</code>命令，但可以在当前工程目录中使用<code>npx lessc</code>运行该命令</p>
+<blockquote>
+<p>npx是npm提供的一个小工具，它可以运行当前项目中安装到node_modules的cli命令</p>
+<p>如果配置<code>package.json</code>脚本，无须使用<code>npx</code></p>
+<p>如果可以，应该尽量使用本地安装，而非全局安装</p>
+</blockquote>
+</li>
+<li><p>使用<code>lessc</code>命令，对编写的<code>less</code>文件进行编译</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">将 index.less 编译成为 index.css</span></span><br><span class="line">lessc index.less index.css</span><br></pre></td></tr></table></figure></li>
+<li><p>新建一个页面，引用编译结果<code>index.css</code></p>
+<blockquote>
+<p>目前，编写less代码会遇到一点小麻烦，就是每次编写后，都需要运行命令进行编译</p>
+<p>这个麻烦只是暂时的，将来很快就可以解决</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="3-Less的核心语法"><a href="#3-Less的核心语法" class="headerlink" title="3. Less的核心语法"></a>3. Less的核心语法</h2><blockquote>
+<p>Less官网：<a target="_blank" rel="noopener" href="https://lesscss.org/">https://lesscss.org/</a></p>
+<p>Less民间中文网：<a target="_blank" rel="noopener" href="https://less.bootcss.com/">https://less.bootcss.com/</a></p>
+</blockquote>
+<p>Less提供了非常多的功能，帮助我们更加轻松的编写css代码</p>
+<p>其中，我们最常用的功能有下面3个：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://less.bootcss.com/#%E5%8F%98%E9%87%8F%EF%BC%88variables%EF%BC%89">变量</a></li>
+<li><a target="_blank" rel="noopener" href="https://less.bootcss.com/#%E5%B5%8C%E5%A5%97%EF%BC%88nesting%EF%BC%89">嵌套</a></li>
+<li><a target="_blank" rel="noopener" href="https://less.bootcss.com/#%E6%B7%B7%E5%90%88%EF%BC%88mixins%EF%BC%89">混合</a></li>
+</ul>
+<p>另外，你需要关注Less的特殊<a target="_blank" rel="noopener" href="https://less.bootcss.com/#%E6%B3%A8%E9%87%8A%EF%BC%88comments%EF%BC%89">注释</a></p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1938045921/" target="_blank">Less</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
                         
-                            目前共计 15 篇日志，继续加油！
+                            <a href="/tags/CSS-%E5%B7%A5%E7%A8%8B%E5%8C%96/">-CSS -工程化</a>
                         
-                    </span>
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                        <a href="/posts/604718467/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/604718467/" title="发布于 2022-12-26 10:33">npm修改默认全局安装路径</a>
+                        <br>
                     
                     
-                        
-                            <div class="archive-title">
-                                <h2 class="archive-year">2022</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1111146142/"><span>git常用命令</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">12-28</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/604718467/"><span>npm修改默认全局安装路径</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">12-26</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1938045921/"><span>Less</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">12-11</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/329972675/"><span>包管理器</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">12-11</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3696369122/"><span>ES Module</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">12-02</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/329972675/" class="next-prefix">» </a> 下一篇：    <a href="/posts/329972675/" title="发布于 2022-12-11 03:26">包管理器</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
     
 </div>
     <div id="footer"></div>
@@ -150,7 +200,7 @@
                     
                         <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
-                        <li class=" active "><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
                         <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
                     
