@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>
+        
+            Markdownlint书写的规范
+        
+    </title>
+    <link rel="shortcut icon" href="#"/>
+
+    <link type="text/css" rel="stylesheet" href="/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSerifSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="/font/Roboto.css">
+    <link type="text/css" rel="stylesheet" href="/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="/css/base.css">
+    <link type="text/css" rel="stylesheet" href="/css/code.css">
+
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <a id="cover"></a>
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
+    <div class="vertical">
+        <div class="inner">
+            
+                <h1 class="header-subtitle">Markdownlint书写的规范</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-09-04
+                        </span>
+                        
+                            <span id="/posts/1209193269/" class="leancloud_visitors" data-flag-title="Markdownlint书写的规范">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1209193269/"></span>
+                        </span>  
+                    </p>
+                    
+                        
+                            <span class="category-color">未分类</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">MarkDown</span>
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+    
+</div>
+<div id="container">
+    
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>markdownlint</code> 是一款检查MarkDown语法的VSCode插件，它规定了许多MarkDown规则并实时进行检查，当存在不符合规范的内容时，会有黄色的波浪线来提示及时修正。</p>
+<h2 id="语法规范提示内容"><a href="#语法规范提示内容" class="headerlink" title="语法规范提示内容"></a>语法规范提示内容</h2><h3 id="MD001"><a href="#MD001" class="headerlink" title="MD001"></a>MD001</h3><p><code>Heading levels should only increment by one level at a time</code></p>
+<blockquote>
+<p>标题级数只能每次扩大一个，也就是说不能隔级创建标题，必须h1-h2-h3…这样</p>
+</blockquote>
+<h3 id="MD002"><a href="#MD002" class="headerlink" title="MD002"></a>MD002</h3><p><code>First heading should be a top level heading</code></p>
+<blockquote>
+<p>文档的第一个标题必须是最高级的标题，也就是h1</p>
+</blockquote>
+<h3 id="MD003"><a href="#MD003" class="headerlink" title="MD003"></a>MD003</h3><p><code>Heading style</code></p>
+<blockquote>
+<p>整篇文档的标题格式要统一</p>
+</blockquote>
+<h3 id="MD004"><a href="#MD004" class="headerlink" title="MD004"></a>MD004</h3><p><code>Unordered list style</code></p>
+<blockquote>
+<p>整篇文档的无序列表的格式要一致</p>
+</blockquote>
+<h3 id="MD005"><a href="#MD005" class="headerlink" title="MD005"></a>MD005</h3><p><code>Inconsistent indentation for list items at the same level</code></p>
+<blockquote>
+<p>同一个等级的列表的缩进要一致</p>
+</blockquote>
+<h3 id="MD006"><a href="#MD006" class="headerlink" title="MD006"></a>MD006</h3><p><code>Consider starting bulleted lists at the beginning of the line</code></p>
+<blockquote>
+<p>一级标题不能够缩进</p>
+</blockquote>
+<h3 id="MD007"><a href="#MD007" class="headerlink" title="MD007"></a>MD007</h3><p><code>Unordered list indentation</code></p>
+<blockquote>
+<p>无序列表嵌套的时候默认采取两个空格的缩进方式</p>
+</blockquote>
+<h3 id="MD009"><a href="#MD009" class="headerlink" title="MD009"></a>MD009</h3><p><code>Trailing spaces</code></p>
+<blockquote>
+<p>行尾最多可以添加两个空格，超出之后会有警告，最好每次都是两个空格因为两个空格刚好可以用来换行</p>
+</blockquote>
+<h3 id="MD010"><a href="#MD010" class="headerlink" title="MD010"></a>MD010</h3><p><code>Hard tabs</code></p>
+<blockquote>
+<p>不能使用tab来进行缩进，要使用空格</p>
+</blockquote>
+<h3 id="MD011"><a href="#MD011" class="headerlink" title="MD011"></a>MD011</h3><p><code>Reversed link syntax</code></p>
+<blockquote>
+<p>内联形式的链接和创建方式是否错误，中括号和圆括号是否使用正确</p>
+</blockquote>
+<h3 id="MD012"><a href="#MD012" class="headerlink" title="MD012"></a>MD012</h3><p><code>Multiple consecutive blank lines</code></p>
+<blockquote>
+<p>文档中不能有连续的空行（文档末可以有一个空行），在代码块中这个规则不会生效</p>
+</blockquote>
+<h3 id="MD013"><a href="#MD013" class="headerlink" title="MD013"></a>MD013</h3><p><code>Line length</code></p>
+<blockquote>
+<p>默认行的最大长度是80，对表格代码块标题都起效果</p>
+</blockquote>
+<h3 id="MD014"><a href="#MD014" class="headerlink" title="MD014"></a>MD014</h3><p><code>Dollar signs used before commands without showing output</code></p>
+<blockquote>
+<p>在代码块中，终端命令前面不需要有美元符号，如果如果代码块中既有终端命令，也有命令的输出，则终端命令前可以有美元符号($)</p>
+</blockquote>
+<h3 id="MD018"><a href="#MD018" class="headerlink" title="MD018"></a>MD018</h3><p><code>No space after hash on atx style heading</code></p>
+<blockquote>
+<p>标题格式如果是”atx”的话，#号和文字之间需要一个空格隔开</p>
+</blockquote>
+<h3 id="MD019"><a href="#MD019" class="headerlink" title="MD019"></a>MD019</h3><p><code>Multiple spaces after hash on atx style heading</code></p>
+<blockquote>
+<p>标题格式如果是”atx”的话，#号和文字之间只需要一个空格隔开，不需要多个</p>
+</blockquote>
+<h3 id="MD020"><a href="#MD020" class="headerlink" title="MD020"></a>MD020</h3><p><code>No space inside hashes on closed atx style heading</code></p>
+<blockquote>
+<p>在closed_atx格式的标题中，文字和前后的#号之间都需要一个空格隔开</p>
+</blockquote>
+<h3 id="MD021"><a href="#MD021" class="headerlink" title="MD021"></a>MD021</h3><p><code>Multiple spaces inside hashes on closed atx style heading</code></p>
+<blockquote>
+<p>在closed_atx格式的标题中，文字和前后的#号之间只需要一个空格隔开，不能有多余的</p>
+</blockquote>
+<h3 id="MD022"><a href="#MD022" class="headerlink" title="MD022"></a>MD022</h3><p><code>Headings should be surrounded by blank lines</code></p>
+<blockquote>
+<p>标题的上下行必须都是空格</p>
+</blockquote>
+<h3 id="MD023"><a href="#MD023" class="headerlink" title="MD023"></a>MD023</h3><p><code>Headings must start at the beginning of the line</code></p>
+<blockquote>
+<p>标题行不能缩进</p>
+</blockquote>
+<h3 id="MD024"><a href="#MD024" class="headerlink" title="MD024"></a>MD024</h3><p><code>Multiple headings with the same content</code></p>
+<blockquote>
+<p>在文档中不能有重复性的标题</p>
+</blockquote>
+<h3 id="MD025"><a href="#MD025" class="headerlink" title="MD025"></a>MD025</h3><p><code>Multiple top level headings in the same document</code></p>
+<blockquote>
+<p>同一个文档中，只能有一个最高级的标题，默认也只能有一个一级标题</p>
+</blockquote>
+<h3 id="MD026"><a href="#MD026" class="headerlink" title="MD026"></a>MD026</h3><p><code>Trailing punctuation in heading</code></p>
+<blockquote>
+<p>标题的末尾不能有”. , ; : ! ? “这些符号</p>
+</blockquote>
+<h3 id="MD027"><a href="#MD027" class="headerlink" title="MD027"></a>MD027</h3><p><code>Multiple spaces after blockquote symbol</code></p>
+<blockquote>
+<p>在创建引用块的时候，右尖号与文字之间必须有且只有一个空格</p>
+</blockquote>
+<h3 id="MD028"><a href="#MD028" class="headerlink" title="MD028"></a>MD028</h3><p><code>Blank line inside blockquote</code></p>
+<blockquote>
+<p>两个引用区块间不能仅用一个空行隔开或者同一引用区块中不能有空行，如果一行中没有内容，则这一行要用&gt;开头</p>
+</blockquote>
+<h3 id="MD029"><a href="#MD029" class="headerlink" title="MD029"></a>MD029</h3><p><code>Ordered list item prefix</code></p>
+<blockquote>
+<p>有序列表的前缀序号格式必须只用1或者从1开始的加1递增数字</p>
+</blockquote>
+<h3 id="MD030"><a href="#MD030" class="headerlink" title="MD030"></a>MD030</h3><p><code>Spaces after list markers</code></p>
+<blockquote>
+<p>列表（有序、无序）的前缀符号和文字之间用1个空格隔开，在列表嵌套或者同一列表项中有多个段落时，无序列表缩进两个空格，有序列表缩进3个空格</p>
+</blockquote>
+<h3 id="MD031"><a href="#MD031" class="headerlink" title="MD031"></a>MD031</h3><p><code>Fenced code blocks should be surrounded by blank lines</code></p>
+<blockquote>
+<p>单独的代码块前后需要用空行隔开（除非是在文档开头或末尾），否则有些解释器不会解释为代码块</p>
+</blockquote>
+<h3 id="MD032"><a href="#MD032" class="headerlink" title="MD032"></a>MD032</h3><p><code>Lists should be surrounded by blank lines</code></p>
+<blockquote>
+<p>列表（有序、无序）前后需要用空行隔开，否则有些解释器不会解释为列表，列表的缩进必须一致，否则会警告</p>
+</blockquote>
+<h3 id="MD033"><a href="#MD033" class="headerlink" title="MD033"></a>MD033</h3><p><code>Inline HTML</code></p>
+<blockquote>
+<p>文档中不允许使用html语句</p>
+</blockquote>
+<h3 id="MD034"><a href="#MD034" class="headerlink" title="MD034"></a>MD034</h3><p><code>Bare URL used</code></p>
+<blockquote>
+<p>单纯的链接地址需要用尖括号 (&lt;&gt;) 包裹，否则有些解释器不会解释为链接</p>
+</blockquote>
+<h3 id="MD035"><a href="#MD035" class="headerlink" title="MD035"></a>MD035</h3><p><code>Horizontal rule style</code></p>
+<blockquote>
+<p>创建水平线时整篇文档要统一，要和文档中第一次创建水平线使用的符号一致</p>
+</blockquote>
+<h3 id="MD036"><a href="#MD036" class="headerlink" title="MD036"></a>MD036</h3><p><code>Emphasis used instead of a heading</code></p>
+<blockquote>
+<p>不能用强调来代替标题****</p>
+</blockquote>
+<h3 id="MD037"><a href="#MD037" class="headerlink" title="MD037"></a>MD037</h3><p><code>Spaces inside emphasis markers</code></p>
+<blockquote>
+<p>强调的符号和文字之间不能有空格</p>
+</blockquote>
+<h3 id="MD038"><a href="#MD038" class="headerlink" title="MD038"></a>MD038</h3><p><code>Spaces inside code span elements</code></p>
+<blockquote>
+<p>当用单反引号创建代码段的时候，单反引号和它们之间的代码不能有空格，如果要把单反引号嵌入到代码段的首尾，创建代码段的单反引号和嵌入的单反引号间要有一个空格隔开</p>
+</blockquote>
+<h3 id="MD039"><a href="#MD039" class="headerlink" title="MD039"></a>MD039</h3><p><code>Spaces inside link text</code></p>
+<blockquote>
+<p>链接名和包围它的中括号之间不能有空格，但链接名中间可以有空格</p>
+</blockquote>
+<h3 id="MD040"><a href="#MD040" class="headerlink" title="MD040"></a>MD040</h3><p><code>Fenced code blocks should have a language specified</code></p>
+<blockquote>
+<p>单独的代码块（此处是指上下用三个反引号包围的代码块）应该指定代码块的编程语言，这一点有助于解释器对代码进行代码高亮</p>
+</blockquote>
+<h3 id="MD041"><a href="#MD041" class="headerlink" title="MD041"></a>MD041</h3><p><code>First line in file should be a top level heading</code></p>
+<blockquote>
+<p>文档的第一个非空行应该是文档最高级的标题，默认是1级标题</p>
+</blockquote>
+<h3 id="MD042"><a href="#MD042" class="headerlink" title="MD042"></a>MD042</h3><p><code>No empty links</code></p>
+<blockquote>
+<p>链接的地址不能为空</p>
+</blockquote>
+<h3 id="MD043"><a href="#MD043" class="headerlink" title="MD043"></a>MD043</h3><p><code>Required heading structure</code></p>
+<blockquote>
+<p>要求标题遵循一定的结构，默认是没有规定的结构</p>
+</blockquote>
+<h3 id="MD044"><a href="#MD044" class="headerlink" title="MD044"></a>MD044</h3><p><code>Proper names should have the correct capitalization</code></p>
+<blockquote>
+<p>指定一些名称，会检查它是否有正确的大写</p>
+</blockquote>
+<h3 id="MD045"><a href="#MD045" class="headerlink" title="MD045"></a>MD045</h3><p><code>Images should have alternate text (alt text)</code></p>
+<blockquote>
+<p>图片链接必须包含描述文本</p>
+</blockquote>
+<h3 id="MD046"><a href="#MD046" class="headerlink" title="MD046"></a>MD046</h3><p><code>Code block style</code></p>
+<blockquote>
+<p>整篇文档采用一致的代码格式</p>
+</blockquote>
+<h3 id="MD047"><a href="#MD047" class="headerlink" title="MD047"></a>MD047</h3><p><code>Files should end with a single newline character</code></p>
+<blockquote>
+<p>文档末尾需要一个空行结尾</p>
+</blockquote>
+<h3 id="MD048"><a href="#MD048" class="headerlink" title="MD048"></a>MD048</h3><p><code>Code fence style</code></p>
+<blockquote>
+<p>代码块如果采用分隔符隔开的方式定义，那么整篇文档要采用一致的分隔符，都用波浪号或都用反引号</p>
+</blockquote>
+<h3 id="MD049"><a href="#MD049" class="headerlink" title="MD049"></a>MD049</h3><p><code>Emphasis style should be consistent</code></p>
+<blockquote>
+<p>整篇文档采用一致的倾斜格式</p>
+</blockquote>
+<h3 id="MD050"><a href="#MD050" class="headerlink" title="MD050"></a>MD050</h3><p><code>Strong style should be consistent</code></p>
+<blockquote>
+<p>整篇文档采用一致的加粗格式</p>
+</blockquote>
+<h3 id="MD051"><a href="#MD051" class="headerlink" title="MD051"></a>MD051</h3><p><code>Link fragments should be valid</code></p>
+<blockquote>
+<p>文内链接必须要有效，不能指向一个不存在的标题</p>
+</blockquote>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1209193269/" target="_blank">Markdownlint书写的规范</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                    <div class="category">
+                        分类：
+                        
+                            <a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a>
+                        
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/MarkDown/">MarkDown</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                        <a href="/posts/3087548985/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/3087548985/" title="发布于 2022-09-14 09:51">事件循环</a>
+                        <br>
+                    
+                    
+                        <a href="/posts/2688907508/" class="next-prefix">» </a> 下一篇：    <a href="/posts/2688907508/" title="发布于 2022-09-04 02:57">ES6学习笔记【精简版】</a>
+                    
+                </div>
+            </div>
+            
+    <div class="article-comments">
+        
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
+    
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        
+            <div class="menu-notice">
+                <span class="iconfont icon-notice"></span>
+                <div class="notice">
+                    <span>简单地活着，肆意而又精彩！</span>
+                </div>
+            </div>
+        
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar">
+                    <img src="/image/sidebar/avatar_2.png">
+                </div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span>彼方</span></div>
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul>
+                    
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                    
+                        <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
+                    
+                        <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
+                    
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                    
+                        <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
+                    
+                        <li class=""><a href="/about" class="" target="_self"><span class="iconfont icon-about-fill"></span>关于</a></li>
+                    
+                        <li class=""><a href="/atom.xml" class="" target="_blank"><span class="iconfont icon-rss"></span>订阅</a></li>
+                    
+                        <li class=""><a href="javascript:;" class="search" target="_self"><span class="iconfont icon-search-menu"></span>搜索</a></li>
+                    
+                        <li class=""><a href="/comment" class="" target="_self"><span class="iconfont icon-comments-fill"></span>留言板</a></li>
+                    
+                        <li class=""><a href="/friend" class="" target="_self"><span class="iconfont icon-link"></span>友情链接</a></li>
+                    
+                </ul> 
+            </div> 
+            <div class="menu-link">
+                <div class="box">
+                    <div class="image-box"></div>
+                </div>
+                
+                    <a name="知乎" href="javascript:;" class="" target="_blank" data=""><span class="iconfont icon-zhihu"></span></a>
+                
+                    <a name="微博" href="javascript:;" class="" target="_blank" data=""><span class="iconfont icon-weibo"></span></a>
+                
+                    <a name="QQ" href="javascript:;" class="image" target="_self" data="/image/sidebar/avatar_1.png"><span class="iconfont icon-qq"></span></a>
+                
+                    <a name="微信" href="javascript:;" class="image" target="_self" data="/image/sidebar/avatar_3.JPG"><span class="iconfont icon-wechat"></span></a>
+                
+                    <a name="GitHub" href="https://github.com/mzalbedo" class="" target="_blank" data=""><span class="iconfont icon-github"></span></a>
+                
+            </div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="/css/search.css">
+<script type="text/javascript" src="/js/iscroll.js"></script>
+<script type="text/javascript" src="/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+        <link type="text/css" rel="stylesheet" href="/css/APlayer.css">
+        <script type="text/javascript" src="/js/APlayer.min.js"></script>
+        <script type="text/javascript" src="/js/Meting.min.js"></script>
+        <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    
+    
+    <div class="wrap-right">
+        <div class="setting">
+            <div class="iconbox favorites" switch="false">
+                <span class="iconfont icon-favorites"></span>
+                <span class="icontext">关注</span>
+            </div>
+            <div class="iconbox mode">
+                <div class="light">
+                    <span class="iconfont icon-daymode"></span>
+                    <span class="icontext">浅色模式</span>
+                </div>
+                <div class="dark">
+                    <span class="iconfont icon-nightmode-fill"></span>
+                    <span class="icontext">深色模式</span>
+                </div>
+            </div>
+            <a href="javascript:;" target="_self" class="search">
+                <div class="iconbox">
+                    <span class="iconfont icon-search-menu"></span>
+                    <span class="icontext">搜索</span>
+                </div>
+            </a>
+            <div class="iconbox bottom">
+                <div style="display: inline-block; transform: rotate(180deg);">
+                    <span class="iconfont icon-top"></span>
+                </div>
+                <span class="icontext">跳至底部</span>
+            </div>
+        </div>
+        <div class="iconbox set">
+            <div style="display: inline-block;">
+                <span class="iconfont icon-setting"></span>
+            </div>
+            <span class="icontext">设置</span>
+        </div>
+        <div class="iconbox top">
+            <span class="iconfont icon-top"></span>
+            <span class="icontext">返回顶部</span>
+        </div>
+    </div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : "1320545387@qq.com",
+        GitHubRepositories : "Hexo-LiveForCode",
+
+        User             : "彼方",
+        UserAvatar       : "/image/sidebar/avatar_2.png",
+        WebsiteStartDate : "2022-08-30",
+
+        WebsiteTitleBlur         : "(◍´꒳`◍) Hi, Live For Code",
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : "(*´∇｀*) 欢迎回来!",
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : "/image/website/logo.png",
+
+        ProgressBar : {
+            id       : "topProgressBar",
+            color    : "#77B6FF",
+            height   : "2px",
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound : {
+                tension  : 16,
+                friction : 5
+            },
+            spinner : {
+                id     : "spinner",
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : "#F0F0F0",
+                    stroke     : "#272633",
+                    base       : "",
+                    child      : "#272633"
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : "rgba(255, 255, 255, .2)",
+            clearOffset : 0.3
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : "60%",
+            colorBrightness  : "50%",
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : "random",
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                "/image/header/home.jpeg",
+            
+        ],
+        HomeBannerText  : "",
+
+        ArticleHeaderImage : [
+            
+                "/image/header/article.jpg",
+            
+                "/image/header/article-1.jpg",
+            
+        ],
+
+        OtherBannerText : "",
+
+        Error : {
+            icon    : "icon-swimming",
+            title   : "PAGE NOT FOUND",
+            content : [
+                
+                    "很抱歉，您访问的页面不存在！",
+                
+                    "可能是输入地址有误或该地址已变更。",
+                
+            ],
+            buttons : [
+                
+                    {
+                        icon  : "icon-home",
+                        text  : "返回首页",
+                        href  : "/",
+                        class : ""
+                    },
+                
+            ]
+        },
+
+        MenuNotice : {
+            enable : true,
+            notice : "简单地活着，肆意而又精彩！",
+            speed  : 20
+        },
+        MenuList : [
+            
+                {
+                    name   : "首页",
+                    icon   : "icon-home-fill",
+                    href   : "/",
+                    type   : "index",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "分类",
+                    icon   : "icon-folder-fill",
+                    href   : "/category",
+                    type   : "category",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "标签",
+                    icon   : "icon-discount-fill",
+                    href   : "/tag",
+                    type   : "tag",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "归档",
+                    icon   : "icon-calendar-fill",
+                    href   : "/archive",
+                    type   : "archive",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "赞赏",
+                    icon   : "icon-heart-fill",
+                    href   : "/donate",
+                    type   : "donate",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "关于",
+                    icon   : "icon-about-fill",
+                    href   : "/about",
+                    type   : "about",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "订阅",
+                    icon   : "icon-rss",
+                    href   : "/atom.xml",
+                    type   : "",
+                    class  : "",
+                    target : "_blank"
+                },
+            
+                {
+                    name   : "搜索",
+                    icon   : "icon-search-menu",
+                    href   : "javascript:;",
+                    type   : "",
+                    class  : "search",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "留言板",
+                    icon   : "icon-comments-fill",
+                    href   : "/comment",
+                    type   : "comment",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "友情链接",
+                    icon   : "icon-link",
+                    href   : "/friend",
+                    type   : "friend",
+                    class  : "",
+                    target : "_self"
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        name   : "知乎",
+                        icon   : "icon-zhihu",
+                        href   : "javascript:;",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "微博",
+                        icon   : "icon-weibo",
+                        href   : "javascript:;",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "QQ",
+                        icon   : "icon-qq",
+                        href   : "javascript:;",
+                        class  : "image",
+                        target : "_self",
+                        image  : "/image/sidebar/avatar_1.png"
+                    },
+                
+                    {
+                        name   : "微信",
+                        icon   : "icon-wechat",
+                        href   : "javascript:;",
+                        class  : "image",
+                        target : "_self",
+                        image  : "/image/sidebar/avatar_3.JPG"
+                    },
+                
+                    {
+                        name   : "GitHub",
+                        icon   : "icon-github",
+                        href   : "https://github.com/mzalbedo",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : "<div><span class='face'>ღゝ◡╹)ノ♡</span></div><div>【人生若只如初见<span><i class='iconfont icon-like-fill'></i></span>何事秋风悲画扇】</div><div>&copy; 2020-2022 WorstOne. All Rights Reserved.</div><div><a href='https://beian.miit.gov.cn/' target='_blank'>京ICP备2023010453号-1</a></div>",
+
+        ConsoleList : [
+            
+                
+                    [
+                        
+                            
+                                "Based on cnblogs theme SimpleMemory.",
+                            
+                                "",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "SimpleMemory Author:",
+                            
+                                "BNDong",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "Theme:",
+                            
+                                "LiveForCode",
+                            
+                        
+                    ],
+                
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : "",
+            bitcoin : "",
+            alipay  : "/image/donate/alipay.png",
+            wechat  : "/image/donate/wechat.png"
+        },
+
+        Search : {
+            applicationID : "010C3EANT8",
+            apiKey        : "c7abab9f11b79102b9aff7fe6d41447d",
+            indexName     : "Notes",
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : "搜索",
+                empty       : "未发现与 「${query}」 相关的内容",
+                stats       : "${hits} 条相关条目，使用了 ${time} 毫秒",
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : ".comments-content",
+            appId          : "i9yRogV4DXBC6mzwjV9ZDgc6-gzGzoHsz",
+            appKey         : "QRLAFOdq69wS4noE6GtynhDq",
+            serverURLs     : "",
+            placeholder    : "你是我一生只会遇见一次的惊喜...",
+            avatar         : "mm",
+            meta           : "nick,mail,link",
+            requiredFields : "nick,mail",
+            pageSize       : 5,
+            lang           : "zh-cn",
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : ".toc",
+            contentSelector       : ".article-body",
+            headingSelector       : "h1, h2, h3, h4, h5",
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : ".toc",
+            positionFixedClass    : "toc-fixed",
+            fixedSidebarOffset    : "",
+        },
+
+        Require : {
+            baseUrl     : "/js/",
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : "Meting"
+        },
+        APlayer : {
+            container : ".aplayer",
+            fixed     : true,
+            autoplay  : false,
+            loop      : "all",
+            order     : "random",
+            preload   : "auto",
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : "Endless Tears",
+                        artist : "CLIFF EDGE",
+                        cover  : "/music/cover/Endless Tears.jpg",
+                        url    : "/music/song/Endless Tears.mp3",
+                        lrc    : "/music/lrc/Endless Tears.lrc"
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        Mouse : {
+            enable  : true,
+            options : {
+                size  : 6,
+                sizeF : 24
+            }
+        },
+
+        LazyLoad : {
+            default : "/image/website/lazyload.svg"
+        },
+  
+        Style : {
+            aplayer          : "/css/APlayer.css",
+            archive          : "/css/archive.css",
+            base             : "/css/base.css",
+            clipboard        : "/css/clipboard.css",
+            code             : "/css/code.css",
+            donate           : "/css/donate.css",
+            fancybox         : "/css/jquery.fancybox.css",
+            footer           : "/css/footer.css",
+            iconfont         : "/iconfont/iconfont.css",
+            index            : "/css/index.css",
+            menuBubble       : "/css/menu-bubble.css",
+            mouse            : "/css/mouse.css",
+            page             : "/css/page.css",
+            post             : "/css/post.css",
+            search           : "/css/search.css",
+            tocbot           : "/css/tocbot.css",
+            valine           : "/css/valine.css"
+        },
+
+        Script: {
+            aplayer          : "/js/APlayer.min.js",
+            config           : "/js/require.config.js",
+            index            : "/js/index.js",
+            instantSearch    : "/js/instantsearch.min.js",
+            iscroll          : "/js/iscroll.js",
+            jQuery           : "/js/jquery-3.4.1.min.js",
+            loading          : "/js/loading.js",
+            meting           : "/js/Meting.min.js",
+            require          : "/js/require.min.js"
+        },
+
+        Font: {
+            LongCang    : "/font/LongCang.css",
+            Monda       : "/font/Monda.css",
+            NotoSansSC  : "/font/NotoSansSC.css",
+            NotoSerifSC : "/font/NotoSerifSC.css",
+            Playball    : "/font/Playball.css",
+            PTMono      : "/font/PTMono.css",
+            Roboto      : "/font/Roboto.css",
+            RobotoSlab  : "/font/RobotoSlab.css",
+            Rosario     : "/font/Rosario.css",
+            UbuntuMono  : "/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : "简单地活着, 肆意又精彩."
+        },
+            
+        Theme : {
+            url  : "https://github.com/first19326/Hexo-LiveForCode",
+            name : "Hexo - Live For Code"
+        }  
+    };
+</script>
+    <script type="text/javascript" src="/js/index.js"></script>
+</body>
+</html>

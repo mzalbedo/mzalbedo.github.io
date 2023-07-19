@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>
+        
+            JQuery常用语法笔记【精简版】
+        
+    </title>
+    <link rel="shortcut icon" href="#"/>
+
+    <link type="text/css" rel="stylesheet" href="/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSerifSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="/font/Roboto.css">
+    <link type="text/css" rel="stylesheet" href="/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="/css/base.css">
+    <link type="text/css" rel="stylesheet" href="/css/code.css">
+
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+<body>
+    <a id="cover"></a>
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
+    <div class="vertical">
+        <div class="inner">
+            
+                <h1 class="header-subtitle">JQuery常用语法笔记【精简版】</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2022-08-31
+                        </span>
+                        
+                            <span id="/posts/4017600111/" class="leancloud_visitors" data-flag-title="JQuery常用语法笔记【精简版】">
+                                <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                            </span>
+                        
+                        <span>
+                            <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/4017600111/"></span>
+                        </span>  
+                    </p>
+                    
+                        
+                            <span class="category-color">未分类</span>
+                        
+                    
+                    
+                        
+                            <span class="tag-color">JavaScript</span>
+                        
+                            <span class="tag-color">JQuery</span>
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+    
+</div>
+<div id="container">
+    
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h2 id="jQuery实例方法"><a href="#jQuery实例方法" class="headerlink" title="jQuery实例方法"></a>jQuery实例方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">get</span>()           <span class="comment">//返回原生数组，正数：第几个元素，负数：倒数第几个元素，空值：返回所有原生dom数组；</span></span><br><span class="line"><span class="title function_">eq</span>()            <span class="comment">//返回jq对象，正数：第几个元素，负数：倒数第几个元素，空值：返回空的jq对象；</span></span><br><span class="line"><span class="title function_">find</span>()          <span class="comment">//返回被选中的后代元素，查找当前元素下符合要求的元素；</span></span><br><span class="line"><span class="title function_">filter</span>()        <span class="comment">//筛选当前元素，对当前元素进项筛选；</span></span><br><span class="line"><span class="title function_">not</span>()           <span class="comment">//与filter完全相反，它是选择除了指定要求外的元素；</span></span><br><span class="line"><span class="title function_">is</span>()            <span class="comment">//前后查找的元素只要存在交集就返回true，否则false。也可以理解为，在前面选择的元素中有没有is()选中的元素；</span></span><br><span class="line"><span class="title function_">has</span>()           <span class="comment">//限定条件，在以匹配的元素后代中，含有匹配后代的元素会被保留在结果中；</span></span><br><span class="line"><span class="title function_">add</span>()           <span class="comment">//追加匹配元素到之前匹配的元素集合；</span></span><br><span class="line"><span class="title function_">end</span>()           <span class="comment">//回退到prevObject所指向的元素，也就是上一个选中的匹配元素；</span></span><br><span class="line"><span class="title function_">css</span>()           <span class="comment">//设置属性样式，传入的值可以为数字、字符串、表达式；</span></span><br><span class="line"><span class="title function_">attr</span>()          <span class="comment">//获取匹配的元素集合中的第一个元素的属性的值  或 设置每一个匹配元素的一个或多个属性，取出的值都为自符串，attr一般用于获取或者设置自定义属性的值。attr无法获取一些特性值：selected、checked、disabled；（返回值不同版本值不同）</span></span><br><span class="line"><span class="title function_">prop</span>()          <span class="comment">//获取匹配的元素集中第一个元素的属性（property）值或设置每一个匹配元素的一个或多个属性，prop是针对原生dom操作的，prop可以获取特性的值。但是无法获取自定义属性的值；</span></span><br><span class="line"><span class="title function_">html</span>()          <span class="comment">//获取集合中提一个匹配元素的html内容（包含html标签） 或 设置每一个匹配元素的html内容。  PS：在获取时html只会获取集合中第一个元素内容。（基于innerHTML()）；</span></span><br><span class="line"><span class="title function_">text</span>()          <span class="comment">//获取集合中每个元素的文本内容集合（不含html标签），包括他们的后代，或 设置匹配元素集合中每个元素的文本内容。（基于innerTEXT()）；</span></span><br><span class="line"><span class="title function_">size</span>()          <span class="comment">//返回jquery对象匹配对象的DOM元素的数量；</span></span><br><span class="line"><span class="title function_">addClass</span>()      <span class="comment">//给选中的元素添加一个或者多个class；</span></span><br><span class="line"><span class="title function_">removeClass</span>()   <span class="comment">//删除集合中指定的一个或多个class；</span></span><br><span class="line"><span class="title function_">hasClass</span>()      <span class="comment">//确定任何一个匹配元素是否被分配给定的（样式）类，返回布尔值；</span></span><br><span class="line"><span class="title function_">val</span>()           <span class="comment">//获取表单元素的val值，如果为一组元素，那么返回第一个元素的值。取的时value中的值，只对表单元素起作用；</span></span><br><span class="line"><span class="title function_">next</span>()          <span class="comment">//不传递参数：直接选中下一兄弟元素，如果传递参数（eg：p）就会判断下一兄弟节点是否符合参数要求，符合就选中，否则不选；</span></span><br><span class="line"><span class="title function_">prev</span>()          <span class="comment">//与next相对应，prev时选择上一兄弟元素；</span></span><br><span class="line"><span class="title function_">nextAll</span>()       <span class="comment">//选择目标元素下方所有兄弟元素，参数为筛选条件；</span></span><br><span class="line"><span class="title function_">prevAll</span>()       <span class="comment">//选择目标元素上方所有兄弟元素，参数为筛选条件；</span></span><br><span class="line"><span class="title function_">nextUntil</span>()     <span class="comment">//参数为截止条件（eg：p），选择目标元素下方兄弟元素直到截止条件（p标签）为止；</span></span><br><span class="line"><span class="title function_">prevUntil</span>()     <span class="comment">//与nextUntil相对应，选择上方兄弟元素直到截止条件为止；</span></span><br><span class="line"><span class="title function_">siblings</span>()      <span class="comment">//不传参数为选择所有兄弟元素，参数为筛选条件；</span></span><br><span class="line"><span class="title function_">parent</span>()        <span class="comment">//获取父级元素；</span></span><br><span class="line"><span class="title function_">parents</span>()       <span class="comment">//获取父级元素集合，参数为过滤条件；</span></span><br><span class="line"><span class="title function_">closest</span>()       <span class="comment">//查找距离自己最近的父级，从自己开始查找（包括自己---与parent()的区别），通常传递参数使用；</span></span><br><span class="line"><span class="title function_">offsetParent</span>()  <span class="comment">//查找距离自己最近的已定位的父级元素；</span></span><br><span class="line"><span class="title function_">slice</span>()         <span class="comment">//截取jq数组，左闭右开，返回仍为jq对象；</span></span><br><span class="line"><span class="title function_">insertBefore</span>()  <span class="comment">//$(&#x27;.A&#x27;).insertBefore(&#x27;.B&#x27;); 将A添加到B的前面，剪切操作；</span></span><br><span class="line"><span class="title function_">before</span>()        <span class="comment">//$(&#x27;.A&#x27;).before( $(.B) ); 将B添加到A的前面，剪切操作。before()中添加js对象，否则会将括号中的内容作为文本添加；</span></span><br><span class="line"><span class="title function_">insertAfter</span>()   <span class="comment">//与insertBefore()对应，将文本添加到指定元素的后面；</span></span><br><span class="line"><span class="title function_">after</span>()         <span class="comment">//与before()对应，将文本添加到指定元素的后面；</span></span><br><span class="line"><span class="title function_">appendTo</span>()      <span class="comment">//将匹配的元素插入到目标元素的最后面（ps：内部插入）。将A插入B的元素内部的最后面；</span></span><br><span class="line"><span class="title function_">append</span>()        <span class="comment">//与appendTo()相同，只是内容和目标的位置相反；</span></span><br><span class="line"><span class="title function_">prependTo</span>()     <span class="comment">//将匹配的元素插入到目标元素的最前面（ps：内部插入），它是将A插入B元素内部的前面；</span></span><br><span class="line"><span class="title function_">prepend</span>()       <span class="comment">//与prependTo功能相同，只是内容和目标的位置相反；</span></span><br><span class="line"><span class="title function_">remove</span>()        <span class="comment">//将匹配的元素集合从DOM中删除。（ps：同时移除元素身上的所有事件和jQuery数据），返回值为删除掉的元素；</span></span><br><span class="line"><span class="title function_">detach</span>()        <span class="comment">//从DOM中移除所有匹配元素。（ps：保留所有jQuery数据和被移走元素相关联）；</span></span><br><span class="line">$()             <span class="comment">//选择或者创建元素,当传递两个参数时：jQuery(selector, [context]) --- 这种用法，相当于 $(context).find(selector) 或者 context.find(selector)；</span></span><br><span class="line"><span class="title function_">wrap</span>()          <span class="comment">//给选中的元素添加一个父级；参数可以是字符串、jQuery对象、函数；</span></span><br><span class="line"><span class="title function_">wrapInner</span>()     <span class="comment">//给目标元素的内部元素添加一个统一的父级；</span></span><br><span class="line"><span class="title function_">wrapAll</span>()       <span class="comment">//给选中的元素添加一个统一的父级。（ps：所选中的元素必须要在统一级，否则会改变dom结构）原理：先找到第一个目标元素在将后续匹配元素放到第一目标元素后面，在添加父级）；</span></span><br><span class="line"><span class="title function_">unwrap</span>()        <span class="comment">//删除父级元素。重复调用的话最多到body为止（body不会被删除）；</span></span><br><span class="line"><span class="title function_">clone</span>()         <span class="comment">//克隆  参数：Boolean   true：会克隆事件    默认不拷贝事件；</span></span><br><span class="line"><span class="title function_">data</span>()          <span class="comment">//存储信息数据状态，参数也可以时对象形式，它是将数据存储在jQuery对象上，jQuery和Dom存在映射，利用data添加的数据不会再标签中显示，但是可以访问到（储存时为什么格式，取出时就为什么格式）。（隐藏点：标签中以data-*类型的自定义属性也可以用data访问到）；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//附加：</span></span><br><span class="line">.<span class="title function_">children</span>()     <span class="comment">//获得匹配元素集合中每个元素的子元素，选择器选择性筛选；</span></span><br><span class="line">.<span class="title function_">empty</span>()        <span class="comment">//从DOM中移除集合中匹配元素的所有子节点。这个方法不接受任何参数;</span></span><br><span class="line">.<span class="title function_">offset</span>()       <span class="comment">//获取选中元素距离文档的位置（和原生的区别）；可以赋值 或 取值，取值：不传参数，返回一个对象，含有两个属性（left，top）；赋值：传入对象eg:&#123;left:100, top:100&#125;;</span></span><br><span class="line">.<span class="title function_">position</span>()     <span class="comment">//获取选中元素距离已定位父级的距离，不可以赋值；</span></span><br><span class="line">.<span class="title function_">scrollTop</span>()    <span class="comment">//滚动条距离顶部的距离；可以取值 和 赋值（参数：数值）；</span></span><br><span class="line">.<span class="title function_">scrollLeft</span>()   <span class="comment">//滚动条距离左侧的距离；可以取值 和 赋值（参数：数值）；</span></span><br><span class="line">.<span class="title function_">width</span>()        <span class="comment">//获取选中元素的content区的宽度，返回值：数字；</span></span><br><span class="line">.<span class="title function_">height</span>()       <span class="comment">//content区的高度；</span></span><br><span class="line">.<span class="title function_">innerWidth</span>()   <span class="comment">//content + padding 的宽度，返回值：数字；</span></span><br><span class="line">.<span class="title function_">innerHeight</span>()  <span class="comment">//content + padding 的高度；</span></span><br><span class="line">.<span class="title function_">outerWidth</span>()   <span class="comment">//content + padding + border 的宽度；（传参：true则会加上margin的大小）；</span></span><br><span class="line">.<span class="title function_">outerHeight</span>()  <span class="comment">//eg：outerHeight(true) ： content + padding + border + margin 的高度；</span></span><br><span class="line">.<span class="title function_">each</span>()         <span class="comment">//遍历选中元素；</span></span><br><span class="line">.<span class="title function_">index</span>()        <span class="comment">//获取选中元素的下标，参数为过滤；</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.<span class="title function_">on</span>()           <span class="comment">//绑定事件，可以绑定所有系统事件 和 自定义事件，也可以传入对象一次绑定多个事件，四个参数：1、type：事件类型   2、（选填）selector：选择器   3、（选填）data：数据   4、handle：事件；</span></span><br><span class="line">.<span class="title function_">one</span>()          <span class="comment">//一次性事件，只会触发一次。（使用时通常会在结尾加上 return false; 阻止默认事件和冒泡事件）；</span></span><br><span class="line">.<span class="title function_">off</span>()          <span class="comment">//接触事件绑定，不传参数：清除所有绑定事件； 一个参数（填写事件类型）：清除所有该类型事件；两个参数（type, handle）：清除指定类型事件中的是定事件；三个参数：（type，selector，handle）：如果selector与绑定事件填写的不一致，那么解绑事件会失败；</span></span><br><span class="line">.<span class="title function_">trigger</span>()      <span class="comment">//触发事件，参数：事件类型。也可以触发自定义事件（eg；.trigger(&#x27;customEvent&#x27;)）;</span></span><br><span class="line">.<span class="title function_">hover</span>()        <span class="comment">//参数为两个函数，第一个函数再鼠标划入时执行，第二个再鼠标移出时执行；</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="基础动画"><a href="#基础动画" class="headerlink" title="基础动画"></a>基础动画</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//显示和隐藏：改变的值包括：width、height、opacity、padding、margin等（所有能改变得值）全都是从零变化到目标值，隐藏与之相反；</span></span><br><span class="line">.<span class="title function_">show</span>()         <span class="comment">//显示,第一个参数为过度时间，第二个参数为过度方式（ps：如果元素初始被定义成display:none 那么.show()之后display的值会变成那个元素的默认值（block、inline、inline-block）,如果定义过，再hide()-&gt;show()那么值为你定义过的值）；</span></span><br><span class="line">.<span class="title function_">hide</span>()         <span class="comment">//隐藏；</span></span><br><span class="line">.<span class="title function_">toggle</span>()       <span class="comment">//切换 显示和隐藏（eg:$(this).next().toggle()）;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//淡入和淡出：只针对opacity，改变的值只有opacity，参数为过渡时间；</span></span><br><span class="line">.<span class="title function_">fadeIn</span>()       <span class="comment">//显示，参数为过度时间；</span></span><br><span class="line">.<span class="title function_">fadeOut</span>()      <span class="comment">//隐藏；</span></span><br><span class="line">.<span class="title function_">fadeTo</span>()       <span class="comment">//渐变到哪里，参数：1、过度时间；2、过度到多少（opacity：0-1之间）；3、过度方式；4、回调函数；</span></span><br><span class="line">.<span class="title function_">fadeToggle</span>()   <span class="comment">//切换 淡入和淡出；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//卷入和卷出：只针对height，参数为过渡时间；</span></span><br><span class="line">.<span class="title function_">slideDown</span>()    <span class="comment">//卷出，参数为过度时间；</span></span><br><span class="line">.<span class="title function_">slideUp</span>()      <span class="comment">//卷入；</span></span><br><span class="line">.<span class="title function_">slideToggle</span>()  <span class="comment">//切换 卷入和卷出；</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="动画-animate"><a href="#动画-animate" class="headerlink" title="动画 animate"></a>动画 animate</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.<span class="title function_">animate</span>()      <span class="comment">//参数：target（目标点）；  duration（可选：运动时间，默认400）； easing：过度样式；  callback：回调函数；</span></span><br><span class="line">.<span class="title function_">stop</span>()         <span class="comment">//不传参数，结束当前运动，并执行下一运动；一个参数（true）：停止运动，并结束后续所有运动（false与不传参相同）； 两个参数（true，true）：结束当前运动，并瞬间移动到当前运动的目标点；</span></span><br><span class="line">.<span class="title function_">finish</span>()       <span class="comment">//直接运动到最后的目标点；</span></span><br><span class="line">.<span class="title function_">delay</span>()        <span class="comment">//延迟函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//jQuery 动画开关接口，可以执行用来关闭jQuery动画过度效果；</span></span><br><span class="line">jQuery.<span class="property">fx</span>.<span class="property">off</span> = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//jQuery 动画库插件：jQuery-easing；</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="JQuery工具方法"><a href="#JQuery工具方法" class="headerlink" title="JQuery工具方法"></a>JQuery工具方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="title function_">typeof</span>()      <span class="comment">//告诉你里面的数据到底是什么;</span></span><br><span class="line">$.<span class="title function_">isArray</span>()     <span class="comment">//判断是否式数组;</span></span><br><span class="line">$.<span class="title function_">isFunction</span>()  <span class="comment">//判断是否是函数;</span></span><br><span class="line">$.<span class="title function_">isWindow</span>()    <span class="comment">//判断是否是window;</span></span><br><span class="line">$.<span class="title function_">trim</span>()        <span class="comment">//去除两端空格;</span></span><br><span class="line">$.<span class="title function_">proxy</span>()       <span class="comment">//改变this指向，proxy(function, this);</span></span><br><span class="line">$.<span class="title function_">noConflict</span>()  <span class="comment">//防止变量冲突，只针对 $。(ps：var $c = $.noConflict(); 自此 $c 就是原来的 $)；</span></span><br><span class="line">$.<span class="title function_">each</span>()        <span class="comment">//遍历数组。（ps:$.each(arr, function (index, ele) &#123;&#125;)）</span></span><br><span class="line">$.<span class="title function_">map</span>()         <span class="comment">//遍历数组并可以对每一组数据进行操作；</span></span><br><span class="line">$.<span class="title function_">parseJSON</span>()   <span class="comment">//把一个严格的json字符串（key值必须用双引号）转换成对象；对应原生的JSON.pase();</span></span><br><span class="line">$.<span class="title function_">makeArray</span>()   <span class="comment">//传一个类数组，返回一个数组；（扩展：可以接收两个参数，把第一个参数塞到第二个参数中，第二个参数决定了返回值的类型，此方法主要式jq内部使用，jq自己调用了六次）；</span></span><br><span class="line"></span><br><span class="line">$.<span class="title function_">extend</span>()      <span class="comment">//三种用法：1、扩展方法（api没有）；2、浅层克隆：参数一个或者多个，第二个中的参数复制到第一个参数中（不影响第二个），如果重复就覆盖，遇到引用值，那么把引用给传过去，如果参数大于两个，那么把后续参数的内容都放到第一个参数中；3、深层克隆(第一个参数填：true)，与浅层克隆的差别只有再遇到引用值时，深层克隆会把内容赋值过去；</span></span><br><span class="line">$.fn.<span class="title function_">extend</span>()   <span class="comment">//它与$.extend() 指在扩展方法上有点差别，其余完全相同；</span></span><br><span class="line">                <span class="comment">//$.extend() --- 扩展方法   :   添加到工具方法里面； 调用时 $.</span></span><br><span class="line">                <span class="comment">//$.fn.extend() - 扩展方法  ：  添加到实例方法里面； 调用时 $().</span></span><br></pre></td></tr></table></figure>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar_2.png" alt="彼方">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>彼方
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/4017600111/" target="_blank">JQuery常用语法笔记【精简版】</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                    <div class="category">
+                        分类：
+                        
+                            <a href="/categories/%E6%9C%AA%E5%88%86%E7%B1%BB/">未分类</a>
+                        
+                    </div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tags/JavaScript/">JavaScript</a>
+                        
+                            <a href="/tags/JQuery/">JQuery</a>
+                        
+                    </div>
+                
+                <div class="article-prev-next">
+                    
+                        <a href="/posts/2688907508/" class="prev-prefix">« </a> 上一篇：    <a href="/posts/2688907508/" title="发布于 2022-09-04 02:57">ES6学习笔记【精简版】</a>
+                        <br>
+                    
+                    
+                        <a href="/posts/1243066710/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1243066710/" title="发布于 2022-01-01 12:00">Hello World</a>
+                    
+                </div>
+            </div>
+            
+    <div class="article-comments">
+        
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+
+        </div>
+    
+</div>
+    <div id="footer"></div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        
+            <div class="menu-notice">
+                <span class="iconfont icon-notice"></span>
+                <div class="notice">
+                    <span>简单地活着，肆意而又精彩！</span>
+                </div>
+            </div>
+        
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar">
+                    <img src="/image/sidebar/avatar_2.png">
+                </div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user"><span>彼方</span></div>
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul>
+                    
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                    
+                        <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
+                    
+                        <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
+                    
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                    
+                        <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
+                    
+                        <li class=""><a href="/about" class="" target="_self"><span class="iconfont icon-about-fill"></span>关于</a></li>
+                    
+                        <li class=""><a href="/atom.xml" class="" target="_blank"><span class="iconfont icon-rss"></span>订阅</a></li>
+                    
+                        <li class=""><a href="javascript:;" class="search" target="_self"><span class="iconfont icon-search-menu"></span>搜索</a></li>
+                    
+                        <li class=""><a href="/comment" class="" target="_self"><span class="iconfont icon-comments-fill"></span>留言板</a></li>
+                    
+                        <li class=""><a href="/friend" class="" target="_self"><span class="iconfont icon-link"></span>友情链接</a></li>
+                    
+                </ul> 
+            </div> 
+            <div class="menu-link">
+                <div class="box">
+                    <div class="image-box"></div>
+                </div>
+                
+                    <a name="知乎" href="javascript:;" class="" target="_blank" data=""><span class="iconfont icon-zhihu"></span></a>
+                
+                    <a name="微博" href="javascript:;" class="" target="_blank" data=""><span class="iconfont icon-weibo"></span></a>
+                
+                    <a name="QQ" href="javascript:;" class="image" target="_self" data="/image/sidebar/avatar_1.png"><span class="iconfont icon-qq"></span></a>
+                
+                    <a name="微信" href="javascript:;" class="image" target="_self" data="/image/sidebar/avatar_3.JPG"><span class="iconfont icon-wechat"></span></a>
+                
+                    <a name="GitHub" href="https://github.com/mzalbedo" class="" target="_blank" data=""><span class="iconfont icon-github"></span></a>
+                
+            </div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="/css/search.css">
+<script type="text/javascript" src="/js/iscroll.js"></script>
+<script type="text/javascript" src="/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+
+    
+        <link type="text/css" rel="stylesheet" href="/css/APlayer.css">
+        <script type="text/javascript" src="/js/APlayer.min.js"></script>
+        <script type="text/javascript" src="/js/Meting.min.js"></script>
+        <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+    
+    
+    <div class="wrap-right">
+        <div class="setting">
+            <div class="iconbox favorites" switch="false">
+                <span class="iconfont icon-favorites"></span>
+                <span class="icontext">关注</span>
+            </div>
+            <div class="iconbox mode">
+                <div class="light">
+                    <span class="iconfont icon-daymode"></span>
+                    <span class="icontext">浅色模式</span>
+                </div>
+                <div class="dark">
+                    <span class="iconfont icon-nightmode-fill"></span>
+                    <span class="icontext">深色模式</span>
+                </div>
+            </div>
+            <a href="javascript:;" target="_self" class="search">
+                <div class="iconbox">
+                    <span class="iconfont icon-search-menu"></span>
+                    <span class="icontext">搜索</span>
+                </div>
+            </a>
+            <div class="iconbox bottom">
+                <div style="display: inline-block; transform: rotate(180deg);">
+                    <span class="iconfont icon-top"></span>
+                </div>
+                <span class="icontext">跳至底部</span>
+            </div>
+        </div>
+        <div class="iconbox set">
+            <div style="display: inline-block;">
+                <span class="iconfont icon-setting"></span>
+            </div>
+            <span class="icontext">设置</span>
+        </div>
+        <div class="iconbox top">
+            <span class="iconfont icon-top"></span>
+            <span class="icontext">返回顶部</span>
+        </div>
+    </div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : "1320545387@qq.com",
+        GitHubRepositories : "Hexo-LiveForCode",
+
+        User             : "彼方",
+        UserAvatar       : "/image/sidebar/avatar_2.png",
+        WebsiteStartDate : "2022-08-30",
+
+        WebsiteTitleBlur         : "(◍´꒳`◍) Hi, Live For Code",
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : "(*´∇｀*) 欢迎回来!",
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : "/image/website/logo.png",
+
+        ProgressBar : {
+            id       : "topProgressBar",
+            color    : "#77B6FF",
+            height   : "2px",
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound : {
+                tension  : 16,
+                friction : 5
+            },
+            spinner : {
+                id     : "spinner",
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : "#F0F0F0",
+                    stroke     : "#272633",
+                    base       : "",
+                    child      : "#272633"
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : "rgba(255, 255, 255, .2)",
+            clearOffset : 0.3
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : "60%",
+            colorBrightness  : "50%",
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : "random",
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                "/image/header/home.jpeg",
+            
+        ],
+        HomeBannerText  : "",
+
+        ArticleHeaderImage : [
+            
+                "/image/header/article.jpg",
+            
+                "/image/header/article-1.jpg",
+            
+        ],
+
+        OtherBannerText : "",
+
+        Error : {
+            icon    : "icon-swimming",
+            title   : "PAGE NOT FOUND",
+            content : [
+                
+                    "很抱歉，您访问的页面不存在！",
+                
+                    "可能是输入地址有误或该地址已变更。",
+                
+            ],
+            buttons : [
+                
+                    {
+                        icon  : "icon-home",
+                        text  : "返回首页",
+                        href  : "/",
+                        class : ""
+                    },
+                
+            ]
+        },
+
+        MenuNotice : {
+            enable : true,
+            notice : "简单地活着，肆意而又精彩！",
+            speed  : 20
+        },
+        MenuList : [
+            
+                {
+                    name   : "首页",
+                    icon   : "icon-home-fill",
+                    href   : "/",
+                    type   : "index",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "分类",
+                    icon   : "icon-folder-fill",
+                    href   : "/category",
+                    type   : "category",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "标签",
+                    icon   : "icon-discount-fill",
+                    href   : "/tag",
+                    type   : "tag",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "归档",
+                    icon   : "icon-calendar-fill",
+                    href   : "/archive",
+                    type   : "archive",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "赞赏",
+                    icon   : "icon-heart-fill",
+                    href   : "/donate",
+                    type   : "donate",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "关于",
+                    icon   : "icon-about-fill",
+                    href   : "/about",
+                    type   : "about",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "订阅",
+                    icon   : "icon-rss",
+                    href   : "/atom.xml",
+                    type   : "",
+                    class  : "",
+                    target : "_blank"
+                },
+            
+                {
+                    name   : "搜索",
+                    icon   : "icon-search-menu",
+                    href   : "javascript:;",
+                    type   : "",
+                    class  : "search",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "留言板",
+                    icon   : "icon-comments-fill",
+                    href   : "/comment",
+                    type   : "comment",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "友情链接",
+                    icon   : "icon-link",
+                    href   : "/friend",
+                    type   : "friend",
+                    class  : "",
+                    target : "_self"
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        name   : "知乎",
+                        icon   : "icon-zhihu",
+                        href   : "javascript:;",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "微博",
+                        icon   : "icon-weibo",
+                        href   : "javascript:;",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "QQ",
+                        icon   : "icon-qq",
+                        href   : "javascript:;",
+                        class  : "image",
+                        target : "_self",
+                        image  : "/image/sidebar/avatar_1.png"
+                    },
+                
+                    {
+                        name   : "微信",
+                        icon   : "icon-wechat",
+                        href   : "javascript:;",
+                        class  : "image",
+                        target : "_self",
+                        image  : "/image/sidebar/avatar_3.JPG"
+                    },
+                
+                    {
+                        name   : "GitHub",
+                        icon   : "icon-github",
+                        href   : "https://github.com/mzalbedo",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : "<div><span class='face'>ღゝ◡╹)ノ♡</span></div><div>【人生若只如初见<span><i class='iconfont icon-like-fill'></i></span>何事秋风悲画扇】</div><div>&copy; 2020-2022 WorstOne. All Rights Reserved.</div><div><a href='https://beian.miit.gov.cn/' target='_blank'>京ICP备2023010453号-1</a></div>",
+
+        ConsoleList : [
+            
+                
+                    [
+                        
+                            
+                                "Based on cnblogs theme SimpleMemory.",
+                            
+                                "",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "SimpleMemory Author:",
+                            
+                                "BNDong",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "Theme:",
+                            
+                                "LiveForCode",
+                            
+                        
+                    ],
+                
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : "",
+            bitcoin : "",
+            alipay  : "/image/donate/alipay.png",
+            wechat  : "/image/donate/wechat.png"
+        },
+
+        Search : {
+            applicationID : "010C3EANT8",
+            apiKey        : "c7abab9f11b79102b9aff7fe6d41447d",
+            indexName     : "Notes",
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : "搜索",
+                empty       : "未发现与 「${query}」 相关的内容",
+                stats       : "${hits} 条相关条目，使用了 ${time} 毫秒",
+            }
+        }, 
+
+        Valine : {
+            switch         : true,
+            el             : ".comments-content",
+            appId          : "i9yRogV4DXBC6mzwjV9ZDgc6-gzGzoHsz",
+            appKey         : "QRLAFOdq69wS4noE6GtynhDq",
+            serverURLs     : "",
+            placeholder    : "你是我一生只会遇见一次的惊喜...",
+            avatar         : "mm",
+            meta           : "nick,mail,link",
+            requiredFields : "nick,mail",
+            pageSize       : 5,
+            lang           : "zh-cn",
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : ".toc",
+            contentSelector       : ".article-body",
+            headingSelector       : "h1, h2, h3, h4, h5",
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : ".toc",
+            positionFixedClass    : "toc-fixed",
+            fixedSidebarOffset    : "",
+        },
+
+        Require : {
+            baseUrl     : "/js/",
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : "Meting"
+        },
+        APlayer : {
+            container : ".aplayer",
+            fixed     : true,
+            autoplay  : false,
+            loop      : "all",
+            order     : "random",
+            preload   : "auto",
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : "Endless Tears",
+                        artist : "CLIFF EDGE",
+                        cover  : "/music/cover/Endless Tears.jpg",
+                        url    : "/music/song/Endless Tears.mp3",
+                        lrc    : "/music/lrc/Endless Tears.lrc"
+                    },
+                
+            ]
+        },
+        Meting : {
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        Mouse : {
+            enable  : true,
+            options : {
+                size  : 6,
+                sizeF : 24
+            }
+        },
+
+        LazyLoad : {
+            default : "/image/website/lazyload.svg"
+        },
+  
+        Style : {
+            aplayer          : "/css/APlayer.css",
+            archive          : "/css/archive.css",
+            base             : "/css/base.css",
+            clipboard        : "/css/clipboard.css",
+            code             : "/css/code.css",
+            donate           : "/css/donate.css",
+            fancybox         : "/css/jquery.fancybox.css",
+            footer           : "/css/footer.css",
+            iconfont         : "/iconfont/iconfont.css",
+            index            : "/css/index.css",
+            menuBubble       : "/css/menu-bubble.css",
+            mouse            : "/css/mouse.css",
+            page             : "/css/page.css",
+            post             : "/css/post.css",
+            search           : "/css/search.css",
+            tocbot           : "/css/tocbot.css",
+            valine           : "/css/valine.css"
+        },
+
+        Script: {
+            aplayer          : "/js/APlayer.min.js",
+            config           : "/js/require.config.js",
+            index            : "/js/index.js",
+            instantSearch    : "/js/instantsearch.min.js",
+            iscroll          : "/js/iscroll.js",
+            jQuery           : "/js/jquery-3.4.1.min.js",
+            loading          : "/js/loading.js",
+            meting           : "/js/Meting.min.js",
+            require          : "/js/require.min.js"
+        },
+
+        Font: {
+            LongCang    : "/font/LongCang.css",
+            Monda       : "/font/Monda.css",
+            NotoSansSC  : "/font/NotoSansSC.css",
+            NotoSerifSC : "/font/NotoSerifSC.css",
+            Playball    : "/font/Playball.css",
+            PTMono      : "/font/PTMono.css",
+            Roboto      : "/font/Roboto.css",
+            RobotoSlab  : "/font/RobotoSlab.css",
+            Rosario     : "/font/Rosario.css",
+            UbuntuMono  : "/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : "简单地活着, 肆意又精彩."
+        },
+            
+        Theme : {
+            url  : "https://github.com/first19326/Hexo-LiveForCode",
+            name : "Hexo - Live For Code"
+        }  
+    };
+</script>
+    <script type="text/javascript" src="/js/index.js"></script>
+</body>
+</html>
