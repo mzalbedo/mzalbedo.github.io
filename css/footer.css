@@ -62,6 +62,10 @@ footer footer-background .foreground {
     background-size: 225em 15em
 }
 
+#footer .web-info > a {
+    margin: 0 5px;
+}
+
 
 /* Dark Mode CSS */
 
